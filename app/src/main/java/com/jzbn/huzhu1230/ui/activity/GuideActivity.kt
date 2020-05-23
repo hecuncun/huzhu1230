@@ -2,15 +2,16 @@ package com.jzbn.huzhu1230.ui.activity
 
 import BaseActivity
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.GuidePageAdapter
-
+import com.jzbn.huzhu1230.application.App
+import com.jzbn.huzhu1230.utils.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_guide.*
-import kotlinx.android.synthetic.main.guide_3.view.*
 
 /**
  * Created by hecuncun on 2020/4/26
@@ -23,6 +24,13 @@ class GuideActivity : BaseActivity() {
     }
 
     override fun initData() {
+    }
+    override fun initStateBarColor() {
+        val mThemeColor = App.context.resources.getColor(R.color.transparent)//设置状态栏颜色
+        StatusBarUtil.setColor(this, mThemeColor, 100)
+        if (this.supportActionBar != null) {
+            this.supportActionBar?.setBackgroundDrawable(ColorDrawable(mThemeColor))
+        }
     }
 
     override fun initView() {
@@ -37,14 +45,6 @@ class GuideActivity : BaseActivity() {
         dotList.add(iv2)
         dotList.add(iv3)
         viewpager.adapter= GuidePageAdapter(viewList as ArrayList<View>)
-        view3.btn_finish.setOnClickListener {
-
-            if(isLogin){
-             jumpToMain()
-            }else{
-             jumpToLogin()
-            }
-        }
         viewpager.addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
 
@@ -68,6 +68,13 @@ class GuideActivity : BaseActivity() {
     }
 
     override fun initListener() {
+        tv_finish.setOnClickListener {
+            if(isLogin){
+                jumpToMain()
+            }else{
+                jumpToLogin()
+            }
+        }
     }
 
     private fun jumpToMain() {

@@ -2,9 +2,12 @@ package com.jzbn.huzhu1230.ui.activity
 
 import BaseActivity
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import com.jzbn.huzhu1230.R
+import com.jzbn.huzhu1230.application.App
+import com.jzbn.huzhu1230.utils.StatusBarUtil
 
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -30,6 +33,14 @@ class SplashActivity : BaseActivity() {
 //
 //            }
 //        })
+    }
+
+    override fun initStateBarColor() {
+        val mThemeColor = App.context.resources.getColor(R.color.transparent)//设置状态栏颜色
+        StatusBarUtil.setColor(this, mThemeColor, 100)
+        if (this.supportActionBar != null) {
+            this.supportActionBar?.setBackgroundDrawable(ColorDrawable(mThemeColor))
+        }
     }
 
     override fun initView() {

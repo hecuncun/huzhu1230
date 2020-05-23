@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:drawable="@drawable/bg_gray_kuang_25r" android:state_focused="false"/>
+<item android:drawable="@drawable/bg_yellow_kuang_25r" android:state_focused="true"/>
+</selector>
