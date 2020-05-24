@@ -52,6 +52,9 @@
         <activity android:name=".ui.activity.MyInfoActivity" />
         <activity android:name=".ui.activity.EditInfoActivity" />
         <activity android:name=".ui.activity.EditCertificateActivity" />
+        <activity android:name=".ui.activity.MyScoreActivity" />
+        <activity android:name=".ui.activity.ScoreListActivity" />
+        <activity android:name=".ui.activity.MyPublishActivity" />
     </application>
 
 </manifest>
