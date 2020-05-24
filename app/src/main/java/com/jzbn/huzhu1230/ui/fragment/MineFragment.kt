@@ -1,8 +1,11 @@
 package com.jzbn.huzhu1230.ui.fragment
 
+import android.content.Intent
 import android.view.View
 import com.jzbn.huzhu1230.R
+import com.jzbn.huzhu1230.ui.activity.MyInfoActivity
 import com.lhzw.bluetooth.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_mine.*
 
 // Created by hesanwei on 2020/5/24.
 class MineFragment: BaseFragment() {
@@ -12,6 +15,9 @@ class MineFragment: BaseFragment() {
     }
 
     override fun initListener() {
+        iv_edit_info.setOnClickListener {
+            startActivity(Intent(activity, MyInfoActivity::class.java))
+        }
     }
 
     override fun lazyLoad() {

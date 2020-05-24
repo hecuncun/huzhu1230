@@ -49,6 +49,9 @@
         <activity android:name=".ui.activity.GuideActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.ForgetPwdActivity" />
+        <activity android:name=".ui.activity.MyInfoActivity" />
+        <activity android:name=".ui.activity.EditInfoActivity" />
+        <activity android:name=".ui.activity.EditCertificateActivity" />
     </application>
 
 </manifest>
