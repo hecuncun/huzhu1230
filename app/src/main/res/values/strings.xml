@@ -5,4 +5,7 @@
     <string name="tab_release">发布</string>
     <string name="tab_knowledge">救援知识</string>
     <string name="tab_mine">我的</string>
+    <string name="search_help_knowledge">搜索救援知识</string>
+    <string name="common_help">常用救援</string>
+    <string name="daily_help">日常救援</string>
 </resources>
