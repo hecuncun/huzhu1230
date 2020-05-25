@@ -75,6 +75,7 @@
         </LinearLayout>
         <View style="@style/horizontalGrayLine"/>
         <LinearLayout
+            android:id="@+id/ll_my_collection"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
@@ -93,6 +94,7 @@
         </LinearLayout>
         <View style="@style/horizontalGrayLine"/>
         <LinearLayout
+            android:id="@+id/ll_my_info"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
@@ -130,6 +132,7 @@
         </LinearLayout>
         <View style="@style/horizontalGrayLine"/>
         <LinearLayout
+            android:id="@+id/ll_my_honor"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
@@ -148,6 +151,7 @@
         </LinearLayout>
         <View style="@style/horizontalGrayLine"/>
         <LinearLayout
+            android:id="@+id/rl_my_xin_yu"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
@@ -166,6 +170,7 @@
         </LinearLayout>
         <View style="@style/horizontalGrayLine"/>
         <LinearLayout
+            android:id="@+id/ll_setting"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
