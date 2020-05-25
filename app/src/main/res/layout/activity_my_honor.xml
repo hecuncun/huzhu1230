@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="393dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/icon_honor_bg" />
+    <ImageView
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/icon_logo"/>
+    <TextView
+        android:id="@+id/tv_honor_ruler"
+        android:layout_marginTop="26dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="《荣誉规则》"
+        android:textColor="@color/color_gray_333333"
+        android:textSize="17sp" />
+    <TextView
+        android:id="@+id/tv_honor_ji_li"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="《荣誉激励》"
+        android:textColor="@color/color_gray_333333"
+        android:textSize="17sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="28dp"
+        android:background="@mipmap/btn_yellow_bg"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:text="晒一晒我的荣誉勋章"/>
+</LinearLayout>

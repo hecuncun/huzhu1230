@@ -55,6 +55,10 @@
         <activity android:name=".ui.activity.MyScoreActivity" />
         <activity android:name=".ui.activity.ScoreListActivity" />
         <activity android:name=".ui.activity.MyPublishActivity" />
+        <activity android:name=".ui.activity.MySettingActivity" />
+        <activity android:name=".ui.activity.MyXinYuActivity" />
+        <activity android:name=".ui.activity.MyHonorActivity" />
+        <activity android:name=".ui.activity.MyCollectionActivity" />
     </application>
 
 </manifest>
