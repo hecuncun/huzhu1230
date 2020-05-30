@@ -13,4 +13,5 @@
     <color name="color_gray_323232">#323232</color>
     <color name="color_red">#FF0000</color>
     <color name="color_red_FF0060">#FF0060</color>
+    <color name="color_black">#000000</color>
 </resources>
