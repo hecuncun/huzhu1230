@@ -69,6 +69,7 @@
         <activity android:name=".ui.activity.MyCollectionActivity" />
         <activity android:name=".ui.publish.PublishEmergencyActivity" />
         <activity android:name=".ui.publish.PublishAedActivity" />
+        <activity android:name=".ui.activity.MoreKnowledgeActivity" />
     </application>
 
 </manifest>
