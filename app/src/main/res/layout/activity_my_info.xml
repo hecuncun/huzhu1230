@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_gray_F7F7F7"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/rl_head_pic"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="75dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:gravity="center"
+            android:text="头像"
+            android:textColor="@color/color_gray_333333"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/iv_head_pic"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="38dp"
+            android:src="@mipmap/icon_head_def" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/icon_arrow_right" />
+    </RelativeLayout>
+    <View style="@style/horizontalGrayLine" />
+
+    <RelativeLayout
+        android:id="@+id/rl_name"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:gravity="center"
+            android:text="姓名"
+            android:textColor="@color/color_gray_333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:drawablePadding="11dp"
+            android:gravity="center"
+            android:text="赵子龙"
+            android:textColor="@color/color_gray_999999"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <View style="@style/horizontalGrayLine" />
+
+    <RelativeLayout
+        android:id="@+id/rl_id_card"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:gravity="center"
+            android:text="身份证号"
+            android:textColor="@color/color_gray_333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_id_card"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:drawablePadding="11dp"
+            android:gravity="center"
+            android:text="232126********0987"
+            android:textColor="@color/color_gray_999999"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <View style="@style/horizontalGrayLine" />
+    <RelativeLayout
+        android:id="@+id/rl_sex"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:gravity="center"
+            android:text="性别"
+            android:textColor="@color/color_gray_333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:drawablePadding="11dp"
+            android:gravity="center"
+            android:text="男"
+            android:textColor="@color/color_gray_999999"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <View style="@style/horizontalGrayLine" />
+    <RelativeLayout
+        android:id="@+id/rl_language"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:gravity="center"
+            android:text="语言技能"
+            android:textColor="@color/color_gray_333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_language"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:drawablePadding="11dp"
+            android:gravity="center"
+            android:text="普通话、蒙古语"
+            android:textColor="@color/color_gray_999999"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <View style="@style/horizontalGrayLine" />
+    <RelativeLayout
+        android:id="@+id/rl_medical_history"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:gravity="center"
+            android:text="疾病史"
+            android:textColor="@color/color_gray_333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_medical_history"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:drawablePadding="11dp"
+            android:gravity="center"
+            android:text="早期头部受过伤"
+            android:textColor="@color/color_gray_999999"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <View style="@style/horizontalGrayLine" />
+    <RelativeLayout
+        android:id="@+id/rl_allergic_drugs"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:gravity="center"
+            android:text="过敏药物"
+            android:textColor="@color/color_gray_333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_allergic_drugs"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:drawablePadding="11dp"
+            android:gravity="center"
+            android:text="青霉素过敏"
+            android:textColor="@color/color_gray_999999"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <View style="@style/horizontalGrayLine" />
+    <RelativeLayout
+        android:id="@+id/rl_genetic_history"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:gravity="center"
+            android:text="遗传病史"
+            android:textColor="@color/color_gray_333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_genetic_history"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:drawablePadding="11dp"
+            android:gravity="center"
+            android:text="无"
+            android:textColor="@color/color_gray_999999"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <View style="@style/horizontalGrayLine" />
+    <RelativeLayout
+        android:id="@+id/rl_company"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:gravity="center"
+            android:text="所属公司"
+            android:textColor="@color/color_gray_333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_company"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:drawablePadding="11dp"
+            android:gravity="center"
+            android:text="北京首都医科大学"
+            android:textColor="@color/color_gray_999999"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <View style="@style/horizontalGrayLine" />
+    <RelativeLayout
+        android:id="@+id/rl_rescue_history"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:gravity="center"
+            android:text="救援经历"
+            android:textColor="@color/color_gray_333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_rescue_history"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:drawablePadding="11dp"
+            android:gravity="center"
+            android:text="曾救过突发昏迷老人"
+            android:textColor="@color/color_gray_999999"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <View style="@style/horizontalGrayLine" />
+    <RelativeLayout
+        android:id="@+id/rl_certificate"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:gravity="center"
+            android:text="获得证书"
+            android:textColor="@color/color_gray_333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_certificate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:drawablePadding="11dp"
+            android:gravity="center"
+            android:text="一级外科手术专家"
+            android:textColor="@color/color_gray_999999"
+            android:textSize="15sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_certificate"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:scaleType="centerCrop"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="145dp"
+            android:layout_height="103dp"
+            android:src="@mipmap/icon_logo"/>
+    </RelativeLayout>
+
+
+    <View style="@style/horizontalGrayLine" />
+    <RelativeLayout
+        android:id="@+id/rl_rescue_skill"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:gravity="center"
+            android:text="个人救援技能"
+            android:textColor="@color/color_gray_333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_rescue_skill"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:drawablePadding="11dp"
+            android:gravity="center"
+            android:text="包扎、急救"
+            android:textColor="@color/color_gray_999999"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <View style="@style/horizontalGrayLine" />
+</LinearLayout>

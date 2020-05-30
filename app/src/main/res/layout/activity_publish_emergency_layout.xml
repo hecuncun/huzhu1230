@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_gray_F7F2F2"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingHorizontal="14dp">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="被寻人身份证信息"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_white_card"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/person_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@null"
+                    android:hint="请输入姓名"
+                    android:textColor="@color/color_gray_333333"
+                    android:textColorHint="@color/color_gray_999999"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:background="#DCDCDC" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/person_id_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@null"
+                    android:hint="请输入身份证号码"
+                    android:textColor="@color/color_gray_333333"
+                    android:textColorHint="@color/color_gray_999999"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="上传被寻人照片（最多三张）"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:background="@drawable/bg_white_card"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/pic_one"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_publish_holder" />
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/pic_two"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_publish_holder" />
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/pic_three"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_publish_holder" />
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="选择被寻人丢失时间"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:id="@+id/ll_select_time"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_white_card"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="请选择时间"
+                    android:textColor="@color/color_gray_999999" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_publish_arrow_right" />
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="选择被寻人丢失地点"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:id="@+id/ll_select_address"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_white_card"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="请选择地区"
+                    android:textColor="@color/color_gray_999999" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_publish_arrow_right" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_white_card"
+                android:orientation="vertical"
+                android:paddingHorizontal="12dp"
+                android:paddingBottom="12dp">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_detail_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@null"
+                    android:hint="请输入详细地址"
+                    android:textColor="@color/color_gray_333333"
+                    android:textColorHint="@color/color_gray_999999"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:background="#DCDCDC" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_map_round_rect">
+
+                </FrameLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="走失方式"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:id="@+id/ll_lose_mode"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_white_card"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_lose_mode"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="请选择走失方式"
+                    android:textColor="@color/color_gray_999999" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_publish_arrow_right" />
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="走失原因"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:id="@+id/ll_lose_reason"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_white_card"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_lose_reason"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="请选择走失原因"
+                    android:textColor="@color/color_gray_999999" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_publish_arrow_right" />
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="全国所属行政区"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:id="@+id/ll_lose_where"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_white_card"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_lose_where"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="请选择走失原因"
+                    android:textColor="@color/color_gray_999999" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_publish_arrow_right" />
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="联系人姓名以及电话"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_contact_one"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_white_card"
+                android:hint="输入姓名、电话（例如：张三13800000000）"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/color_gray_333333"
+                android:textColorHint="@color/color_gray_999999"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_contact_two"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_white_card"
+                android:hint="输入姓名、电话（例如：张三13800000000）"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/color_gray_333333"
+                android:textColorHint="@color/color_gray_999999"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_contact_three"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_white_card"
+                android:hint="输入姓名、电话（例如：张三13800000000）"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/color_gray_333333"
+                android:textColorHint="@color/color_gray_999999"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="联系人与被寻人关系"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_relationshape"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_white_card"
+                android:hint="输入您与被寻人的关系，例如父子"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/color_gray_333333"
+                android:textColorHint="@color/color_gray_999999"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="微信群二维码"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_white_card"
+                android:orientation="vertical"
+                android:paddingHorizontal="12dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="@dimen/dp_10">
+
+                <ImageView
+                    android:id="@+id/iv_wechat_code"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_wechat_code" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="该微信群，将用于寻人信息的交流。" />
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="备注"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_remark"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_white_card"
+                android:hint="输入备注信息（选填）"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/color_gray_333333"
+                android:textColorHint="@color/color_gray_999999"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="22dp"
+                android:gravity="center"
+                android:lineSpacingExtra="6dp"
+                android:text="请勿发布虚假信息，\n一经发现，平台将扣除您的信誉分1分"
+                android:textColor="@color/color_gray_999999"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/white"
+        android:paddingHorizontal="12dp">
+
+        <TextView
+            android:id="@+id/btn_publish"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_yellow_btn"
+            android:gravity="center"
+            android:text="@string/publish_emergency_search"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </FrameLayout>
+</LinearLayout>

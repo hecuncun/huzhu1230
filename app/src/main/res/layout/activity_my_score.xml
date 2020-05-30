@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/toolbar"/>
+        <RelativeLayout
+            android:id="@+id/rl_container"
+            android:layout_centerInParent="true"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:background="@mipmap/icon_round"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_score"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2600"
+                android:textColor="@color/color_gray_666666"
+                android:textSize="37sp"/>
+            <View android:layout_width="110dp"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_score"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="23dp"
+                android:background="@color/color_gray_DCDCDC"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的积分"
+                android:textColor="@color/color_gray_666666"
+                android:textSize="15sp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/tv_score"
+                android:layout_marginTop="38dp"/>
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_score_ruler"
+            android:layout_below="@id/rl_container"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:textColor="@color/color_gray_333333"
+            android:text="《积分规则》"/>
+        <TextView
+            android:id="@+id/tv_score_des"
+            android:layout_below="@id/rl_container"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="82dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:textColor="@color/color_gray_333333"
+            android:text="《积分使用说明》"/>
+    </RelativeLayout>
+
+
+
+</LinearLayout>

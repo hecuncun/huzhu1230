@@ -1,11 +1,20 @@
 package com.jzbn.huzhu1230.glide;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.jzbn.huzhu1230.application.App;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
@@ -84,22 +93,30 @@ public class GlideUtils {
     }
 
     /**
-     * 加载圆角图片
-     *
-     * @param view
+     * jia加载圆角
+     * @param imageView
      * @param url
      * @param defaultImg
-     * @param RoundDp
+     * @param radius
      */
-    public static void showRound(ImageView view, String url, int defaultImg, int RoundDp) {
-        RequestOptions options = new RequestOptions();
-        options.placeholder(defaultImg);
-        options.error(defaultImg);
-        options.centerCrop();
-        options.transform(new GlideRoundTransform(RoundDp));
-        Glide.with(App.instance).load(url).apply(options).into(view);
+    public static void loadRoundImg(ImageView imageView, String url, @DrawableRes int defaultImg, int radius) {
+
+        Glide.with(imageView.getContext()).load(url)
+                .apply(new RequestOptions().placeholder(defaultImg).error(defaultImg).centerCrop()
+                        .transform(new GlideRoundTransform(radius)))
+                .thumbnail(loadTransform(imageView.getContext(), defaultImg, radius))
+                .thumbnail(loadTransform(imageView.getContext(), defaultImg, radius))
+                .into(imageView);
     }
 
+    private static RequestBuilder<Drawable> loadTransform(Context context, @DrawableRes int placeholderId, int radius) {
+
+        return Glide.with(context)
+                .load(placeholderId)
+                .apply(new RequestOptions().centerCrop()
+                        .transform(new GlideRoundTransform(radius)));
+
+    }
     /**
      * 模糊加载图片
      *
@@ -111,4 +128,28 @@ public class GlideUtils {
         Glide.with(App.instance).load(url).apply(RequestOptions.bitmapTransform(new GlideBlurformation(App.instance))).into(view);
     }
 
+    /**
+     * 加载gif
+     * @param view
+     * @param gifImage
+     */
+    public static void loadGif(ImageView view,int gifImage ){
+        Glide.with(App.instance).load(gifImage).listener(new RequestListener() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Object resource, Object model, Target target, DataSource dataSource, boolean isFirstResource) {
+                if (resource instanceof GifDrawable) {
+                    //加载一次
+                    ((GifDrawable)resource).setLoopCount(20);
+                }
+                return false;
+            }
+
+        }).into(view);
+
+    }
 }
