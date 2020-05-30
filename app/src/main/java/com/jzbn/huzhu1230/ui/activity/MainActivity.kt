@@ -4,8 +4,11 @@ import BaseActivity
 import android.support.design.bottomnavigation.LabelVisibilityMode
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.FragmentTransaction
+import com.flyco.animation.BounceEnter.BounceTopEnter
 import com.jzbn.huzhu1230.R
+import com.jzbn.huzhu1230.bean.TopMsgBean
 import com.jzbn.huzhu1230.ui.fragment.*
+import com.jzbn.huzhu1230.widget.TopMsgDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -20,6 +23,10 @@ class MainActivity : BaseActivity() {
     override fun attachLayoutRes(): Int = R.layout.activity_main
 
     override fun initData() {
+        val bean =TopMsgBean()
+        val dialog = TopMsgDialog(this@MainActivity,bean)
+        dialog.showAnim(BounceTopEnter())
+        dialog.show()
     }
 
     override fun initView() {
