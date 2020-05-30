@@ -5,6 +5,9 @@
     <string name="tab_release">发布</string>
     <string name="tab_knowledge">救援知识</string>
     <string name="tab_mine">我的</string>
+    <string name="publish_aed">发布AED</string>
+    <string name="publish_emergency_search">发布紧急寻人</string>
+    <string name="publish_common_search">发布常年寻人</string>
     <string name="search_help_knowledge">搜索救援知识</string>
     <string name="common_help">常用救援</string>
     <string name="daily_help">日常救援</string>

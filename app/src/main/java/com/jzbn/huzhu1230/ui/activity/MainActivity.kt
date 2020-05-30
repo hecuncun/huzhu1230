@@ -1,6 +1,7 @@
 package com.jzbn.huzhu1230.ui.activity
 
 import BaseActivity
+import android.content.Intent
 import android.support.design.bottomnavigation.LabelVisibilityMode
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.FragmentTransaction
@@ -9,6 +10,9 @@ import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.bean.TopMsgBean
 import com.jzbn.huzhu1230.ui.fragment.*
 import com.jzbn.huzhu1230.widget.TopMsgDialog
+import com.jzbn.huzhu1230.ui.publish.PublishAedActivity
+import com.jzbn.huzhu1230.ui.publish.PublishDialog
+import com.jzbn.huzhu1230.ui.publish.PublishEmergencyActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -70,12 +74,25 @@ class MainActivity : BaseActivity() {
             }
             FRAGMENT_RELEASE // 发布
             -> {
-                if (mReleaseFragment == null) {
-                    mReleaseFragment = ReleaseFragment.getInstance()
-                    transaction.add(R.id.container, mReleaseFragment!!, "release")
-                } else {
-                    transaction.show(mReleaseFragment!!)
-                }
+                val releaseDialog = PublishDialog()
+                releaseDialog.setOnDialogClickListener(object : PublishDialog.OnDialogBtnClickListener{
+                    override fun onClickReleaseEmergency() {
+                        startActivity(Intent(this@MainActivity, PublishEmergencyActivity::class.java))
+                    }
+
+                    override fun onClickReleaseCommon() {
+                        //todo 区分type
+                        startActivity(Intent(this@MainActivity, PublishEmergencyActivity::class.java))
+
+                    }
+
+                    override fun onClickReleaseAed() {
+                        startActivity(Intent(this@MainActivity, PublishAedActivity::class.java))
+
+                    }
+
+                })
+                releaseDialog.show(supportFragmentManager, "ReleaseDialog")
             }
             FRAGMENT_KNOWLEDGE // 救援知识
             -> {
