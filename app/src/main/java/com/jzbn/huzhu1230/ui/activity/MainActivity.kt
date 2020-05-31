@@ -16,7 +16,6 @@ import com.jzbn.huzhu1230.ui.publish.PublishEmergencyActivity
 import com.jzbn.huzhu1230.ui.publishdetail.PublishEmergencyDetailActivity
 import com.jzbn.huzhu1230.widget.TopMsgDialog
 import kotlinx.android.synthetic.main.activity_main.*
-import org.litepal.LitePal
 
 class MainActivity : BaseActivity() {
 
@@ -33,7 +32,7 @@ class MainActivity : BaseActivity() {
     override fun initData() {
 
         if (checkPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE))) {
-            LitePal.getDatabase()
+            //LitePal.getDatabase()
         } else {
             requestPermission(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), PERMISS_REQUEST_CODE)
         }
@@ -51,7 +50,7 @@ class MainActivity : BaseActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (PERMISS_REQUEST_CODE == requestCode) {
             //先初始化一个用户对象
-            LitePal.getDatabase()
+            //LitePal.getDatabase()
 
         }
     }

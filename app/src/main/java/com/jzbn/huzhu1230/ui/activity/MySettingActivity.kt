@@ -1,6 +1,7 @@
 package com.jzbn.huzhu1230.ui.activity
 
 import BaseActivity
+import android.content.Intent
 import android.view.View
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.ext.showToast
@@ -31,6 +32,13 @@ class MySettingActivity : BaseActivity() {
                 dialog!!.dismiss()
                  showToast("确定")
             })
+        }
+
+        rl_about_us.setOnClickListener {
+            val intent = Intent(this,WebViewActivity::class.java)
+            intent.putExtra("url","")
+            intent.putExtra("type",0)
+            startActivity(intent)
         }
     }
 }
