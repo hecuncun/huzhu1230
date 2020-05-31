@@ -26,6 +26,7 @@ object MapUtil {
         if (bitmap != null) {
             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap))
         }
+        markerOptions.isFlat = true
         return aMap.addMarker(markerOptions)
     }
 
