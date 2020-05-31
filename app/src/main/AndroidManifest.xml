@@ -80,7 +80,11 @@
         <activity android:name=".ui.home.MessageActivity" />
         <activity android:name=".ui.home.MessageListActivity" />
         <activity android:name=".ui.home.SearchActivity" />
-        <activity android:name=".ui.home.VideoDetailActivity" />
+        <activity android:name=".ui.home.VideoDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="fullSensor">
+
+        </activity>
         <activity android:name=".ui.activity.WebViewActivity" />
     </application>
 

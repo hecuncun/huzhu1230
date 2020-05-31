@@ -4,12 +4,10 @@ import android.graphics.BitmapFactory
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import com.amap.api.maps.AMap.CancelableCallback
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.MapView
 import com.amap.api.maps.model.CameraPosition
 import com.amap.api.maps.model.LatLng
-import com.amap.api.maps.model.LatLngBounds
 import com.amap.api.services.geocoder.GeocodeResult
 import com.amap.api.services.geocoder.RegeocodeResult
 import com.blankj.utilcode.util.ToastUtils
@@ -66,6 +64,9 @@ class PublishEmergencyActivity : BaseMapActivity() {
     }
 
     override fun initListener() {
+        ll_select_time.setOnClickListener {
+
+        }
     }
 
     override fun onGeocodeSearched(geocodeResult: GeocodeResult?, p1: Int) {

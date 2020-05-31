@@ -14,7 +14,9 @@ import com.jzbn.huzhu1230.ui.publish.PublishAedActivity
 import com.jzbn.huzhu1230.ui.publish.PublishDialog
 import com.jzbn.huzhu1230.ui.publish.PublishEmergencyActivity
 import com.jzbn.huzhu1230.ui.publishdetail.PublishEmergencyDetailActivity
+import com.jzbn.huzhu1230.utils.KeyUtil
 import com.jzbn.huzhu1230.widget.TopMsgDialog
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -30,8 +32,11 @@ class MainActivity : BaseActivity() {
     override fun attachLayoutRes(): Int = R.layout.activity_main
 
     override fun initData() {
+      val sha1=  KeyUtil.getSHA1(this)
+        Logger.e("SHA1==$sha1")
 
-        if (checkPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE))) {
+
+        if (checkPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION))) {
             //LitePal.getDatabase()
         } else {
             requestPermission(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), PERMISS_REQUEST_CODE)
