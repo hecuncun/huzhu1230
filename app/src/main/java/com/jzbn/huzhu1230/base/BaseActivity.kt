@@ -23,6 +23,7 @@ import com.jzbn.huzhu1230.utils.CommonUtil
 import com.jzbn.huzhu1230.utils.KeyBoardUtil
 import com.jzbn.huzhu1230.utils.Preference
 import com.jzbn.huzhu1230.utils.StatusBarUtil
+import com.jzbn.huzhu1230.widget.LoadingView
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 import java.util.*
@@ -69,6 +70,7 @@ abstract class BaseActivity :AppCompatActivity(){
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         super.onCreate(savedInstanceState)
         setContentView(attachLayoutRes())
+        initLoadingView()
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT//使activity都竖屏
         if (useEventBus()){
          EventBus.getDefault().register(this)
@@ -78,6 +80,13 @@ abstract class BaseActivity :AppCompatActivity(){
         initData()
         initListener()
         initStateBarColor()
+
+    }
+//加载dialog...
+    protected var loadingView:LoadingView?=null
+    private fun initLoadingView() {
+         loadingView = LoadingView(this)
+         loadingView?.setLoadingTitle("加载中...")
     }
 
     private fun initToolBar() {

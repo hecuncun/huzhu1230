@@ -1,6 +1,7 @@
 package com.jzbn.huzhu1230.ui.activity
 
 import BaseActivity
+import android.Manifest
 import android.content.Intent
 import android.support.design.bottomnavigation.LabelVisibilityMode
 import android.support.design.widget.BottomNavigationView
@@ -9,11 +10,11 @@ import com.flyco.animation.BounceEnter.BounceTopEnter
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.bean.TopMsgBean
 import com.jzbn.huzhu1230.ui.fragment.*
-import com.jzbn.huzhu1230.widget.TopMsgDialog
 import com.jzbn.huzhu1230.ui.publish.PublishAedActivity
 import com.jzbn.huzhu1230.ui.publish.PublishDialog
 import com.jzbn.huzhu1230.ui.publish.PublishEmergencyActivity
 import com.jzbn.huzhu1230.ui.publishdetail.PublishEmergencyDetailActivity
+import com.jzbn.huzhu1230.widget.TopMsgDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -24,14 +25,34 @@ class MainActivity : BaseActivity() {
     private var mReleaseFragment: ReleaseFragment? = null
     private var mKnowledgeFragment: KnowledgeFragment? = null
     private var mMineFragment: MineFragment? = null
+    private val PERMISS_REQUEST_CODE = 0x100
 
     override fun attachLayoutRes(): Int = R.layout.activity_main
 
     override fun initData() {
+
+        if (checkPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE))) {
+            //LitePal.getDatabase()
+        } else {
+            requestPermission(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), PERMISS_REQUEST_CODE)
+        }
+
         val bean =TopMsgBean()
         val dialog = TopMsgDialog(this@MainActivity,bean)
         dialog.showAnim(BounceTopEnter())
 //        dialog.show()
+    }
+
+    /**
+     * 获得权限后的回调
+     */
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (PERMISS_REQUEST_CODE == requestCode) {
+            //先初始化一个用户对象
+            //LitePal.getDatabase()
+
+        }
     }
 
     override fun initView() {
