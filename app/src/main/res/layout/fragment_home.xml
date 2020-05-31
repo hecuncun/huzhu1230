@@ -79,11 +79,12 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/etSearchContent"
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tvSearchContent"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@null"
+            android:gravity="center_vertical"
             android:hint="@string/search_help_knowledge"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"

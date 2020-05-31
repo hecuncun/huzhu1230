@@ -6,11 +6,12 @@ import android.view.View
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.CommonHelpAdapter
 import com.jzbn.huzhu1230.adapter.DailyHelpAdapter
+import com.jzbn.huzhu1230.ui.home.SignDialog
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
 // Created by hesanwei on 2020/5/24.
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), View.OnClickListener {
 
 
     private val commonHelpAdapter: CommonHelpAdapter by lazy {
@@ -26,6 +27,14 @@ class HomeFragment : BaseFragment() {
     override fun initView(view: View) {
         initCommonRecyclerView()
         initDailyRecyclerView()
+        initViewClick()
+    }
+
+    private fun initViewClick(){
+        ivSign.setOnClickListener(this)
+        ivAed.setOnClickListener(this)
+        ivMessage.setOnClickListener(this)
+        tvSearchContent.setOnClickListener(this)
     }
 
     private fun initCommonRecyclerView(){
@@ -57,6 +66,26 @@ class HomeFragment : BaseFragment() {
     companion object {
         fun getInstance(): HomeFragment {
             return HomeFragment()
+        }
+    }
+
+    override fun onClick(view: View?) {
+        when(view?.id){
+            R.id.ivSign -> {
+                SignDialog.newInstance(0).show(activity?.supportFragmentManager,"sign")
+            }
+
+            R.id.ivAed -> {
+
+            }
+
+            R.id.ivMessage -> {
+
+            }
+
+            R.id.tvSearchContent -> {
+
+            }
         }
     }
 }
