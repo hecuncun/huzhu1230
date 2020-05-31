@@ -1,11 +1,13 @@
 package com.jzbn.huzhu1230.ui.fragment
 
+import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.CommonHelpAdapter
 import com.jzbn.huzhu1230.adapter.DailyHelpAdapter
+import com.jzbn.huzhu1230.ui.activity.SecondHelpActivity
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -49,6 +51,14 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun initListener() {
+        commonHelpAdapter.setOnItemClickListener { adapter, view, position ->
+            val intent =(Intent(activity,SecondHelpActivity::class.java))
+            startActivity(intent)
+        }
+        dailyHelpAdapter.setOnItemClickListener { adapter, view, position ->
+            val intent =(Intent(activity,SecondHelpActivity::class.java))
+            startActivity(intent)
+        }
     }
 
     override fun lazyLoad() {
