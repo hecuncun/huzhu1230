@@ -43,7 +43,7 @@
                     android:hint="请输入姓名"
                     android:textColor="@color/color_gray_333333"
                     android:textColorHint="@color/color_gray_999999"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                     android:hint="请输入身份证号码"
                     android:textColor="@color/color_gray_333333"
                     android:textColorHint="@color/color_gray_999999"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <android.support.v7.widget.AppCompatTextView
@@ -129,6 +129,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:textSize="15sp"
                     android:gravity="center_vertical"
                     android:text="请选择时间"
                     android:textColor="@color/color_gray_999999" />
@@ -162,6 +163,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:textSize="15sp"
                     android:gravity="center_vertical"
                     android:text="请选择地区"
                     android:textColor="@color/color_gray_999999" />
@@ -191,7 +193,7 @@
                     android:hint="请输入详细地址"
                     android:textColor="@color/color_gray_333333"
                     android:textColorHint="@color/color_gray_999999"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -229,6 +231,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:textSize="15sp"
                     android:gravity="center_vertical"
                     android:text="请选择走失方式"
                     android:textColor="@color/color_gray_999999" />
@@ -262,39 +265,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="请选择走失原因"
-                    android:textColor="@color/color_gray_999999" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_publish_arrow_right" />
-            </LinearLayout>
-
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:text="全国所属行政区"
-                android:textColor="@color/color_gray_333333"
-                android:textSize="17sp" />
-
-            <LinearLayout
-                android:id="@+id/ll_lose_where"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@drawable/bg_white_card"
-                android:orientation="horizontal"
-                android:paddingHorizontal="12dp">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/tv_lose_where"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:textSize="15sp"
                     android:gravity="center_vertical"
                     android:text="请选择走失原因"
                     android:textColor="@color/color_gray_999999" />
@@ -324,7 +295,7 @@
                 android:paddingHorizontal="12dp"
                 android:textColor="@color/color_gray_333333"
                 android:textColorHint="@color/color_gray_999999"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_contact_two"
@@ -336,7 +307,7 @@
                 android:paddingHorizontal="12dp"
                 android:textColor="@color/color_gray_333333"
                 android:textColorHint="@color/color_gray_999999"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_contact_three"
@@ -348,7 +319,7 @@
                 android:paddingHorizontal="12dp"
                 android:textColor="@color/color_gray_333333"
                 android:textColorHint="@color/color_gray_999999"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -368,7 +339,7 @@
                 android:paddingHorizontal="12dp"
                 android:textColor="@color/color_gray_333333"
                 android:textColorHint="@color/color_gray_999999"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -419,7 +390,7 @@
                 android:paddingHorizontal="12dp"
                 android:textColor="@color/color_gray_333333"
                 android:textColorHint="@color/color_gray_999999"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -430,21 +401,21 @@
                 android:lineSpacingExtra="6dp"
                 android:text="请勿发布虚假信息，\n一经发现，平台将扣除您的信誉分1分"
                 android:textColor="@color/color_gray_999999"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="64dp"
         android:background="@color/white"
         android:paddingHorizontal="12dp">
 
         <TextView
             android:id="@+id/btn_publish"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="44dp"
             android:layout_gravity="center"
             android:background="@drawable/bg_yellow_btn"
             android:gravity="center"

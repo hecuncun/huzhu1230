@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_gray_F7F2F2"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="14dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_white_card"
+                android:layout_marginTop="14dp"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp">
+
+                    <com.stx.xhb.xbanner.XBanner
+                        android:id="@+id/banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp"
+                        app:AutoPlayTime="3000"
+                        app:isAutoPlay="true"
+                        android:background="#DCDCDC"
+                        app:isShowIndicatorOnlyOne="true"
+                        app:isShowNumberIndicator="true"/>
+                    <TextView
+                        android:id="@+id/tv_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="#FF0000"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="8dp"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:background="@drawable/bg_white_card"
+                        android:text="正在寻人"/>
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="14dp">
+
+                        <ImageView
+                            android:id="@+id/iv_avatar"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@mipmap/ic_launcher"/>
+
+                        <TextView
+                            android:id="@+id/tv_publish_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="#656565"
+                            android:textSize="13sp"
+                            android:text="贺洋洋"/>
+
+                        <TextView
+                            android:id="@+id/tv_publish_time"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="8dp"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="#656565"
+                            android:textSize="13sp"
+                            android:text="走失于2020.01.01 12:30"/>
+
+                        <TextView
+                            android:id="@+id/tv_publish_duration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="#FF0000"
+                            android:textSize="13sp"
+                            android:text="历时2小时2分"/>
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_map_round_rect">
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginRight="8dp"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:background="@drawable/bg_yellow_tv"
+                        android:text="走失地址"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_addresses"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="被寻人姓名"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_lose_name"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_white_card"
+                android:text="张三"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="15sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="被寻人相貌特征"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_lose_look"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_white_card"
+                android:text="身穿黑色皮夹克，大约60多岁，白头发老人"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="15sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="联系人姓名以及电话"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="12dp"
+                android:background="@drawable/bg_white_card">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/contact_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_white_card"
+                    android:text="张三 13800000000"
+                    android:paddingHorizontal="12dp"
+                    android:textColor="@color/color_gray_333333"
+                    android:textSize="15sp" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/contact_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_white_card"
+                    android:text="张三 13800000000"
+                    android:paddingHorizontal="12dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/color_gray_333333"
+                    android:textSize="15sp" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/contact_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_white_card"
+                    android:text="张三 13800000000"
+                    android:paddingHorizontal="12dp"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="@color/color_gray_333333"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="联系人与被寻人关系"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_lose_relationship"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_white_card"
+                android:text="父子"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="15sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="走失方式"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_lose_mode"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_white_card"
+                android:text="步行"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="15sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="走失原因"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_lose_reason"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_white_card"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="12dp"
+                android:text="意外走失"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="15sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="微信群二维码"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_white_card"
+                android:orientation="vertical"
+                android:paddingHorizontal="12dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="@dimen/dp_10">
+
+                <ImageView
+                    android:id="@+id/iv_wechat_code"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_wechat_code" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="如有线索，请扫码加微信群交流。" />
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="备注"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_lose_tip"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_white_card"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="12dp"
+                android:text="无"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/white"
+        android:paddingHorizontal="12dp">
+
+        <TextView
+            android:id="@+id/btn_provide_something"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_yellow_btn"
+            android:gravity="center"
+            android:text="提供线索"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </FrameLayout>
+</LinearLayout>
