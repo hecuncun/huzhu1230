@@ -13,6 +13,7 @@ import com.jzbn.huzhu1230.widget.TopMsgDialog
 import com.jzbn.huzhu1230.ui.publish.PublishAedActivity
 import com.jzbn.huzhu1230.ui.publish.PublishDialog
 import com.jzbn.huzhu1230.ui.publish.PublishEmergencyActivity
+import com.jzbn.huzhu1230.ui.publishdetail.PublishEmergencyDetailActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -30,7 +31,7 @@ class MainActivity : BaseActivity() {
         val bean =TopMsgBean()
         val dialog = TopMsgDialog(this@MainActivity,bean)
         dialog.showAnim(BounceTopEnter())
-        dialog.show()
+//        dialog.show()
     }
 
     override fun initView() {
@@ -77,7 +78,7 @@ class MainActivity : BaseActivity() {
                 val releaseDialog = PublishDialog()
                 releaseDialog.setOnDialogClickListener(object : PublishDialog.OnDialogBtnClickListener{
                     override fun onClickReleaseEmergency() {
-                        startActivity(Intent(this@MainActivity, PublishEmergencyActivity::class.java))
+                        startActivity(Intent(this@MainActivity, PublishEmergencyDetailActivity::class.java))
                     }
 
                     override fun onClickReleaseCommon() {

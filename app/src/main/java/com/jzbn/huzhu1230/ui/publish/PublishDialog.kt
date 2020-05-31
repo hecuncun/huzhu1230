@@ -15,7 +15,9 @@ class PublishDialog : DialogFragment() {
     override fun onResume() {
         super.onResume()
         val widthPixels = resources.displayMetrics.widthPixels
-        dialog.window?.setLayout((0.86f * widthPixels).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.apply {
+            setLayout((0.86f * widthPixels).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
+        }
     }
     override fun onCreateView(
         inflater: LayoutInflater,

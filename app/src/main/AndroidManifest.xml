@@ -70,6 +70,8 @@
         <activity android:name=".ui.publish.PublishEmergencyActivity" />
         <activity android:name=".ui.publish.PublishAedActivity" />
         <activity android:name=".ui.activity.MoreKnowledgeActivity" />
+        <activity android:name=".ui.publishdetail.PublishEmergencyDetailActivity" />
+        <activity android:name=".ui.publishdetail.ProvideClueActivity" />
     </application>
 
 </manifest>
