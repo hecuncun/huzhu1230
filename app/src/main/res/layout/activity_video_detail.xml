@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <View
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/color_red"
+        app:layout_constraintTop_toBottomOf="@id/llToolbar" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvVideoTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="14dp"
+        android:text="开放性伤口止血包扎与四肢骨折现场急救外固定技术"
+        android:textColor="@color/color_gray_333333"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/videoView" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvPublishTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="发布于2020-10-10"
+        android:textColor="#656565"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="@id/tvVideoTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvVideoTitle" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvPlayTimes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1000次播放"
+        android:textColor="#656565"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/tvPublishTime"
+        app:layout_constraintRight_toRightOf="@id/tvVideoTitle"
+        app:layout_constraintTop_toTopOf="@id/tvPublishTime" />
+
+    <View
+        style="@style/horizontalGrayLine"
+        app:layout_constraintBottom_toTopOf="@id/flBottomButton"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/flBottomButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/btn_yellow_bg">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableStart="@mipmap/icon_star"
+                android:drawableLeft="@mipmap/icon_star"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                android:text="@string/collect"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </FrameLayout>
+    </FrameLayout>
+</android.support.constraint.ConstraintLayout>

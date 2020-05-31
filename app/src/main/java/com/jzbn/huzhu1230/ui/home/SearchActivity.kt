@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import com.jzbn.huzhu1230.R
@@ -39,6 +40,7 @@ class SearchActivity : BaseActivity() {
         searchAdapter.setOnItemClickListener { adapter, view, position ->
             when (type) {
                 TYPE_VIDEO -> {
+                    startActivity(Intent(this, VideoDetailActivity::class.java))
                 }
 
                 TYPE_ARTICLE -> {
@@ -72,8 +74,17 @@ class SearchActivity : BaseActivity() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 showContent(p0?.length!! > 5)
+                if (TextUtils.isEmpty(p0)) {
+                    ivClear.visibility = View.GONE
+                } else {
+                    ivClear.visibility = View.VISIBLE
+                }
             }
         })
+
+        ivClear.setOnClickListener {
+            etSearchContent.setText("")
+        }
     }
 
     private fun showResult() {

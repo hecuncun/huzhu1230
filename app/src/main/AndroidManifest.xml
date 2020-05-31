@@ -79,6 +79,7 @@
         <activity android:name=".ui.home.MessageActivity" />
         <activity android:name=".ui.home.MessageListActivity" />
         <activity android:name=".ui.home.SearchActivity" />
+        <activity android:name=".ui.home.VideoDetailActivity" />
     </application>
 
 </manifest>

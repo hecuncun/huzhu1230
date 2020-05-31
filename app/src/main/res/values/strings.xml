@@ -18,4 +18,5 @@
     <string name="video_content">视频内容</string>
     <string name="article_content">文章内容</string>
     <string name="no_content">暂无该内容</string>
+    <string name="collect">收藏</string>
 </resources>
