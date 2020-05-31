@@ -10,7 +10,9 @@ import com.jzbn.huzhu1230.adapter.DailyHelpAdapter
 import com.jzbn.huzhu1230.ui.home.AedActivity
 import com.jzbn.huzhu1230.ui.home.SignDialog
 import com.jzbn.huzhu1230.ui.activity.SecondHelpActivity
+import com.jzbn.huzhu1230.ui.home.MessageActivity
 import com.lhzw.bluetooth.base.BaseFragment
+import kotlinx.android.synthetic.main.dialog_sign.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 // Created by hesanwei on 2020/5/24.
@@ -33,28 +35,28 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         initViewClick()
     }
 
-    private fun initViewClick(){
+    private fun initViewClick() {
         ivSign.setOnClickListener(this)
         ivAed.setOnClickListener(this)
         ivMessage.setOnClickListener(this)
         tvSearchContent.setOnClickListener(this)
     }
 
-    private fun initCommonRecyclerView(){
+    private fun initCommonRecyclerView() {
         rvCommonHelp.run {
             setHasFixedSize(true)
-            layoutManager = GridLayoutManager(context,4)
-            commonHelpAdapter.setNewData(mutableListOf("","","","","","","",""))
+            layoutManager = GridLayoutManager(context, 4)
+            commonHelpAdapter.setNewData(mutableListOf("", "", "", "", "", "", "", ""))
             adapter = commonHelpAdapter
             isNestedScrollingEnabled = false
         }
     }
 
-    private fun initDailyRecyclerView(){
+    private fun initDailyRecyclerView() {
         rvDailyHelp.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            dailyHelpAdapter.setNewData(mutableListOf("","","","","","","",""))
+            dailyHelpAdapter.setNewData(mutableListOf("", "", "", "", "", "", "", ""))
             adapter = dailyHelpAdapter
             isNestedScrollingEnabled = false
         }
@@ -62,11 +64,11 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
     override fun initListener() {
         commonHelpAdapter.setOnItemClickListener { adapter, view, position ->
-            val intent =(Intent(activity,SecondHelpActivity::class.java))
+            val intent = (Intent(activity, SecondHelpActivity::class.java))
             startActivity(intent)
         }
         dailyHelpAdapter.setOnItemClickListener { adapter, view, position ->
-            val intent =(Intent(activity,SecondHelpActivity::class.java))
+            val intent = (Intent(activity, SecondHelpActivity::class.java))
             startActivity(intent)
         }
     }
@@ -81,17 +83,17 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        when(view?.id){
+        when (view?.id) {
             R.id.ivSign -> {
-                SignDialog.newInstance(0).show(activity?.supportFragmentManager,"sign")
+                SignDialog.newInstance(0).show(activity?.supportFragmentManager, "sign")
             }
 
             R.id.ivAed -> {
-                startActivity(Intent(context,AedActivity::class.java))
+                startActivity(Intent(context, AedActivity::class.java))
             }
 
             R.id.ivMessage -> {
-
+                startActivity(Intent(context, MessageActivity::class.java))
             }
 
             R.id.tvSearchContent -> {

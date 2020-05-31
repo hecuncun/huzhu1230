@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/clSystemMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10">
+
+        <FrameLayout
+            android:id="@+id/flMessageSystem"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_yellow_point"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/icon_message_system" />
+
+
+        </FrameLayout>
+
+        <View
+            android:id="@+id/viewRedSystemMessage"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/bg_red_point"
+            app:layout_constraintRight_toRightOf="@id/flMessageSystem"
+            app:layout_constraintTop_toTopOf="@id/flMessageSystem" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tvMessageSystem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/system_message"
+            android:textColor="@color/color_gray_333333"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toRightOf="@id/flMessageSystem"
+            app:layout_constraintTop_toTopOf="@id/flMessageSystem" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2020-06-20 17:34"
+            android:textColor="@color/color_gray_999999"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvMessageSystem"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvMessageSystem" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="尊敬的用户您好，您的紧急寻人事件已经发布成功..."
+            app:layout_constraintBottom_toBottomOf="@id/flMessageSystem"
+            app:layout_constraintLeft_toRightOf="@id/flMessageSystem"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        style="@style/horizontalGrayLine"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp" />
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/clPlatformMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10">
+
+        <FrameLayout
+            android:id="@+id/flMessagePlatform"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_yellow_point"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/icon_message_platform" />
+
+
+        </FrameLayout>
+
+        <View
+            android:id="@+id/viewRedPlatformMessage"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/bg_red_point"
+            app:layout_constraintRight_toRightOf="@id/flMessagePlatform"
+            app:layout_constraintTop_toTopOf="@id/flMessagePlatform" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tvMessagePlatform"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/platform_message"
+            android:textColor="@color/color_gray_333333"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toRightOf="@id/flMessagePlatform"
+            app:layout_constraintTop_toTopOf="@id/flMessagePlatform" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2020-06-20 17:34"
+            android:textColor="@color/color_gray_999999"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvMessagePlatform"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvMessagePlatform" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="尊敬的用户您好，您的紧急寻人事件已经发布成功..."
+            app:layout_constraintBottom_toBottomOf="@id/flMessagePlatform"
+            app:layout_constraintLeft_toRightOf="@id/flMessagePlatform"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        style="@style/horizontalGrayLine"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp" />
+
+</LinearLayout>

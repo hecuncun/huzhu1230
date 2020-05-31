@@ -12,4 +12,7 @@
     <string name="common_help">常用救援</string>
     <string name="daily_help">日常救援</string>
     <string name="nearby_aed">附近AED</string>
+    <string name="system_message">系统消息</string>
+    <string name="message">消息</string>
+    <string name="platform_message">平台消息</string>
 </resources>
