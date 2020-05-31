@@ -20,7 +20,7 @@ class LoginActivity:BaseActivity() {
     }
 
     override fun initView() {
-
+       //  loadingView?.show()
     }
 
     override fun initListener() {

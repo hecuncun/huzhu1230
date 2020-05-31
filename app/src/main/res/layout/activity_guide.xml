@@ -18,6 +18,7 @@
 
         <ImageView
             android:id="@+id/iv1"
+            android:visibility="gone"
             android:layout_width="6dp"
             android:layout_height="6dp"
             android:layout_marginLeft="7dp"
@@ -25,6 +26,7 @@
             android:src="@mipmap/icon_dot_selected" />
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/iv2"
             android:layout_width="6dp"
             android:layout_height="6dp"
@@ -34,6 +36,7 @@
 
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/iv3"
             android:layout_width="6dp"
             android:layout_height="6dp"

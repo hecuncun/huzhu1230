@@ -1,10 +1,12 @@
 package com.jzbn.huzhu1230.ui.fragment
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.EmergencyFindAdapter
 import com.jzbn.huzhu1230.bean.EmergencyFindBean
+import com.jzbn.huzhu1230.ui.publishdetail.PublishEmergencyDetailActivity
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_emergency_find.*
 
@@ -28,6 +30,10 @@ class EmergencyLookUpFragment : BaseFragment() {
     }
 
     override fun initListener() {
+        emergencyFindAdapter.setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(activity, PublishEmergencyDetailActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun lazyLoad() {
