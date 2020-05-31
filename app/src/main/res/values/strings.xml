@@ -11,4 +11,5 @@
     <string name="search_help_knowledge">搜索救援知识</string>
     <string name="common_help">常用救援</string>
     <string name="daily_help">日常救援</string>
+    <string name="nearby_aed">附近AED</string>
 </resources>

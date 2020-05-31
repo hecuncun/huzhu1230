@@ -1,11 +1,13 @@
 package com.jzbn.huzhu1230.ui.fragment
 
+import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.CommonHelpAdapter
 import com.jzbn.huzhu1230.adapter.DailyHelpAdapter
+import com.jzbn.huzhu1230.ui.home.AedActivity
 import com.jzbn.huzhu1230.ui.home.SignDialog
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -76,7 +78,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
 
             R.id.ivAed -> {
-
+                startActivity(Intent(context,AedActivity::class.java))
             }
 
             R.id.ivMessage -> {
