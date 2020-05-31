@@ -73,6 +73,9 @@
         <activity android:name=".ui.publishdetail.PublishEmergencyDetailActivity" />
         <activity android:name=".ui.publishdetail.ProvideClueActivity" />
         <activity android:name=".ui.home.AedActivity" />
+        <activity android:name=".ui.activity.SearchHelpActivity" />
+        <activity android:name=".ui.activity.SecondHelpActivity" />
+        <activity android:name=".ui.activity.ThirdHelpActivity" />
     </application>
 
 </manifest>

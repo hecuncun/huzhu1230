@@ -7,6 +7,7 @@ import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.KnowledgeAdapter
 import com.jzbn.huzhu1230.bean.KnowledgeBean
 import com.jzbn.huzhu1230.ui.activity.MoreKnowledgeActivity
+import com.jzbn.huzhu1230.ui.activity.SearchHelpActivity
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_knowledge.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -45,6 +46,11 @@ class KnowledgeFragment: BaseFragment() {
         tv_more_video.setOnClickListener {
             val intent =(Intent(activity, MoreKnowledgeActivity::class.java))
             intent.putExtra("title","救援知识·热门视频")
+            startActivity(intent)
+        }
+
+        ll_search_help.setOnClickListener { //进入寻找互助项目页
+            val intent =(Intent(activity, SearchHelpActivity::class.java))
             startActivity(intent)
         }
     }

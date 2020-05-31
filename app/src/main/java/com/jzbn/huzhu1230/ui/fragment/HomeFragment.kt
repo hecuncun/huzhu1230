@@ -9,6 +9,7 @@ import com.jzbn.huzhu1230.adapter.CommonHelpAdapter
 import com.jzbn.huzhu1230.adapter.DailyHelpAdapter
 import com.jzbn.huzhu1230.ui.home.AedActivity
 import com.jzbn.huzhu1230.ui.home.SignDialog
+import com.jzbn.huzhu1230.ui.activity.SecondHelpActivity
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -60,6 +61,14 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun initListener() {
+        commonHelpAdapter.setOnItemClickListener { adapter, view, position ->
+            val intent =(Intent(activity,SecondHelpActivity::class.java))
+            startActivity(intent)
+        }
+        dailyHelpAdapter.setOnItemClickListener { adapter, view, position ->
+            val intent =(Intent(activity,SecondHelpActivity::class.java))
+            startActivity(intent)
+        }
     }
 
     override fun lazyLoad() {
