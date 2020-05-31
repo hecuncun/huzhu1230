@@ -11,6 +11,7 @@ import com.jzbn.huzhu1230.ui.home.AedActivity
 import com.jzbn.huzhu1230.ui.home.SignDialog
 import com.jzbn.huzhu1230.ui.activity.SecondHelpActivity
 import com.jzbn.huzhu1230.ui.home.MessageActivity
+import com.jzbn.huzhu1230.ui.home.SearchActivity
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.dialog_sign.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -97,7 +98,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
 
             R.id.tvSearchContent -> {
-
+                startActivity(Intent(context,SearchActivity::class.java))
             }
         }
     }
