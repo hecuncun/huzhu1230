@@ -111,4 +111,10 @@ dependencies {
     implementation 'com.amap.api:location:latest.integration'
     //搜索功能
     implementation 'com.amap.api:search:latest.integration'
+
+    //  https://github.com/gzu-liyujiang/AndroidPicker 安卓选择器类库，包括日期选择器、时间选择器、单项选择器、双项选择器
+    implementation('com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.6.20181018') {
+        exclude group: 'com.android.support'
+    }
+    implementation 'com.alibaba:fastjson:1.1.55.android'
 }
