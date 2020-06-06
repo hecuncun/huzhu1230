@@ -1,9 +1,11 @@
 package com.jzbn.huzhu1230.ui.activity
 
 import BaseActivity
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.ThirdHelpAdapter
+import com.jzbn.huzhu1230.ui.home.VideoDetailActivity
 import kotlinx.android.synthetic.main.activity_third_help.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -36,8 +38,8 @@ class ThirdHelpActivity :BaseActivity() {
 
     override fun initListener() {
         mAdapter.setOnItemClickListener { adapter, view, position ->
-          //  val intent = Intent(this,ThirdHelpActivity::class.java)
-         //   startActivity(intent)
+            val intent = Intent(this, VideoDetailActivity::class.java)
+            startActivity(intent)
         }
     }
 }

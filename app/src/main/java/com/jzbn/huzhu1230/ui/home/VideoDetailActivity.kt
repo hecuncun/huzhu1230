@@ -7,8 +7,10 @@ import com.jzbn.huzhu1230.glide.GlideUtils
 import kotlinx.android.synthetic.main.activity_video_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-// Created by hesanwei on 2020/5/31.
-class VideoDetailActivity : BaseActivity() {
+/**
+ * Created by hecuncun on 2020-6-6
+ */
+class VideoDetailActivity:BaseActivity() {
     override fun attachLayoutRes(): Int = R.layout.activity_video_detail
 
     override fun initData() {

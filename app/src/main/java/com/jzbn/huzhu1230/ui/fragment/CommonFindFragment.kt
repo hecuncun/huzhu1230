@@ -33,6 +33,7 @@ class CommonFindFragment : BaseFragment() {
     override fun initListener() {
         emergencyFindAdapter.setOnItemChildClickListener { adapter, view, position ->
             val intent =Intent(activity,PublishEmergencyDetailActivity::class.java)
+            intent.putExtra("publishType","common")
             startActivity(intent)
         }
     }

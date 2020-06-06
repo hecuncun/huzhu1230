@@ -4,20 +4,22 @@ import BaseActivity
 import android.annotation.SuppressLint
 import android.os.Build
 import android.view.KeyEvent
+import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.widget.MyWebView
+import kotlinx.android.synthetic.main.activity_webview.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 /**
  * Created by hecuncun on 2019/12/14
  *
- * type: 0 关于我们
+ * type: 0 关于我们  1 文章详情
  */
 class WebViewActivity :BaseActivity() {
-    private var type = 0
+    private var type = -1
     private var url =""
     private var mWebView: MyWebView? = null
     override fun attachLayoutRes(): Int= R.layout.activity_webview
@@ -50,6 +52,10 @@ class WebViewActivity :BaseActivity() {
         url = intent.extras.getString("url")
         when(type){
             0-> toolbar_title.text="关于我们"
+            1-> {
+                ll_collection.visibility= View.VISIBLE
+                toolbar_title.text="文章详情"
+            }
 
         }
         mWebView!!.webViewClient=object : WebViewClient() {
@@ -69,10 +75,9 @@ class WebViewActivity :BaseActivity() {
         mWebView?.post {
            when(type){
                //加载 html
-               0->mWebView?.loadDataWithBaseURL(null,getHtmlData(url), "text/html" , "utf-8", null)
+               0,1->mWebView?.loadDataWithBaseURL(null,getHtmlData(url), "text/html" , "utf-8", null)
                //加载H5
-               1->{mWebView?.loadUrl(url)}
-               else->{}
+               else->{mWebView?.loadUrl(url)}
            }
         }
 

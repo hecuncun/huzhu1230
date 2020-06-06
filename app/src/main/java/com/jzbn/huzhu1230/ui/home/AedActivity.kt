@@ -1,17 +1,20 @@
 package com.jzbn.huzhu1230.ui.home
 
-import BaseActivity
 import android.support.v7.widget.LinearLayoutManager
+import com.amap.api.maps.MapView
 import com.jzbn.huzhu1230.R
+import com.jzbn.huzhu1230.ui.publish.BaseMapActivity
 import kotlinx.android.synthetic.main.activity_aed.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 // Created by hesanwei on 2020/5/31.
-class AedActivity : BaseActivity() {
+class AedActivity : BaseMapActivity() {
 
     private val aedAdapter: AedAdapter by lazy {
         AedAdapter()
     }
+
+    override fun getMapView(): MapView =map
 
     override fun attachLayoutRes(): Int = R.layout.activity_aed
 

@@ -8,6 +8,7 @@ import com.jzbn.huzhu1230.adapter.KnowledgeAdapter
 import com.jzbn.huzhu1230.bean.KnowledgeBean
 import com.jzbn.huzhu1230.ui.activity.MoreKnowledgeActivity
 import com.jzbn.huzhu1230.ui.activity.SearchHelpActivity
+import com.jzbn.huzhu1230.ui.home.MessageActivity
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_knowledge.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -22,6 +23,8 @@ class KnowledgeFragment: BaseFragment() {
 
     override fun initView(view: View) {
         toolbar_title.text="互助项目"
+        toolbar_right_img.setImageResource(R.mipmap.icon_look_msg)
+        toolbar_right_img.visibility=View.VISIBLE
         initRecyclerView()
     }
     private fun initRecyclerView() {
@@ -35,6 +38,9 @@ class KnowledgeFragment: BaseFragment() {
         }
     }
     override fun initListener() {
+        toolbar_right_img.setOnClickListener {
+            startActivity(Intent(context, MessageActivity::class.java))
+        }
         knowledgeAdapter.setOnItemClickListener { adapter, view, position ->
 
         }

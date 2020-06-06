@@ -1,6 +1,5 @@
 package com.jzbn.huzhu1230.ui.publishdetail
 
-import BaseActivity
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.support.v7.widget.LinearLayoutManager
@@ -11,7 +10,6 @@ import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.MyLocationStyle
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.bean.AddressBean
-import com.jzbn.huzhu1230.bean.CollectionBean
 import com.jzbn.huzhu1230.ui.publish.BaseMapActivity
 import com.jzbn.huzhu1230.utils.MapUtil
 import com.stx.xhb.xbanner.entity.SimpleBannerInfo
@@ -43,8 +41,15 @@ class PublishEmergencyDetailActivity : BaseMapActivity() {
             mAddressAdapter.setNewData(list)
         }
     }
+    private var publishType =""
     override fun initView() {
-        toolbar_title.text= "紧急寻人详情"
+        publishType = intent.getStringExtra("publishType")
+        if (publishType=="common"){
+            toolbar_title.text= "长期寻人详情"
+        }else{
+            toolbar_title.text= "紧急寻人详情"
+        }
+
         btn_provide_something.setOnClickListener {
             startActivity(Intent(this, ProvideClueActivity::class.java))
         }

@@ -13,7 +13,6 @@ import com.jzbn.huzhu1230.ui.fragment.*
 import com.jzbn.huzhu1230.ui.publish.PublishAedActivity
 import com.jzbn.huzhu1230.ui.publish.PublishDialog
 import com.jzbn.huzhu1230.ui.publish.PublishEmergencyActivity
-import com.jzbn.huzhu1230.ui.publishdetail.PublishEmergencyDetailActivity
 import com.jzbn.huzhu1230.utils.KeyUtil
 import com.jzbn.huzhu1230.widget.TopMsgDialog
 import com.orhanobut.logger.Logger
@@ -128,12 +127,16 @@ class MainActivity : BaseActivity() {
         val releaseDialog = PublishDialog()
         releaseDialog.setOnDialogClickListener(object : PublishDialog.OnDialogBtnClickListener{
             override fun onClickReleaseEmergency() {
-                startActivity(Intent(this@MainActivity, PublishEmergencyDetailActivity::class.java))
+                val intent =Intent(this@MainActivity, PublishEmergencyActivity::class.java)
+                intent.putExtra("publishType","emergency")
+                startActivity(intent)
             }
 
             override fun onClickReleaseCommon() {
                 //todo 区分type
-                startActivity(Intent(this@MainActivity, PublishEmergencyActivity::class.java))
+                val intent =Intent(this@MainActivity, PublishEmergencyActivity::class.java)
+                intent.putExtra("publishType","common")
+                startActivity(intent)
 
             }
 

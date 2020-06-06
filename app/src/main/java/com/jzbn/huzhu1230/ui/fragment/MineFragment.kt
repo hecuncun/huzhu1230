@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.View
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.ui.activity.*
+import com.jzbn.huzhu1230.ui.home.MessageActivity
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_mine.*
 
@@ -15,6 +16,9 @@ class MineFragment: BaseFragment() {
     }
 
     override fun initListener() {
+        iv_msg.setOnClickListener {
+            startActivity(Intent(activity, MessageActivity::class.java))
+        }
         iv_edit_info.setOnClickListener {
             startActivity(Intent(activity, MyInfoActivity::class.java))
         }

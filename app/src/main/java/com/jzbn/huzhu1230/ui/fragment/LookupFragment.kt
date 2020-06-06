@@ -1,8 +1,10 @@
 package com.jzbn.huzhu1230.ui.fragment
 
+import android.content.Intent
 import android.support.v4.app.FragmentTransaction
 import android.view.View
 import com.jzbn.huzhu1230.R
+import com.jzbn.huzhu1230.ui.home.MessageActivity
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.activity_my_publish.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -16,9 +18,15 @@ class LookupFragment : BaseFragment() {
 
     override fun initView(view: View) {
         toolbar_title.text="寻人专区"
+        toolbar_right_img.setImageResource(R.mipmap.icon_look_msg)
+        toolbar_right_img.visibility=View.VISIBLE
+
     }
 
     override fun initListener() {
+        toolbar_right_img.setOnClickListener {
+            startActivity(Intent(context, MessageActivity::class.java))
+        }
         rg.setOnCheckedChangeListener { group, checkedId ->
             val transaction = activity!!.supportFragmentManager.beginTransaction()
             hideAllFragment(transaction)

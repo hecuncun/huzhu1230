@@ -30,6 +30,7 @@ import com.jzbn.huzhu1230.application.App.Companion.context
 import com.jzbn.huzhu1230.ext.showToast
 import com.jzbn.huzhu1230.glide.GlideUtils
 import com.jzbn.huzhu1230.picker.AddressPickTask
+import com.jzbn.huzhu1230.ui.publishdetail.PublishEmergencyDetailActivity
 import com.jzbn.huzhu1230.utils.MapUtil
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
@@ -46,9 +47,14 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
     override fun getMapView(): MapView  = map
     override fun initData() {
     }
-
+    private var publishType =""
     override fun initView() {
-        toolbar_title.text= resources.getString(R.string.publish_emergency_search)
+        publishType = intent.getStringExtra("publishType")
+        if (publishType=="common"){
+            toolbar_title.text= resources.getString(R.string.publish_common_search)
+        }else{
+            toolbar_title.text= resources.getString(R.string.publish_emergency_search)
+        }
 
         et_detail_address.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
@@ -92,6 +98,12 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
         }
         ll_select_address.setOnClickListener {
               showCityPickerDialog()
+        }
+
+        btn_publish.setOnClickListener {
+            val intent =Intent(this, PublishEmergencyDetailActivity::class.java)
+            intent.putExtra("publishType",publishType)
+            startActivity(intent)
         }
         //选择图片
         pic_one.setOnClickListener(this)

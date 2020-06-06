@@ -2,14 +2,13 @@ package com.jzbn.huzhu1230.ui.home
 
 import BaseActivity
 import android.content.Intent
-import android.support.v4.app.FragmentTransaction
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import com.jzbn.huzhu1230.R
-import com.jzbn.huzhu1230.ext.showToast
+import com.jzbn.huzhu1230.ui.activity.WebViewActivity
 import kotlinx.android.synthetic.main.activity_search.*
 
 // Created by hesanwei on 2020/5/31.
@@ -44,7 +43,10 @@ class SearchActivity : BaseActivity() {
                 }
 
                 TYPE_ARTICLE -> {
-                    showToast("跳转H5页面")
+                    val intent=Intent(this, WebViewActivity::class.java)
+                    intent.putExtra("type",1)
+                    intent.putExtra("url","文章详情")
+                    startActivity(intent)
                 }
             }
         }
