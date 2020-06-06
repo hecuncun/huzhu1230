@@ -70,6 +70,9 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initListener() {
+        cvPublish.setOnClickListener {
+            showPublishDialog()
+        }
     }
 
     /**
@@ -99,28 +102,6 @@ class MainActivity : BaseActivity() {
                     transaction.show(mLookupFragment!!)
                 }
             }
-            FRAGMENT_RELEASE // 发布
-            -> {
-                val releaseDialog = PublishDialog()
-                releaseDialog.setOnDialogClickListener(object : PublishDialog.OnDialogBtnClickListener{
-                    override fun onClickReleaseEmergency() {
-                        startActivity(Intent(this@MainActivity, PublishEmergencyDetailActivity::class.java))
-                    }
-
-                    override fun onClickReleaseCommon() {
-                        //todo 区分type
-                        startActivity(Intent(this@MainActivity, PublishEmergencyActivity::class.java))
-
-                    }
-
-                    override fun onClickReleaseAed() {
-                        startActivity(Intent(this@MainActivity, PublishAedActivity::class.java))
-
-                    }
-
-                })
-                releaseDialog.show(supportFragmentManager, "ReleaseDialog")
-            }
             FRAGMENT_KNOWLEDGE // 救援知识
             -> {
                 if (mKnowledgeFragment == null) {
@@ -141,6 +122,28 @@ class MainActivity : BaseActivity() {
             }
         }
         transaction.commit()
+    }
+
+    private fun showPublishDialog(){
+        val releaseDialog = PublishDialog()
+        releaseDialog.setOnDialogClickListener(object : PublishDialog.OnDialogBtnClickListener{
+            override fun onClickReleaseEmergency() {
+                startActivity(Intent(this@MainActivity, PublishEmergencyDetailActivity::class.java))
+            }
+
+            override fun onClickReleaseCommon() {
+                //todo 区分type
+                startActivity(Intent(this@MainActivity, PublishEmergencyActivity::class.java))
+
+            }
+
+            override fun onClickReleaseAed() {
+                startActivity(Intent(this@MainActivity, PublishAedActivity::class.java))
+
+            }
+
+        })
+        releaseDialog.show(supportFragmentManager, "ReleaseDialog")
     }
 
     /**
@@ -169,8 +172,9 @@ class MainActivity : BaseActivity() {
                     true
                 }
                 R.id.nav_release -> {
-                    showFragment(FRAGMENT_RELEASE)
-                    true
+//                    showFragment(FRAGMENT_RELEASE)
+                    showPublishDialog()
+                    false
                 }
                 R.id.nav_knowledge -> {
                     showFragment(FRAGMENT_KNOWLEDGE)
