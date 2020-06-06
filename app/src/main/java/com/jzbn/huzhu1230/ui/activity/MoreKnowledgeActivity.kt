@@ -1,10 +1,12 @@
 package com.jzbn.huzhu1230.ui.activity
 
 import BaseActivity
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.KnowledgeAdapter
 import com.jzbn.huzhu1230.bean.KnowledgeBean
+import com.jzbn.huzhu1230.ui.home.VideoDetailActivity
 import kotlinx.android.synthetic.main.activity_more_knowledge.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -39,6 +41,14 @@ class MoreKnowledgeActivity:BaseActivity() {
         }
     }
     override fun initListener() {
-
+      knowledgeAdapter.setOnItemClickListener { adapter, view, position ->
+          //区分type类型
+          val intent = Intent(this, VideoDetailActivity::class.java)
+          startActivity(intent)
+//          val intent=Intent(this, WebViewActivity::class.java)
+//          intent.putExtra("type",1)
+//          intent.putExtra("url","文章详情")
+//          startActivity(intent)
+      }
     }
 }

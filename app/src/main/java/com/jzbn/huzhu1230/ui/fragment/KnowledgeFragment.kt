@@ -9,6 +9,7 @@ import com.jzbn.huzhu1230.bean.KnowledgeBean
 import com.jzbn.huzhu1230.ui.activity.MoreKnowledgeActivity
 import com.jzbn.huzhu1230.ui.activity.SearchHelpActivity
 import com.jzbn.huzhu1230.ui.home.MessageActivity
+import com.jzbn.huzhu1230.ui.home.VideoDetailActivity
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_knowledge.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -42,7 +43,8 @@ class KnowledgeFragment: BaseFragment() {
             startActivity(Intent(context, MessageActivity::class.java))
         }
         knowledgeAdapter.setOnItemClickListener { adapter, view, position ->
-
+            val intent = Intent(activity, VideoDetailActivity::class.java)
+            startActivity(intent)
         }
         tv_more_article.setOnClickListener {
             val intent =(Intent(activity, MoreKnowledgeActivity::class.java))
