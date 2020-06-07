@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction
 import com.flyco.animation.BounceEnter.BounceTopEnter
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.bean.TopMsgBean
+import com.jzbn.huzhu1230.event.LogoutEvent
 import com.jzbn.huzhu1230.ui.fragment.*
 import com.jzbn.huzhu1230.ui.publish.PublishAedActivity
 import com.jzbn.huzhu1230.ui.publish.PublishDialog
@@ -17,6 +18,8 @@ import com.jzbn.huzhu1230.utils.KeyUtil
 import com.jzbn.huzhu1230.widget.TopMsgDialog
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_main.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : BaseActivity() {
 
@@ -28,11 +31,14 @@ class MainActivity : BaseActivity() {
     private var mMineFragment: MineFragment? = null
     private val PERMISS_REQUEST_CODE = 0x100
 
+    override fun useEventBus(): Boolean=true
+
     override fun attachLayoutRes(): Int = R.layout.activity_main
 
     override fun initData() {
       val sha1=  KeyUtil.getSHA1(this)
         Logger.e("SHA1==$sha1")
+        Logger.e("UID==$uid")
 
 
         if (checkPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION))) {
@@ -200,5 +206,11 @@ class MainActivity : BaseActivity() {
         private const val FRAGMENT_RELEASE = 0x03
         private const val FRAGMENT_KNOWLEDGE = 0x04
         private const val FRAGMENT_MINE = 0x05
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun logout(event:LogoutEvent){
+        finish()
     }
 }

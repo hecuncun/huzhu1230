@@ -4,10 +4,11 @@ import BaseActivity
 import android.content.Intent
 import android.view.View
 import com.jzbn.huzhu1230.R
-import com.jzbn.huzhu1230.ext.showToast
+import com.jzbn.huzhu1230.event.LogoutEvent
 import com.jzbn.huzhu1230.widget.LogoutDialog
 import kotlinx.android.synthetic.main.activity_my_setting.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by hecuncun on 2020-5-25
@@ -30,7 +31,11 @@ class MySettingActivity : BaseActivity() {
             dialog!!.show()
             dialog!!.setConfirmListener(View.OnClickListener {
                 dialog!!.dismiss()
-                 showToast("确定")
+                isLogin=false
+                uid=""
+                photoPath=""
+                EventBus.getDefault().post(LogoutEvent())
+                startActivity(Intent(this@MySettingActivity,LoginActivity::class.java))
             })
         }
 

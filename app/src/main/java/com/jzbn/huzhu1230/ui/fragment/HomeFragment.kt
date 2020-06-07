@@ -7,13 +7,17 @@ import android.view.View
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.CommonHelpAdapter
 import com.jzbn.huzhu1230.adapter.DailyHelpAdapter
-import com.jzbn.huzhu1230.ui.home.AedActivity
-import com.jzbn.huzhu1230.ui.home.SignDialog
+import com.jzbn.huzhu1230.bean.SignBean
+import com.jzbn.huzhu1230.ext.showToast
+import com.jzbn.huzhu1230.net.CallbackListObserver
+import com.jzbn.huzhu1230.net.SLMRetrofit
+import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.ui.activity.SecondHelpActivity
+import com.jzbn.huzhu1230.ui.home.AedActivity
 import com.jzbn.huzhu1230.ui.home.MessageActivity
 import com.jzbn.huzhu1230.ui.home.SearchActivity
+import com.jzbn.huzhu1230.ui.home.SignDialog
 import com.lhzw.bluetooth.base.BaseFragment
-import kotlinx.android.synthetic.main.dialog_sign.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 // Created by hesanwei on 2020/5/24.
@@ -86,7 +90,24 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.ivSign -> {
-                SignDialog.newInstance(0).show(activity?.supportFragmentManager, "sign")
+                //签到
+                val signCall = SLMRetrofit.getInstance().api.signCall(uid)
+                signCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<SignBean>(){
+                    override fun onSucceed(t: SignBean) {
+                        if (t.code=="10001"){
+                            SignDialog.newInstance(0).show(activity?.supportFragmentManager, "sign")
+                        }else{
+                            showToast(t.message)
+                        }
+
+
+                    }
+
+                    override fun onFailed() {
+
+                    }
+                })
+
             }
 
             R.id.ivAed -> {

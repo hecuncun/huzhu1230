@@ -5,7 +5,12 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import com.jzbn.huzhu1230.R
+import com.jzbn.huzhu1230.bean.HonorInfoBean
+import com.jzbn.huzhu1230.net.CallbackListObserver
+import com.jzbn.huzhu1230.net.SLMRetrofit
+import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.utils.StatusBarUtil
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_my_honor.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -16,6 +21,20 @@ class MyHonorActivity:BaseActivity() {
     override fun attachLayoutRes(): Int = R.layout.activity_my_honor
 
     override fun initData() {
+        //获取荣誉积分
+        val honorInfoCall = SLMRetrofit.getInstance().api.honorInfoCall(uid)
+        honorInfoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<HonorInfoBean>(){
+            override fun onSucceed(t: HonorInfoBean) {
+                if (t.code=="10001"){
+                    Logger.e(t.data)
+                }
+
+            }
+
+            override fun onFailed() {
+
+            }
+        })
 
     }
 

@@ -5,6 +5,11 @@ import android.content.Intent
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import com.jzbn.huzhu1230.R
+import com.jzbn.huzhu1230.bean.LoginBean
+import com.jzbn.huzhu1230.ext.showToast
+import com.jzbn.huzhu1230.net.CallbackObserver
+import com.jzbn.huzhu1230.net.SLMRetrofit
+import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import kotlinx.android.synthetic.main.activity_login.*
 
 
@@ -20,7 +25,7 @@ class LoginActivity:BaseActivity() {
     }
 
     override fun initView() {
-       //  loadingView?.show()
+
     }
 
     override fun initListener() {
@@ -39,7 +44,34 @@ class LoginActivity:BaseActivity() {
         }
 
         tv_login.setOnClickListener {
-            startActivity(Intent(this,MainActivity::class.java))
+            if (et_phone.text.toString().trim().isEmpty()){
+                showToast("请输入手机号")
+                return@setOnClickListener
+            }
+            if (et_pwd.text.toString().trim().isEmpty()){
+                showToast("请输入密码")
+                return@setOnClickListener
+            }
+            val loginCall = SLMRetrofit.getInstance().api.loginCall(
+                et_phone.text.toString().trim(),
+                et_pwd.text.toString().trim()
+            )
+            loginCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<LoginBean>(){
+                override fun onSucceed(t: LoginBean, desc: String?) {
+                    showToast("登录成功")
+                    isLogin=true
+                    uid=t.uid
+                    nickname=t.nickname
+                    photoPath=t.path?:""
+                    startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+                    finish()
+                }
+
+                override fun onFailed() {
+
+                }
+            })
+
         }
 
     }

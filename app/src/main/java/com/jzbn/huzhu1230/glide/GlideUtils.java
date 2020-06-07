@@ -105,7 +105,6 @@ public class GlideUtils {
                 .apply(new RequestOptions().placeholder(defaultImg).error(defaultImg).centerCrop()
                         .transform(new GlideRoundTransform(radius)))
                 .thumbnail(loadTransform(imageView.getContext(), defaultImg, radius))
-                .thumbnail(loadTransform(imageView.getContext(), defaultImg, radius))
                 .into(imageView);
     }
 

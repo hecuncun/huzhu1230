@@ -29,7 +29,18 @@ abstract class BaseFragment :Fragment(){
      * check login
      */
     protected var isLogin: Boolean by Preference(Constant.LOGIN_KEY, false)
-
+    /**
+     * 昵称
+     */
+    protected var nickname:String by Preference(Constant.NICK_NAME,"")
+    /**
+     * uid
+     */
+    protected var uid:String by Preference(Constant.UID,"")
+    /**
+     * 头像地址
+     */
+    protected var photoPath:String by Preference(Constant.PHOTO_PATH,"")
 
     /**
      * 视图是否加载完毕

@@ -22,6 +22,9 @@ import kotlin.properties.Delegates
  */
 class App : MultiDexApplication() {
 
+// 阿里音视频通话
+//appkey   0d79eb619746d6f8625143cdf58b124f  应用id :  50ucoiom
+
     private var refWatcher: RefWatcher? = null
 
     companion object {

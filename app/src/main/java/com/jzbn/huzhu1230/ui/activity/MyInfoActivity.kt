@@ -7,8 +7,12 @@ import android.content.Intent
 import android.view.View
 import android.widget.Toast
 import com.jzbn.huzhu1230.R
+import com.jzbn.huzhu1230.bean.PersonalInfoBean
 import com.jzbn.huzhu1230.ext.showToast
 import com.jzbn.huzhu1230.glide.GlideUtils
+import com.jzbn.huzhu1230.net.CallbackObserver
+import com.jzbn.huzhu1230.net.SLMRetrofit
+import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
@@ -18,15 +22,44 @@ import kotlinx.android.synthetic.main.toolbar.*
 /**
  * Created by hecuncun on 2020-5-24
  */
-class MyInfoActivity:BaseActivity(), View.OnClickListener {
+class MyInfoActivity : BaseActivity(), View.OnClickListener {
     override fun attachLayoutRes(): Int = R.layout.activity_my_info
 
     override fun initData() {
+        //获取个人信息
+        val personalInfoCall = SLMRetrofit.getInstance().api.personalInfoCall(uid)
+        personalInfoCall.compose(ThreadSwitchTransformer())
+            .subscribe(object : CallbackObserver<PersonalInfoBean>() {
+                override fun onSucceed(t: PersonalInfoBean, desc: String?) {
+                    initPersonData(t)
+                }
+
+                override fun onFailed() {
+
+                }
+            })
+
 
     }
 
+    //初始化 信息
+    private fun initPersonData(t: PersonalInfoBean) {
+        GlideUtils.showCircle(iv_head_pic, t.path, R.mipmap.icon_head_def)
+        tv_name.text = t.name ?: ""
+        tv_id_card.text = t.card ?: ""
+        tv_sex.text = if (t.sex == 0) "女" else "男"
+        tv_language.text = ""//todo
+        tv_medical_history.text = t.caseHistory ?: ""
+        tv_allergic_drugs.text = t.allergy ?: ""
+        tv_genetic_history.text = t.inherit ?: ""
+        tv_company.text = t.company ?: ""
+        tv_rescue_history.text = t.experience ?: ""
+        tv_certificate.text = ""//todo
+        GlideUtils.showPlaceholder(this, iv_certificate, t.zsCardPhoto, R.mipmap.icon_logo)//还有个证书状态
+    }
+
     override fun initView() {
-        toolbar_title.text="我的资料"
+        toolbar_title.text = "我的资料"
 
     }
 
@@ -44,20 +77,22 @@ class MyInfoActivity:BaseActivity(), View.OnClickListener {
         rl_company.setOnClickListener(this)
         rl_rescue_history.setOnClickListener(this)
         rl_rescue_skill.setOnClickListener(this)
-        rl_certificate.setOnClickListener{
-            startActivity(Intent(this@MyInfoActivity,EditCertificateActivity::class.java))
+        rl_certificate.setOnClickListener {
+            startActivity(Intent(this@MyInfoActivity, EditCertificateActivity::class.java))
         }
     }
 
     private fun showList() {
         val items = arrayOf("拍照", "从相册中选择")
-        val  builder = AlertDialog.Builder(this)
+        val builder = AlertDialog.Builder(this)
             .setItems(items) { _, i ->
-                Toast.makeText(this@MyInfoActivity, "你点击的内容为： " + items[i], Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MyInfoActivity, "你点击的内容为： " + items[i], Toast.LENGTH_LONG)
+                    .show()
                 selectImage(i)
             }
         builder.create().show()
     }
+
     private fun selectImage(i: Int) {
         if (i == 0) {
             PictureSelector.create(this)
@@ -106,7 +141,11 @@ class MyInfoActivity:BaseActivity(), View.OnClickListener {
                 PictureConfig.CHOOSE_REQUEST -> {
                     val selectList = PictureSelector.obtainMultipleResult(data)
                     if (selectList.size > 0) {
-                        GlideUtils.showCircle(iv_head_pic,selectList[0].compressPath,R.drawable.ic_launcher_background)
+                        GlideUtils.showCircle(
+                            iv_head_pic,
+                            selectList[0].compressPath,
+                            R.drawable.ic_launcher_background
+                        )
                         //上传文件
 //                        val file = File(selectList[0].compressPath)
 //                        Logger.e("图片地址==${selectList[0].compressPath}")
@@ -150,45 +189,45 @@ class MyInfoActivity:BaseActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        val intent =Intent(this@MyInfoActivity,EditInfoActivity::class.java)
-        var type =-1
+        val intent = Intent(this@MyInfoActivity, EditInfoActivity::class.java)
+        var type = -1
 
-        when(v.id){
-            R.id.rl_name->{
-              type=1
+        when (v.id) {
+            R.id.rl_name -> {
+                type = 1
             }
-            R.id.rl_id_card->{
-                type=2
+            R.id.rl_id_card -> {
+                type = 2
             }
-            R.id.rl_sex->{
-                type=3
+            R.id.rl_sex -> {
+                type = 3
             }
-            R.id.rl_language->{
-                type=4
+            R.id.rl_language -> {
+                type = 4
             }
-            R.id.rl_medical_history->{
-                type=5
+            R.id.rl_medical_history -> {
+                type = 5
             }
-            R.id.rl_allergic_drugs->{
-                type=6
+            R.id.rl_allergic_drugs -> {
+                type = 6
             }
-            R.id.rl_genetic_history->{
-                type=7
+            R.id.rl_genetic_history -> {
+                type = 7
             }
-            R.id.rl_company->{
-                type=8
+            R.id.rl_company -> {
+                type = 8
             }
-            R.id.rl_rescue_history->{
-                type=9
+            R.id.rl_rescue_history -> {
+                type = 9
             }
-            R.id.rl_rescue_skill->{
-                type=10
+            R.id.rl_rescue_skill -> {
+                type = 10
             }
-            else->{
-               return
+            else -> {
+                return
             }
         }
-        intent.putExtra("type",type)
+        intent.putExtra("type", type)
         startActivity(intent)
     }
 }

@@ -3,6 +3,7 @@ package com.jzbn.huzhu1230.ui.fragment
 import android.content.Intent
 import android.view.View
 import com.jzbn.huzhu1230.R
+import com.jzbn.huzhu1230.glide.GlideUtils
 import com.jzbn.huzhu1230.ui.activity.*
 import com.jzbn.huzhu1230.ui.home.MessageActivity
 import com.lhzw.bluetooth.base.BaseFragment
@@ -13,6 +14,9 @@ class MineFragment: BaseFragment() {
     override fun attachLayoutRes(): Int = R.layout.fragment_mine
 
     override fun initView(view: View) {
+        tv_nick_name.text=nickname
+        GlideUtils.showCircleWithBorder(iv_head_pic,photoPath,R.mipmap.icon_head_def,resources.getColor(R.color.white))
+
     }
 
     override fun initListener() {
