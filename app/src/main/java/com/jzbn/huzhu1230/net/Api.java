@@ -3,7 +3,9 @@ package com.jzbn.huzhu1230.net;
 import com.jzbn.huzhu1230.base.BaseBean;
 import com.jzbn.huzhu1230.base.BaseNoDataBean;
 import com.jzbn.huzhu1230.bean.HonorInfoBean;
+import com.jzbn.huzhu1230.bean.KnowledgeBean;
 import com.jzbn.huzhu1230.bean.LoginBean;
+import com.jzbn.huzhu1230.bean.MsgListBean;
 import com.jzbn.huzhu1230.bean.PersonalInfoBean;
 import com.jzbn.huzhu1230.bean.PhoneCodeBean;
 import com.jzbn.huzhu1230.bean.SignBean;
@@ -71,8 +73,28 @@ public interface Api {
     @POST("appUserBase/selectUserHonor")
     Observable<HonorInfoBean> honorInfoCall(@Query("uid") String uid);
 
+    /**
+     * 用户签到
+     * @param uid
+     * @return
+     */
     @POST("appUserSignIn/insertSelective")
     Observable<SignBean> signCall(@Query("uid") String uid);
+    /**
+     *积分记录
+     */
+    @POST("appUserIntegralDetail/searchForPage")
+    Observable<BaseBean<MsgListBean>> msgListCall(@Query("page") int page,@Query("uid") String uid);
+
+    /**
+     * 获取救援知识
+     * @param page
+     * @param content
+     * @param type  1文章,2视频
+     * @return
+     */
+    @POST("appKnowledge/searchForPage")
+    Observable<BaseBean<KnowledgeBean>> knowledgeListCall(@Query("page") int page, @Query("content") String content, @Query("type") int type);
 
 //    /**
 //     * 修改自定义头像接口

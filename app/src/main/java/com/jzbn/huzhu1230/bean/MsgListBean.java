@@ -3,9 +3,10 @@ package com.jzbn.huzhu1230.bean;
 import java.util.List;
 
 /**
- * Created by hecuncun on 2020-5-30
+ * Created by hecuncun on 2020/6/14
  */
-public class KnowledgeBean {
+
+public class MsgListBean {
 
     /**
      * currentPageSize : 10
@@ -14,7 +15,7 @@ public class KnowledgeBean {
      * message :
      * total : 1
      * records : 1
-     * rows : [{"magorid":"2","title":"意外事故伤员的创口止血包扎固定和搬运方法","photo":"/uploadtemp/image/2020/6/0c8ae6bec67d40798d10c40d15fa2ec4.jpg","path":"","content":"<p>文章内容简介<p>","numViews":0,"numPlay":0,"type":1,"title4":"","title3":"","title2":"","isdelete":0,"remark1":"","remark2":"","remark3":"","remark4":"","createid":"1","createtime":"2020-06-05 00:12:51","updateid":"1","updatetime":"2020-06-05 00:12:42","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"2"}]
+     * rows : [{"magorid":"0b121cae8a1242aabd53e064c4f1f1d7","uid":"56537287c027499eb05a406aa99d35c2","type":3,"num":1,"remark1":"每日签到","remark2":"","remark3":"","remark4":"","createid":"56537287c027499eb05a406aa99d35c2","createtime":"2020-06-07 21:59:02","updateid":"56537287c027499eb05a406aa99d35c2","updatetime":"2020-06-07 21:59:02","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"0b121cae8a1242aabd53e064c4f1f1d7"}]
      */
 
     private int currentPageSize;
@@ -83,47 +84,31 @@ public class KnowledgeBean {
 
     public static class RowsBean {
         /**
-         * magorid : 2
-         * title : 意外事故伤员的创口止血包扎固定和搬运方法
-         * photo : /uploadtemp/image/2020/6/0c8ae6bec67d40798d10c40d15fa2ec4.jpg
-         * path :
-         * content : <p>文章内容简介<p>
-         * numViews : 0
-         * numPlay : 0
-         * type : 1
-         * title4 :
-         * title3 :
-         * title2 :
-         * isdelete : 0
-         * remark1 :
+         * magorid : 0b121cae8a1242aabd53e064c4f1f1d7
+         * uid : 56537287c027499eb05a406aa99d35c2
+         * type : 3
+         * num : 1
+         * remark1 : 每日签到
          * remark2 :
          * remark3 :
          * remark4 :
-         * createid : 1
-         * createtime : 2020-06-05 00:12:51
-         * updateid : 1
-         * updatetime : 2020-06-05 00:12:42
+         * createid : 56537287c027499eb05a406aa99d35c2
+         * createtime : 2020-06-07 21:59:02
+         * updateid : 56537287c027499eb05a406aa99d35c2
+         * updatetime : 2020-06-07 21:59:02
          * startIndex : 0
          * pageSize : 0
          * orderBy :
          * fieldName :
          * startDate :
          * endDate :
-         * myId : 2
+         * myId : 0b121cae8a1242aabd53e064c4f1f1d7
          */
 
         private String magorid;
-        private String title;
-        private String photo;
-        private String path;
-        private String content;
-        private int numViews;
-        private int numPlay;
+        private String uid;
         private int type;
-        private String title4;
-        private String title3;
-        private String title2;
-        private int isdelete;
+        private int num;
         private String remark1;
         private String remark2;
         private String remark3;
@@ -148,52 +133,12 @@ public class KnowledgeBean {
             this.magorid = magorid;
         }
 
-        public String getTitle() {
-            return title;
+        public String getUid() {
+            return uid;
         }
 
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getPhoto() {
-            return photo;
-        }
-
-        public void setPhoto(String photo) {
-            this.photo = photo;
-        }
-
-        public String getPath() {
-            return path;
-        }
-
-        public void setPath(String path) {
-            this.path = path;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        public int getNumViews() {
-            return numViews;
-        }
-
-        public void setNumViews(int numViews) {
-            this.numViews = numViews;
-        }
-
-        public int getNumPlay() {
-            return numPlay;
-        }
-
-        public void setNumPlay(int numPlay) {
-            this.numPlay = numPlay;
+        public void setUid(String uid) {
+            this.uid = uid;
         }
 
         public int getType() {
@@ -204,36 +149,12 @@ public class KnowledgeBean {
             this.type = type;
         }
 
-        public String getTitle4() {
-            return title4;
+        public int getNum() {
+            return num;
         }
 
-        public void setTitle4(String title4) {
-            this.title4 = title4;
-        }
-
-        public String getTitle3() {
-            return title3;
-        }
-
-        public void setTitle3(String title3) {
-            this.title3 = title3;
-        }
-
-        public String getTitle2() {
-            return title2;
-        }
-
-        public void setTitle2(String title2) {
-            this.title2 = title2;
-        }
-
-        public int getIsdelete() {
-            return isdelete;
-        }
-
-        public void setIsdelete(int isdelete) {
-            this.isdelete = isdelete;
+        public void setNum(int num) {
+            this.num = num;
         }
 
         public String getRemark1() {

@@ -2,35 +2,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="70dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tv_remark1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="17dp"
-        android:text="发布AED"
+        tools:text="发布AED"
         android:textColor="@color/color_gray_323232" />
 
     <TextView
+        android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginTop="17dp"
         android:layout_marginRight="11dp"
-        android:text="2020-06-28 15:30"
+        tools:text="2020-06-28 15:30"
         android:textColor="@color/color_gray_999999"
         android:textSize="13sp" />
 
     <TextView
+        android:id="@+id/tv_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="11dp"
         android:layout_marginBottom="11dp"
-        android:text="+1积分"
+        tools:text="+1积分"
         android:textColor="@color/color_gray_333333"
         android:textSize="15sp" />
 

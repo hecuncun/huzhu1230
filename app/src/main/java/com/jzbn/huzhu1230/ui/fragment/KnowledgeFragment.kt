@@ -6,6 +6,8 @@ import android.view.View
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.KnowledgeAdapter
 import com.jzbn.huzhu1230.bean.KnowledgeBean
+import com.jzbn.huzhu1230.net.SLMRetrofit
+import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.ui.activity.MoreKnowledgeActivity
 import com.jzbn.huzhu1230.ui.activity.SearchHelpActivity
 import com.jzbn.huzhu1230.ui.home.MessageActivity
@@ -17,7 +19,10 @@ import kotlinx.android.synthetic.main.toolbar.*
 // Created by hesanwei on 2020/5/24.
 class KnowledgeFragment: BaseFragment() {
     private var list= mutableListOf<KnowledgeBean>()
-    private val knowledgeAdapter :KnowledgeAdapter by lazy {
+    private val articleAdapter :KnowledgeAdapter by lazy {
+        KnowledgeAdapter()
+    }
+    private val videoAdapter :KnowledgeAdapter by lazy {
         KnowledgeAdapter()
     }
     override fun attachLayoutRes(): Int = R.layout.fragment_knowledge
@@ -31,18 +36,22 @@ class KnowledgeFragment: BaseFragment() {
     private fun initRecyclerView() {
         rv_video.run {
             layoutManager = LinearLayoutManager(activity)
-            adapter =knowledgeAdapter
+            adapter =videoAdapter
         }
         rv_article.run {
             layoutManager = LinearLayoutManager(activity)
-            adapter =knowledgeAdapter
+            adapter =articleAdapter
         }
     }
     override fun initListener() {
         toolbar_right_img.setOnClickListener {
             startActivity(Intent(context, MessageActivity::class.java))
         }
-        knowledgeAdapter.setOnItemClickListener { adapter, view, position ->
+        articleAdapter.setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(activity, VideoDetailActivity::class.java)
+            startActivity(intent)
+        }
+        videoAdapter.setOnItemClickListener { adapter, view, position ->
             val intent = Intent(activity, VideoDetailActivity::class.java)
             startActivity(intent)
         }
@@ -64,14 +73,21 @@ class KnowledgeFragment: BaseFragment() {
     }
 
     override fun lazyLoad() {
-        initTestData()
+        //initTestData()
+        val articleListCall = SLMRetrofit.getInstance().api.knowledgeListCall(
+            1,
+            "",
+            1
+        )
+        articleListCall.compose(ThreadSwitchTransformer())
+
     }
-    private fun initTestData() {
-        for (i in 1..4){
-            list.add(KnowledgeBean())
-            knowledgeAdapter.setNewData(list)
-        }
-    }
+//    private fun initTestData() {
+//        for (i in 1..4){
+//            list.add(KnowledgeBean())
+//            knowledgeAdapter.setNewData(list)
+//        }
+//    }
     companion object {
         fun getInstance(): KnowledgeFragment {
             return KnowledgeFragment()
