@@ -6,10 +6,12 @@ import android.view.View
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.KnowledgeAdapter
 import com.jzbn.huzhu1230.bean.KnowledgeBean
+import com.jzbn.huzhu1230.net.CallbackObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.ui.activity.MoreKnowledgeActivity
 import com.jzbn.huzhu1230.ui.activity.SearchHelpActivity
+import com.jzbn.huzhu1230.ui.activity.WebViewActivity
 import com.jzbn.huzhu1230.ui.home.MessageActivity
 import com.jzbn.huzhu1230.ui.home.VideoDetailActivity
 import com.lhzw.bluetooth.base.BaseFragment
@@ -18,7 +20,8 @@ import kotlinx.android.synthetic.main.toolbar.*
 
 // Created by hesanwei on 2020/5/24.
 class KnowledgeFragment: BaseFragment() {
-    private var list= mutableListOf<KnowledgeBean>()
+    private var articleList= mutableListOf<KnowledgeBean.RowsBean>()
+    private var videoList= mutableListOf<KnowledgeBean.RowsBean>()
     private val articleAdapter :KnowledgeAdapter by lazy {
         KnowledgeAdapter()
     }
@@ -48,46 +51,67 @@ class KnowledgeFragment: BaseFragment() {
             startActivity(Intent(context, MessageActivity::class.java))
         }
         articleAdapter.setOnItemClickListener { adapter, view, position ->
-            val intent = Intent(activity, VideoDetailActivity::class.java)
+            val intent = Intent(activity, WebViewActivity::class.java)
+            intent.putExtra("type",1)
+            intent.putExtra("url",articleList[position].content)
             startActivity(intent)
         }
         videoAdapter.setOnItemClickListener { adapter, view, position ->
             val intent = Intent(activity, VideoDetailActivity::class.java)
+            intent.putExtra("bean",videoList[position])
             startActivity(intent)
         }
         tv_more_article.setOnClickListener {
-            val intent =(Intent(activity, MoreKnowledgeActivity::class.java))
+            val intent =Intent(activity, MoreKnowledgeActivity::class.java)
             intent.putExtra("title","救援知识·热门文章")
             startActivity(intent)
         }
         tv_more_video.setOnClickListener {
-            val intent =(Intent(activity, MoreKnowledgeActivity::class.java))
+            val intent =Intent(activity, MoreKnowledgeActivity::class.java)
             intent.putExtra("title","救援知识·热门视频")
             startActivity(intent)
         }
 
         ll_search_help.setOnClickListener { //进入寻找互助项目页
-            val intent =(Intent(activity, SearchHelpActivity::class.java))
+            val intent =Intent(activity, SearchHelpActivity::class.java)
             startActivity(intent)
         }
     }
 
     override fun lazyLoad() {
-        //initTestData()
         val articleListCall = SLMRetrofit.getInstance().api.knowledgeListCall(
             1,
             "",
             1
         )
-        articleListCall.compose(ThreadSwitchTransformer())
+        articleListCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<KnowledgeBean>(){
+            override fun onSucceed(t: KnowledgeBean, desc: String?) {
+                articleList.addAll(t.rows)
+                articleAdapter.setNewData(articleList)
+            }
+
+            override fun onFailed() {
+
+            }
+        })
+
+        val videoListCall = SLMRetrofit.getInstance().api.knowledgeListCall(
+            1,
+            "",
+            2
+        )
+        videoListCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<KnowledgeBean>(){
+            override fun onSucceed(t: KnowledgeBean, desc: String?) {
+                videoList.addAll(t.rows)
+                videoAdapter.setNewData(videoList)
+            }
+
+            override fun onFailed() {
+
+            }
+        })
 
     }
-//    private fun initTestData() {
-//        for (i in 1..4){
-//            list.add(KnowledgeBean())
-//            knowledgeAdapter.setNewData(list)
-//        }
-//    }
     companion object {
         fun getInstance(): KnowledgeFragment {
             return KnowledgeFragment()

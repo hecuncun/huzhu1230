@@ -29,12 +29,14 @@
             android:layout_marginRight="15dp">
 
             <ImageView
+                android:id="@+id/iv_pic"
                 android:layout_width="62dp"
                 android:layout_height="62dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher" />
 
             <ImageView
+                android:id="@+id/iv_play"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_centerInParent="true"
@@ -43,6 +45,7 @@
 
 
         <TextView
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_title"

@@ -1,5 +1,8 @@
 package com.jzbn.huzhu1230.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -81,7 +84,7 @@ public class KnowledgeBean {
         this.rows = rows;
     }
 
-    public static class RowsBean {
+    public static class RowsBean implements Parcelable {
         /**
          * magorid : 2
          * title : 意外事故伤员的创口止血包扎固定和搬运方法
@@ -355,5 +358,86 @@ public class KnowledgeBean {
         public void setMyId(String myId) {
             this.myId = myId;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.magorid);
+            dest.writeString(this.title);
+            dest.writeString(this.photo);
+            dest.writeString(this.path);
+            dest.writeString(this.content);
+            dest.writeInt(this.numViews);
+            dest.writeInt(this.numPlay);
+            dest.writeInt(this.type);
+            dest.writeString(this.title4);
+            dest.writeString(this.title3);
+            dest.writeString(this.title2);
+            dest.writeInt(this.isdelete);
+            dest.writeString(this.remark1);
+            dest.writeString(this.remark2);
+            dest.writeString(this.remark3);
+            dest.writeString(this.remark4);
+            dest.writeString(this.createid);
+            dest.writeString(this.createtime);
+            dest.writeString(this.updateid);
+            dest.writeString(this.updatetime);
+            dest.writeInt(this.startIndex);
+            dest.writeInt(this.pageSize);
+            dest.writeString(this.orderBy);
+            dest.writeString(this.fieldName);
+            dest.writeString(this.startDate);
+            dest.writeString(this.endDate);
+            dest.writeString(this.myId);
+        }
+
+        public RowsBean() {
+        }
+
+        protected RowsBean(Parcel in) {
+            this.magorid = in.readString();
+            this.title = in.readString();
+            this.photo = in.readString();
+            this.path = in.readString();
+            this.content = in.readString();
+            this.numViews = in.readInt();
+            this.numPlay = in.readInt();
+            this.type = in.readInt();
+            this.title4 = in.readString();
+            this.title3 = in.readString();
+            this.title2 = in.readString();
+            this.isdelete = in.readInt();
+            this.remark1 = in.readString();
+            this.remark2 = in.readString();
+            this.remark3 = in.readString();
+            this.remark4 = in.readString();
+            this.createid = in.readString();
+            this.createtime = in.readString();
+            this.updateid = in.readString();
+            this.updatetime = in.readString();
+            this.startIndex = in.readInt();
+            this.pageSize = in.readInt();
+            this.orderBy = in.readString();
+            this.fieldName = in.readString();
+            this.startDate = in.readString();
+            this.endDate = in.readString();
+            this.myId = in.readString();
+        }
+
+        public static final Parcelable.Creator<RowsBean> CREATOR = new Parcelable.Creator<RowsBean>() {
+            @Override
+            public RowsBean createFromParcel(Parcel source) {
+                return new RowsBean(source);
+            }
+
+            @Override
+            public RowsBean[] newArray(int size) {
+                return new RowsBean[size];
+            }
+        };
     }
 }
