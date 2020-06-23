@@ -3,10 +3,10 @@ package com.jzbn.huzhu1230.bean;
 import java.util.List;
 
 /**
- * Created by hecuncun on 2020/6/14
+ * Created by hecuncun on 2020/6/23
  */
 
-public class MsgListBean {
+public class MsgBean {
 
     /**
      * currentPageSize : 10
@@ -14,8 +14,8 @@ public class MsgListBean {
      * result :
      * message :
      * total : 1
-     * records : 1
-     * rows : [{"magorid":"0b121cae8a1242aabd53e064c4f1f1d7","uid":"56537287c027499eb05a406aa99d35c2","type":3,"num":1,"remark1":"每日签到","remark2":"","remark3":"","remark4":"","createid":"56537287c027499eb05a406aa99d35c2","createtime":"2020-06-07 21:59:02","updateid":"56537287c027499eb05a406aa99d35c2","updatetime":"2020-06-07 21:59:02","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"0b121cae8a1242aabd53e064c4f1f1d7"}]
+     * records : 2
+     * rows : [{"magorid":"1","content":"测试平台消息","isdelete":0,"remark1":"","remark2":"","remark3":"","remark4":"","createid":"1","createtime":"2020-06-05 00:04:22","updateid":"1","updatetime":"2020-06-05 00:04:24","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"1"},{"magorid":"6d8d9ce7896b4c9cb65b47c546685c01","content":"欢迎来到互助1230平台","isdelete":0,"remark1":"","remark2":"","remark3":"","remark4":"","createid":"","createtime":"","updateid":"","updatetime":"2020-06-22 00:19:02","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"6d8d9ce7896b4c9cb65b47c546685c01"}]
      */
 
     private int currentPageSize;
@@ -84,31 +84,29 @@ public class MsgListBean {
 
     public static class RowsBean {
         /**
-         * magorid : 0b121cae8a1242aabd53e064c4f1f1d7
-         * uid : 56537287c027499eb05a406aa99d35c2
-         * type : 3
-         * num : 1
-         * remark1 : 每日签到
+         * magorid : 1
+         * content : 测试平台消息
+         * isdelete : 0
+         * remark1 :
          * remark2 :
          * remark3 :
          * remark4 :
-         * createid : 56537287c027499eb05a406aa99d35c2
-         * createtime : 2020-06-07 21:59:02
-         * updateid : 56537287c027499eb05a406aa99d35c2
-         * updatetime : 2020-06-07 21:59:02
+         * createid : 1
+         * createtime : 2020-06-05 00:04:22
+         * updateid : 1
+         * updatetime : 2020-06-05 00:04:24
          * startIndex : 0
          * pageSize : 0
          * orderBy :
          * fieldName :
          * startDate :
          * endDate :
-         * myId : 0b121cae8a1242aabd53e064c4f1f1d7
+         * myId : 1
          */
 
         private String magorid;
-        private String uid;
-        private int type;
-        private int num;
+        private String content;
+        private int isdelete;
         private String remark1;
         private String remark2;
         private String remark3;
@@ -133,28 +131,20 @@ public class MsgListBean {
             this.magorid = magorid;
         }
 
-        public String getUid() {
-            return uid;
+        public String getContent() {
+            return content;
         }
 
-        public void setUid(String uid) {
-            this.uid = uid;
+        public void setContent(String content) {
+            this.content = content;
         }
 
-        public int getType() {
-            return type;
+        public int getIsdelete() {
+            return isdelete;
         }
 
-        public void setType(int type) {
-            this.type = type;
-        }
-
-        public int getNum() {
-            return num;
-        }
-
-        public void setNum(int num) {
-            this.num = num;
+        public void setIsdelete(int isdelete) {
+            this.isdelete = isdelete;
         }
 
         public String getRemark1() {

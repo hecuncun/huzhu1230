@@ -5,9 +5,10 @@ import com.jzbn.huzhu1230.base.BaseNoDataBean;
 import com.jzbn.huzhu1230.bean.HonorInfoBean;
 import com.jzbn.huzhu1230.bean.KnowledgeBean;
 import com.jzbn.huzhu1230.bean.LoginBean;
-import com.jzbn.huzhu1230.bean.MsgListBean;
+import com.jzbn.huzhu1230.bean.ScoreBean;
 import com.jzbn.huzhu1230.bean.PersonalInfoBean;
 import com.jzbn.huzhu1230.bean.PhoneCodeBean;
+import com.jzbn.huzhu1230.bean.MsgBean;
 import com.jzbn.huzhu1230.bean.SignBean;
 import com.jzbn.huzhu1230.bean.UserInfoBean;
 
@@ -84,7 +85,7 @@ public interface Api {
      *积分记录
      */
     @POST("appUserIntegralDetail/searchForPage")
-    Observable<BaseBean<MsgListBean>> msgListCall(@Query("page") int page,@Query("uid") String uid);
+    Observable<BaseBean<ScoreBean>> scoreListCall(@Query("page") int page, @Query("uid") String uid);
 
     /**
      * 获取救援知识
@@ -95,6 +96,17 @@ public interface Api {
      */
     @POST("appKnowledge/searchForPage")
     Observable<BaseBean<KnowledgeBean>> knowledgeListCall(@Query("page") int page, @Query("content") String content, @Query("type") int type);
+
+    /**
+     * 查询平台消息列表
+     */
+    @POST("appUserMessage/selectPlatformMessageForPage")
+    Observable<BaseBean<MsgBean>> platFormMsgCall(@Query("page") int page);
+    /**
+     * 查询系统消息列表
+     */
+    @POST("appUserMessage/searchForPage")
+    Observable<BaseBean<MsgBean>> sysMsgCall(@Query("page") int page,@Query("uid") String uid);
 
 //    /**
 //     * 修改自定义头像接口

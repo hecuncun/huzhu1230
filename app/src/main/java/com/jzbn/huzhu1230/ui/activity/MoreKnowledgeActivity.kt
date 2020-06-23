@@ -7,14 +7,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.KnowledgeAdapter
 import com.jzbn.huzhu1230.bean.KnowledgeBean
-import com.jzbn.huzhu1230.bean.MsgListBean
 import com.jzbn.huzhu1230.net.CallbackObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.ui.home.VideoDetailActivity
-import kotlinx.android.synthetic.main.activity_more_knowledge.*
 import kotlinx.android.synthetic.main.activity_more_knowledge.recyclerView
-import kotlinx.android.synthetic.main.fragment_emergency_find.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 /**
