@@ -108,6 +108,8 @@ public interface Api {
     @POST("appUserMessage/searchForPage")
     Observable<BaseBean<MsgBean>> sysMsgCall(@Query("page") int page,@Query("uid") String uid);
 
+
+
 //    /**
 //     * 修改自定义头像接口
 //     */
