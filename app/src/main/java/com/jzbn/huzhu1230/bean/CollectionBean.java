@@ -20,4 +20,6 @@ public class CollectionBean {
     public CollectionBean(boolean isChecked) {
         this.isChecked = isChecked;
     }
+
+
 }

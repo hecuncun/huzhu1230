@@ -2,14 +2,21 @@ package com.jzbn.huzhu1230.net;
 
 import com.jzbn.huzhu1230.base.BaseBean;
 import com.jzbn.huzhu1230.base.BaseNoDataBean;
+import com.jzbn.huzhu1230.bean.CollectionResponseBean;
+import com.jzbn.huzhu1230.bean.CommonRescueBean;
+import com.jzbn.huzhu1230.bean.DailyRescueBean;
 import com.jzbn.huzhu1230.bean.HonorInfoBean;
+import com.jzbn.huzhu1230.bean.InsertCollectionResponseBean;
 import com.jzbn.huzhu1230.bean.KnowledgeBean;
 import com.jzbn.huzhu1230.bean.LoginBean;
-import com.jzbn.huzhu1230.bean.ScoreBean;
+import com.jzbn.huzhu1230.bean.MsgBean;
 import com.jzbn.huzhu1230.bean.PersonalInfoBean;
 import com.jzbn.huzhu1230.bean.PhoneCodeBean;
-import com.jzbn.huzhu1230.bean.MsgBean;
+import com.jzbn.huzhu1230.bean.RescueVideoBean;
+import com.jzbn.huzhu1230.bean.ScoreBean;
+import com.jzbn.huzhu1230.bean.SearchCollectionInfoResponseBean;
 import com.jzbn.huzhu1230.bean.SignBean;
+import com.jzbn.huzhu1230.bean.SysMsgBean;
 import com.jzbn.huzhu1230.bean.UserInfoBean;
 
 import io.reactivex.Observable;
@@ -106,9 +113,54 @@ public interface Api {
      * 查询系统消息列表
      */
     @POST("appUserMessage/searchForPage")
-    Observable<BaseBean<MsgBean>> sysMsgCall(@Query("page") int page,@Query("uid") String uid);
+    Observable<BaseBean<SysMsgBean>> sysMsgCall(@Query("page") int page, @Query("uid") String uid);
 
+    /**
+     * 常用救援
+     * @return
+     */
+    @POST("appRescueItem/searchAll")
+    Observable<CommonRescueBean> commonRescueCall();
 
+    /**
+     * 获取日常救援列表
+     * @param page
+     * @param pid
+     * @return
+     */
+    @POST("appRescueItem/searchForPage")
+    Observable<BaseBean<DailyRescueBean>> dailyRescueCall(@Query("page") int page,@Query("pid") String pid);
+
+    /**
+     * 获取救援项目详情
+     * @param rid
+     * @return
+     */
+    @POST("appRescueItem/selectDetail")
+    Observable<BaseBean<RescueVideoBean>> rescueVideoCall(@Query("rid") String rid);
+
+    /**
+     *新增收藏
+     */
+    @POST("appUserCollection/insertSelective")
+     Observable<BaseBean<InsertCollectionResponseBean>> insertCollectCall(@Query("uid") String uid,@Query("objectId") String objectId,@Query("type") int type);
+
+    /**
+     * 查询是否已收藏
+     */
+    @POST("appUserCollection/searchCollectionInfo")
+    Observable<BaseBean<SearchCollectionInfoResponseBean>> searchCollectInfoCall(@Query("uid") String uid, @Query("objectId") String objectId);
+
+    /**
+     * 取消收藏
+     */
+    @POST("appUserCollection/deleteById")
+    Observable<BaseNoDataBean> deleteCollection(@Query("ids") String ids);
+    /**
+     * 获取收藏列表
+     */
+    @POST("appUserCollection/searchForPage")
+    Observable<BaseBean<CollectionResponseBean>> getCollectionListCall(@Query("page") int page,@Query("uid") String uid);
 
 //    /**
 //     * 修改自定义头像接口

@@ -48,6 +48,7 @@ abstract class BaseActivity :AppCompatActivity(){
      * uid
      */
     protected var uid:String by Preference(Constant.UID,"")
+    protected var tempUid="a35907701b464f11b466f0ba4b661802"
     /**
      * 头像地址
      */

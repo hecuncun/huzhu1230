@@ -15,7 +15,7 @@
     </FrameLayout>
     <LinearLayout
         android:id="@+id/ll_collection"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -33,11 +33,12 @@
                 android:background="@mipmap/btn_yellow_bg">
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_collect"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:drawableStart="@mipmap/icon_star"
-                    android:drawableLeft="@mipmap/icon_star"
+                    android:drawableStart="@mipmap/icon_star_uncheck"
+                    android:drawableLeft="@mipmap/icon_star_uncheck"
                     android:drawablePadding="4dp"
                     android:gravity="center_vertical"
                     android:text="@string/collect"

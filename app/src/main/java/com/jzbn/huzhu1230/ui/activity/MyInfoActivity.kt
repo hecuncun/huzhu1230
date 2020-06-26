@@ -48,13 +48,13 @@ class MyInfoActivity : BaseActivity(), View.OnClickListener {
         tv_name.text = t.name ?: ""
         tv_id_card.text = t.card ?: ""
         tv_sex.text = if (t.sex == 0) "女" else "男"
-        tv_language.text = ""//todo
+        tv_language.text =t.languageName
         tv_medical_history.text = t.caseHistory ?: ""
         tv_allergic_drugs.text = t.allergy ?: ""
         tv_genetic_history.text = t.inherit ?: ""
         tv_company.text = t.company ?: ""
         tv_rescue_history.text = t.experience ?: ""
-        tv_certificate.text = ""//todo
+        tv_certificate.text = t.zsCardName
         GlideUtils.showPlaceholder(this, iv_certificate, t.zsCardPhoto, R.mipmap.icon_logo)//还有个证书状态
     }
 

@@ -68,6 +68,7 @@ class MoreKnowledgeActivity:BaseActivity() {
               val intent = Intent(this, WebViewActivity::class.java)
               intent.putExtra("type",1)
               intent.putExtra("url",list[position].content)
+              intent.putExtra("objectId",list[position].magorid)
               startActivity(intent)
           }
       }

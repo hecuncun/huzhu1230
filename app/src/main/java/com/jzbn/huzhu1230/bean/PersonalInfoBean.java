@@ -6,171 +6,83 @@ package com.jzbn.huzhu1230.bean;
 public class PersonalInfoBean {
 
     /**
-     * allergy : string
-     * card : string
-     * caseHistory : string
-     * company : string
-     * createtime : yyyy-MM-dd HH:mm:ss
-     * experience : string
-     * inherit : string
-     * integral : 0
-     * isdelete : 0
-     * languageId : string
-     * myId :
-     * name : string
-     * nickname : string
-     * path : string
-     * phone : string
-     * pwd : string
-     * remark1 : string
-     * remark2 : string
-     * score : 0
-     * sex : 0
-     * skill : string
-     * uid : string
-     * updatetime : yyyy-MM-dd HH:mm:ss
-     * zsCardId : string
-     * zsCardPhoto : string
+     * uid : 56537287c027499eb05a406aa99d35c2
+     * phone : 13753638431
+     * pwd : d61de368bdd0bc9ab6014ced785a190c
+     * nickname : 137****8431
+     * name : 137****8431
+     * sex : 1
+     * integral : 4
+     * path : “”
+     * card : “”
+     * languageId : 1
+     * caseHistory : “”
+     * allergy : “”
+     * inherit : “”
+     * company : “”
+     * experience : “”
+     * skill : “”
+     * zsCardId : “”
+     * zsCardPhoto : “”
      * zsStatus : 0
+     * score : 0
+     * isdelete : 0
+     * createtime : 2020-06-06 19:40:39
+     * updatetime : 2020-06-06 22:14:36
+     * remark1 : 2
+     * remark2 : “”
+     * startIndex : 0
+     * pageSize : 0
+     * orderBy : “”
+     * fieldName : “”
+     * startDate : “”
+     * endDate : “”
+     * languageName : 普通话
+     * zsCardName : “”
+     * myId : 56537287c027499eb05a406aa99d35c2
      */
 
-    private String allergy;
-    private String card;
-    private String caseHistory;
-    private String company;
-    private String createtime;
-    private String experience;
-    private String inherit;
-    private int integral;
-    private int isdelete;
-    private String languageId;
-    private String myId;
-    private String name;
-    private String nickname;
-    private String path;
+    private String uid;
     private String phone;
     private String pwd;
-    private String remark1;
-    private String remark2;
-    private int score;
+    private String nickname;
+    private String name;
     private int sex;
+    private int integral;
+    private String path;
+    private String card;
+    private String languageId;
+    private String caseHistory;
+    private String allergy;
+    private String inherit;
+    private String company;
+    private String experience;
     private String skill;
-    private String uid;
-    private String updatetime;
     private String zsCardId;
     private String zsCardPhoto;
     private int zsStatus;
+    private int score;
+    private int isdelete;
+    private String createtime;
+    private String updatetime;
+    private String remark1;
+    private String remark2;
+    private int startIndex;
+    private int pageSize;
+    private String orderBy;
+    private String fieldName;
+    private String startDate;
+    private String endDate;
+    private String languageName;
+    private String zsCardName;
+    private String myId;
 
-    public String getAllergy() {
-        return allergy;
+    public String getUid() {
+        return uid;
     }
 
-    public void setAllergy(String allergy) {
-        this.allergy = allergy;
-    }
-
-    public String getCard() {
-        return card;
-    }
-
-    public void setCard(String card) {
-        this.card = card;
-    }
-
-    public String getCaseHistory() {
-        return caseHistory;
-    }
-
-    public void setCaseHistory(String caseHistory) {
-        this.caseHistory = caseHistory;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime;
-    }
-
-    public String getExperience() {
-        return experience;
-    }
-
-    public void setExperience(String experience) {
-        this.experience = experience;
-    }
-
-    public String getInherit() {
-        return inherit;
-    }
-
-    public void setInherit(String inherit) {
-        this.inherit = inherit;
-    }
-
-    public int getIntegral() {
-        return integral;
-    }
-
-    public void setIntegral(int integral) {
-        this.integral = integral;
-    }
-
-    public int getIsdelete() {
-        return isdelete;
-    }
-
-    public void setIsdelete(int isdelete) {
-        this.isdelete = isdelete;
-    }
-
-    public String getLanguageId() {
-        return languageId;
-    }
-
-    public void setLanguageId(String languageId) {
-        this.languageId = languageId;
-    }
-
-    public String getMyId() {
-        return myId;
-    }
-
-    public void setMyId(String myId) {
-        this.myId = myId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getPhone() {
@@ -189,28 +101,20 @@ public class PersonalInfoBean {
         this.pwd = pwd;
     }
 
-    public String getRemark1() {
-        return remark1;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setRemark1(String remark1) {
-        this.remark1 = remark1;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public String getRemark2() {
-        return remark2;
+    public String getName() {
+        return name;
     }
 
-    public void setRemark2(String remark2) {
-        this.remark2 = remark2;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getSex() {
@@ -221,28 +125,84 @@ public class PersonalInfoBean {
         this.sex = sex;
     }
 
+    public int getIntegral() {
+        return integral;
+    }
+
+    public void setIntegral(int integral) {
+        this.integral = integral;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getCard() {
+        return card;
+    }
+
+    public void setCard(String card) {
+        this.card = card;
+    }
+
+    public String getLanguageId() {
+        return languageId;
+    }
+
+    public void setLanguageId(String languageId) {
+        this.languageId = languageId;
+    }
+
+    public String getCaseHistory() {
+        return caseHistory;
+    }
+
+    public void setCaseHistory(String caseHistory) {
+        this.caseHistory = caseHistory;
+    }
+
+    public String getAllergy() {
+        return allergy;
+    }
+
+    public void setAllergy(String allergy) {
+        this.allergy = allergy;
+    }
+
+    public String getInherit() {
+        return inherit;
+    }
+
+    public void setInherit(String inherit) {
+        this.inherit = inherit;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
     public String getSkill() {
         return skill;
     }
 
     public void setSkill(String skill) {
         this.skill = skill;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public String getUpdatetime() {
-        return updatetime;
-    }
-
-    public void setUpdatetime(String updatetime) {
-        this.updatetime = updatetime;
     }
 
     public String getZsCardId() {
@@ -267,5 +227,125 @@ public class PersonalInfoBean {
 
     public void setZsStatus(int zsStatus) {
         this.zsStatus = zsStatus;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getIsdelete() {
+        return isdelete;
+    }
+
+    public void setIsdelete(int isdelete) {
+        this.isdelete = isdelete;
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(String updatetime) {
+        this.updatetime = updatetime;
+    }
+
+    public String getRemark1() {
+        return remark1;
+    }
+
+    public void setRemark1(String remark1) {
+        this.remark1 = remark1;
+    }
+
+    public String getRemark2() {
+        return remark2;
+    }
+
+    public void setRemark2(String remark2) {
+        this.remark2 = remark2;
+    }
+
+    public int getStartIndex() {
+        return startIndex;
+    }
+
+    public void setStartIndex(int startIndex) {
+        this.startIndex = startIndex;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getLanguageName() {
+        return languageName;
+    }
+
+    public void setLanguageName(String languageName) {
+        this.languageName = languageName;
+    }
+
+    public String getZsCardName() {
+        return zsCardName;
+    }
+
+    public void setZsCardName(String zsCardName) {
+        this.zsCardName = zsCardName;
+    }
+
+    public String getMyId() {
+        return myId;
+    }
+
+    public void setMyId(String myId) {
+        this.myId = myId;
     }
 }

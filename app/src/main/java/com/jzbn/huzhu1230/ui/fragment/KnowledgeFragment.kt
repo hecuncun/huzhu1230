@@ -54,6 +54,7 @@ class KnowledgeFragment: BaseFragment() {
             val intent = Intent(activity, WebViewActivity::class.java)
             intent.putExtra("type",1)
             intent.putExtra("url",articleList[position].content)
+            intent.putExtra("objectId",articleList[position].magorid)
             startActivity(intent)
         }
         videoAdapter.setOnItemClickListener { adapter, view, position ->

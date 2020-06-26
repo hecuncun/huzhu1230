@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.bean.MsgBean
-import com.jzbn.huzhu1230.bean.ScoreBean
+import com.jzbn.huzhu1230.bean.SysMsgBean
 import com.jzbn.huzhu1230.net.CallbackObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
@@ -16,24 +16,26 @@ import kotlinx.android.synthetic.main.toolbar.*
 class MessageListActivity : BaseActivity() {
     private var currentPage = 1
     private var total = 0
-    private var list = mutableListOf<MsgBean.RowsBean>()
-    private val messageListAdapter: MessageListAdapter by lazy {
-        MessageListAdapter()
+    private var listPlat = mutableListOf<MsgBean.RowsBean>()
+    private var listSys = mutableListOf<SysMsgBean.RowsBean>()
+    private val platFromMsgListAdapter: PlatFormMsgListAdapter by lazy {
+        PlatFormMsgListAdapter()
+    }
+    private val sysMsgListAdapter:SysMsgListAdapter by lazy {
+        SysMsgListAdapter()
     }
     private var type =MessageActivity.TYPE_SYSTEM
     override fun attachLayoutRes(): Int = R.layout.activity_message_list
 
     override fun initData() {
-        type = intent.getIntExtra(MessageActivity.TYPE, MessageActivity.TYPE_SYSTEM)
-        toolbar_title.text = resources.getString(if (type == MessageActivity.TYPE_SYSTEM) R.string.system_message else R.string.platform_message)
+
           if (type == MessageActivity.TYPE_SYSTEM){//系统消息
-              messageListAdapter.setType(MessageActivity.TYPE_SYSTEM)
               val sysMsgCall = SLMRetrofit.getInstance().api.sysMsgCall(currentPage,uid)
-              sysMsgCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<MsgBean>(){
-                  override fun onSucceed(t: MsgBean, desc: String?) {
+              sysMsgCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<SysMsgBean>(){
+                  override fun onSucceed(t: SysMsgBean, desc: String?) {
                       total = t.total
-                      list.addAll(t.rows)
-                      messageListAdapter.setNewData(list)
+                      listSys.addAll(t.rows)
+                      sysMsgListAdapter.setNewData(listSys)
                   }
 
                   override fun onFailed() {
@@ -45,8 +47,8 @@ class MessageListActivity : BaseActivity() {
               platFormMsgCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<MsgBean>(){
                   override fun onSucceed(t: MsgBean, desc: String?) {
                       total = t.total
-                      list.addAll(t.rows)
-                      messageListAdapter.setNewData(list)
+                      listPlat.addAll(t.rows)
+                      platFromMsgListAdapter.setNewData(listPlat)
                   }
 
                   override fun onFailed() {
@@ -59,6 +61,8 @@ class MessageListActivity : BaseActivity() {
     }
 
     override fun initView() {
+        type = intent.getIntExtra(MessageActivity.TYPE, MessageActivity.TYPE_SYSTEM)
+        toolbar_title.text = resources.getString(if (type == MessageActivity.TYPE_SYSTEM) R.string.system_message else R.string.platform_message)
         initRecyclerView()
     }
 
@@ -66,35 +70,39 @@ class MessageListActivity : BaseActivity() {
         recyclerView?.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@MessageListActivity)
-            adapter = messageListAdapter
+            if (type==MessageActivity.TYPE_SYSTEM){
+                adapter=sysMsgListAdapter
+            }else{
+                adapter = platFromMsgListAdapter
+            }
+
         }
     }
 
     override fun initListener() {
-
-        messageListAdapter.disableLoadMoreIfNotFullPage(recyclerView)
-        messageListAdapter.setOnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener {
-            if (total < 2) {
-                messageListAdapter.setEnableLoadMore(false)
-            }
-            //查下一页
-            currentPage++
-            if (currentPage > total) {
-                return@RequestLoadMoreListener
-            }
-            if (type == MessageActivity.TYPE_SYSTEM){//系统消息
+        if (type ==MessageActivity.TYPE_SYSTEM){
+            sysMsgListAdapter.disableLoadMoreIfNotFullPage(recyclerView)
+            sysMsgListAdapter.setOnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener {
+                if (total < 2) {
+                    sysMsgListAdapter.setEnableLoadMore(false)
+                }
+                //查下一页
+                currentPage++
+                if (currentPage > total) {
+                    return@RequestLoadMoreListener
+                }
                 val sysMsgCall = SLMRetrofit.getInstance().api.sysMsgCall(currentPage,uid)
                 sysMsgCall.compose(ThreadSwitchTransformer())
-                    .subscribe(object : CallbackObserver<MsgBean>() {
-                        override fun onSucceed(t: MsgBean, desc: String?) {
-                            list.addAll(t.rows)
-                            messageListAdapter.setNewData(list)
+                    .subscribe(object : CallbackObserver<SysMsgBean>() {
+                        override fun onSucceed(t: SysMsgBean, desc: String?) {
+                            listSys.addAll(t.rows)
+                            sysMsgListAdapter.setNewData(listSys)
                             if (currentPage == total) {
-                                messageListAdapter.loadMoreEnd()
-                                messageListAdapter.setEnableLoadMore(false)
+                                sysMsgListAdapter.loadMoreEnd()
+                                sysMsgListAdapter.setEnableLoadMore(false)
                             } else {
-                                messageListAdapter.setEnableLoadMore(true)
-                                messageListAdapter.loadMoreComplete()
+                                sysMsgListAdapter.setEnableLoadMore(true)
+                                sysMsgListAdapter.loadMoreComplete()
                             }
                         }
 
@@ -102,28 +110,43 @@ class MessageListActivity : BaseActivity() {
 
                         }
                     })
-            }else{
-                val platFormMsgCall = SLMRetrofit.getInstance().api.platFormMsgCall(currentPage)
-                platFormMsgCall.compose(ThreadSwitchTransformer())
-                    .subscribe(object : CallbackObserver<MsgBean>() {
-                        override fun onSucceed(t: MsgBean, desc: String?) {
-                            list.addAll(t.rows)
-                            messageListAdapter.setNewData(list)
-                            if (currentPage == total) {
-                                messageListAdapter.loadMoreEnd()
-                                messageListAdapter.setEnableLoadMore(false)
-                            } else {
-                                messageListAdapter.setEnableLoadMore(true)
-                                messageListAdapter.loadMoreComplete()
+
+
+            }, recyclerView)
+        }else{
+            platFromMsgListAdapter.disableLoadMoreIfNotFullPage(recyclerView)
+            platFromMsgListAdapter.setOnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener {
+                if (total < 2) {
+                    platFromMsgListAdapter.setEnableLoadMore(false)
+                }
+                //查下一页
+                currentPage++
+                if (currentPage > total) {
+                    return@RequestLoadMoreListener
+                }
+                    val platFormMsgCall = SLMRetrofit.getInstance().api.platFormMsgCall(currentPage)
+                    platFormMsgCall.compose(ThreadSwitchTransformer())
+                        .subscribe(object : CallbackObserver<MsgBean>() {
+                            override fun onSucceed(t: MsgBean, desc: String?) {
+                                listPlat.addAll(t.rows)
+                                platFromMsgListAdapter.setNewData(listPlat)
+                                if (currentPage == total) {
+                                    platFromMsgListAdapter.loadMoreEnd()
+                                    platFromMsgListAdapter.setEnableLoadMore(false)
+                                } else {
+                                    platFromMsgListAdapter.setEnableLoadMore(true)
+                                    platFromMsgListAdapter.loadMoreComplete()
+                                }
                             }
-                        }
 
-                        override fun onFailed() {
+                            override fun onFailed() {
 
-                        }
-                    })
-            }
+                            }
+                        })
 
-        }, recyclerView)
+
+            }, recyclerView)
+        }
+
     }
 }
