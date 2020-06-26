@@ -162,6 +162,7 @@ public interface Api {
     @POST("appUserCollection/searchForPage")
     Observable<BaseBean<CollectionResponseBean>> getCollectionListCall(@Query("page") int page,@Query("uid") String uid);
 
+
 //    /**
 //     * 修改自定义头像接口
 //     */
