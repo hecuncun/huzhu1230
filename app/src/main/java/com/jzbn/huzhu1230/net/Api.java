@@ -16,6 +16,7 @@ import com.jzbn.huzhu1230.bean.RescueVideoBean;
 import com.jzbn.huzhu1230.bean.ScoreBean;
 import com.jzbn.huzhu1230.bean.SearchCollectionInfoResponseBean;
 import com.jzbn.huzhu1230.bean.SignBean;
+import com.jzbn.huzhu1230.bean.MessageUnReadBean;
 import com.jzbn.huzhu1230.bean.SysMsgBean;
 import com.jzbn.huzhu1230.bean.UserInfoBean;
 
@@ -161,7 +162,16 @@ public interface Api {
      */
     @POST("appUserCollection/searchForPage")
     Observable<BaseBean<CollectionResponseBean>> getCollectionListCall(@Query("page") int page,@Query("uid") String uid);
-
+    /**
+     * 获取用户系统未读消息数量
+     */
+    @POST("appUserMessage/searchCount")
+    Observable<MessageUnReadBean> getSysMsgUnreadNumCall(@Query("uid") String uid);
+    /**
+     * 获取平台消息总数
+     */
+    @POST("appUserMessage/countPlatformMessageTotal")
+    Observable<MessageUnReadBean> getPlatFormMsgUnreadNumCall();
 
 //    /**
 //     * 修改自定义头像接口

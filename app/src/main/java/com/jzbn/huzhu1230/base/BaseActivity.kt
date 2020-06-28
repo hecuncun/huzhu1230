@@ -40,6 +40,11 @@ abstract class BaseActivity :AppCompatActivity(){
      * 是否第一次打开APP
      */
     protected var isFirst: Boolean by Preference(Constant.IS_FIRST, true)
+
+    /**
+     * 已读平台消息数
+     */
+    protected var plantFormMsgReadNum: Int by Preference(Constant.READ_NUM, 0)
     /**
      * 昵称
      */

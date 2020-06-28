@@ -52,6 +52,7 @@
             app:layout_constraintTop_toTopOf="@id/flMessageSystem" />
 
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_sys_create_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2020-06-20 17:34"
@@ -62,6 +63,7 @@
             app:layout_constraintTop_toTopOf="@id/tvMessageSystem" />
 
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_sys_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -126,6 +128,7 @@
             app:layout_constraintTop_toTopOf="@id/flMessagePlatform" />
 
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_platform_create_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2020-06-20 17:34"
@@ -136,6 +139,7 @@
             app:layout_constraintTop_toTopOf="@id/tvMessagePlatform" />
 
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_platform_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

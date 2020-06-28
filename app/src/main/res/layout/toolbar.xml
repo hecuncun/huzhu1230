@@ -40,16 +40,29 @@
             android:textSize="16sp"
             android:visibility="gone" />
 
+        <FrameLayout
+            android:layout_gravity="center|right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/toolbar_right_img"
-                android:layout_gravity="center|right"
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
                 android:padding="15dp"
-                android:src="@mipmap/ic_launcher"
                 android:visibility="gone" />
+            <View
+                android:layout_gravity="top|end"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/toolbar_red_dot"
+                android:visibility="gone"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:background="@drawable/bg_red_point"/>
+        </FrameLayout>
+
 
     </android.support.v7.widget.Toolbar>
 

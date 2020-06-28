@@ -58,7 +58,8 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
 
         et_detail_address.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
-                MapUtil.getLatLonPointFromAddress("北京市房山区良乡大学城北地铁站", geocoderSearch)
+            val address =  tv_address.text.toString().trim()+s.toString().trim()
+                MapUtil.getLatLonPointFromAddress(address, geocoderSearch)
 
             }
 

@@ -37,6 +37,11 @@ abstract class BaseFragment :Fragment(){
      * uid
      */
     protected var uid:String by Preference(Constant.UID,"")
+
+    /**
+     * 已读平台消息数
+     */
+    protected var plantFormMsgReadNum: Int by Preference(Constant.READ_NUM, 0)
     /**
      * 头像地址
      */

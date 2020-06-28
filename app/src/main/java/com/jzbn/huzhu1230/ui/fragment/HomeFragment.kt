@@ -11,6 +11,7 @@ import com.jzbn.huzhu1230.adapter.CommonHelpAdapter
 import com.jzbn.huzhu1230.adapter.DailyHelpAdapter
 import com.jzbn.huzhu1230.bean.CommonRescueBean
 import com.jzbn.huzhu1230.bean.DailyRescueBean
+import com.jzbn.huzhu1230.bean.MessageUnReadBean
 import com.jzbn.huzhu1230.bean.SignBean
 import com.jzbn.huzhu1230.constants.Constant
 import com.jzbn.huzhu1230.ext.showToast
@@ -24,6 +25,8 @@ import com.jzbn.huzhu1230.ui.home.MessageActivity
 import com.jzbn.huzhu1230.ui.home.SearchActivity
 import com.jzbn.huzhu1230.ui.home.SignDialog
 import com.lhzw.bluetooth.base.BaseFragment
+import com.orhanobut.logger.Logger
+import kotlinx.android.synthetic.main.activity_message.*
 import kotlinx.android.synthetic.main.activity_message_list.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -45,6 +48,56 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         initCommonRecyclerView()
         initDailyRecyclerView()
         initViewClick()
+
+        getUnReadMsg()
+    }
+//可见就刷新下消息
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!isHidden){
+            getUnReadMsg()
+        }
+    }
+
+    private fun getUnReadMsg() {
+        //系统未读
+        val sysMsgUnreadNumCall = SLMRetrofit.getInstance().api.getSysMsgUnreadNumCall(uid)
+        sysMsgUnreadNumCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<MessageUnReadBean>(){
+            override fun onSucceed(t: MessageUnReadBean) {
+                if (t.code==Constant.SUCCESSED_CODE){
+                    if (t.data>0){
+                        unReadMsgRedDot.visibility=View.VISIBLE
+                    }else{
+
+                    }
+                }else{
+                    showToast(t.message)
+                }
+            }
+
+            override fun onFailed() {
+
+            }
+        })
+        //平台未读
+        val platFormMsgUnreadNumCall = SLMRetrofit.getInstance().api.platFormMsgUnreadNumCall
+        platFormMsgUnreadNumCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<MessageUnReadBean>(){
+            override fun onSucceed(t: MessageUnReadBean) {
+                if (t.code==Constant.SUCCESSED_CODE){
+                    if (t.data>plantFormMsgReadNum){//有新消息
+                        unReadMsgRedDot.visibility=View.VISIBLE
+                    }else{
+
+                    }
+                }else{
+                    showToast(t.message)
+                }
+            }
+
+            override fun onFailed() {
+
+            }
+        })
     }
 
     private fun initViewClick() {
