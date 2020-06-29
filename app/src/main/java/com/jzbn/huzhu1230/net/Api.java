@@ -10,6 +10,7 @@ import com.jzbn.huzhu1230.bean.InsertCollectionResponseBean;
 import com.jzbn.huzhu1230.bean.KnowledgeBean;
 import com.jzbn.huzhu1230.bean.LoginBean;
 import com.jzbn.huzhu1230.bean.MsgBean;
+import com.jzbn.huzhu1230.bean.NearAedBean;
 import com.jzbn.huzhu1230.bean.PersonalInfoBean;
 import com.jzbn.huzhu1230.bean.PhoneCodeBean;
 import com.jzbn.huzhu1230.bean.RescueVideoBean;
@@ -172,6 +173,11 @@ public interface Api {
      */
     @POST("appUserMessage/countPlatformMessageTotal")
     Observable<MessageUnReadBean> getPlatFormMsgUnreadNumCall();
+    /**
+     * 获取附近的AED信息列表
+     */
+    @POST("appAedInfo/searchNearAED")
+    Observable<NearAedBean> searchNearAedList(@Query("longitude") String longitude,@Query("latitude") String latitude);
 
 //    /**
 //     * 修改自定义头像接口

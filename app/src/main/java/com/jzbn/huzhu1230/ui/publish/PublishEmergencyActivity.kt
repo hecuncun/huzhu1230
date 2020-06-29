@@ -203,7 +203,7 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
                 MapUtil.addMarkerToMap(
                     aMap!!,
                     latLng,
-                    BitmapFactory.decodeResource(resources, R.mipmap.icon_home_test)
+                    BitmapFactory.decodeResource(resources, R.mipmap.icon_location_yellow)
                 )
                 //将中心移到自己的位置
                 val mCameraUpdate = CameraUpdateFactory.newCameraPosition(
