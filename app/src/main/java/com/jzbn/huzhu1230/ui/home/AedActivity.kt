@@ -1,9 +1,11 @@
 package com.jzbn.huzhu1230.ui.home
 
+import android.location.Location
 import android.support.v7.widget.LinearLayoutManager
 import com.amap.api.maps.MapView
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.ui.publish.BaseMapActivity
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_aed.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -26,6 +28,14 @@ class AedActivity : BaseMapActivity() {
         }
         aedAdapter.setNewData(dataList)
     }
+
+    override fun onMyLocationChange(location: Location?) {
+
+        //拿到经纬度
+        Logger.e("经纬度=${location?.longitude},${location?.latitude}")
+
+    }
+
 
     override fun initView() {
         initRecyclerView()
