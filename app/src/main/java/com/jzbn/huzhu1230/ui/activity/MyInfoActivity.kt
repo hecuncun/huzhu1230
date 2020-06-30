@@ -61,7 +61,7 @@ class MyInfoActivity : BaseActivity(), View.OnClickListener {
 
     //初始化 信息
     private fun initPersonData(t: PersonalInfoBean) {
-        GlideUtils.showCircle(iv_head_pic, t.path, R.mipmap.icon_head_def)
+        GlideUtils.showCircle(iv_head_pic, Constant.BASE_URL+t.path, R.mipmap.icon_head_def)
         tv_name.text = t.name ?: ""
         tv_id_card.text = t.card ?: ""
         tv_sex.text = if (t.sex == 0) "女" else "男"
@@ -73,6 +73,7 @@ class MyInfoActivity : BaseActivity(), View.OnClickListener {
         tv_rescue_history.text = t.experience ?: ""
         tv_certificate.text = t.zsCardName
         GlideUtils.showPlaceholder(this, iv_certificate, Constant.BASE_URL+t.zsCardPhoto, R.mipmap.icon_logo)//还有个证书状态
+        tv_rescue_skill.text =t.skill
     }
 
     override fun initView() {
@@ -185,8 +186,6 @@ class MyInfoActivity : BaseActivity(), View.OnClickListener {
                                         override fun onSucceed(t: BaseNoDataBean) {
                                             if (t.code == Constant.SUCCESSED_CODE) {
                                                 showToast("保存成功")
-                                                EventBus.getDefault().post(RefreshUserInfoEvent())
-                                                finish()
                                             } else {
                                                 showToast(t.message)
                                             }
