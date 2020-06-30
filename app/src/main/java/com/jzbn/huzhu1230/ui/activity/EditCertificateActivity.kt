@@ -6,8 +6,13 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.widget.Toast
 import com.jzbn.huzhu1230.R
+import com.jzbn.huzhu1230.bean.CertificateBean
+import com.jzbn.huzhu1230.constants.Constant
 import com.jzbn.huzhu1230.ext.showToast
 import com.jzbn.huzhu1230.glide.GlideUtils
+import com.jzbn.huzhu1230.net.CallbackListObserver
+import com.jzbn.huzhu1230.net.SLMRetrofit
+import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
@@ -20,7 +25,23 @@ import kotlinx.android.synthetic.main.toolbar.*
 class EditCertificateActivity:BaseActivity() {
     override fun attachLayoutRes(): Int = R.layout.activity_edit_certificate
 
+    private var list = mutableListOf<CertificateBean.DataBean>()
+
     override fun initData() {
+        //获取证书列表
+        val certificateBeanCall = SLMRetrofit.getInstance().api.certificateBeanCall()
+        certificateBeanCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<CertificateBean>(){
+            override fun onSucceed(t: CertificateBean) {
+                if (t.code==Constant.SUCCESSED_CODE){
+                    list.addAll(t.data)
+                }
+
+            }
+
+            override fun onFailed() {
+
+            }
+        })
 
     }
 

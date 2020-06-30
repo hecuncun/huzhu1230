@@ -2,22 +2,26 @@ package com.jzbn.huzhu1230.net;
 
 import com.jzbn.huzhu1230.base.BaseBean;
 import com.jzbn.huzhu1230.base.BaseNoDataBean;
+import com.jzbn.huzhu1230.bean.AedBean;
+import com.jzbn.huzhu1230.bean.CertificateBean;
 import com.jzbn.huzhu1230.bean.CollectionResponseBean;
 import com.jzbn.huzhu1230.bean.CommonRescueBean;
 import com.jzbn.huzhu1230.bean.DailyRescueBean;
 import com.jzbn.huzhu1230.bean.HonorInfoBean;
 import com.jzbn.huzhu1230.bean.InsertCollectionResponseBean;
 import com.jzbn.huzhu1230.bean.KnowledgeBean;
+import com.jzbn.huzhu1230.bean.LanguageBean;
 import com.jzbn.huzhu1230.bean.LoginBean;
+import com.jzbn.huzhu1230.bean.MessageUnReadBean;
 import com.jzbn.huzhu1230.bean.MsgBean;
 import com.jzbn.huzhu1230.bean.NearAedBean;
 import com.jzbn.huzhu1230.bean.PersonalInfoBean;
 import com.jzbn.huzhu1230.bean.PhoneCodeBean;
+import com.jzbn.huzhu1230.bean.PublishAedResponseBean;
 import com.jzbn.huzhu1230.bean.RescueVideoBean;
 import com.jzbn.huzhu1230.bean.ScoreBean;
 import com.jzbn.huzhu1230.bean.SearchCollectionInfoResponseBean;
 import com.jzbn.huzhu1230.bean.SignBean;
-import com.jzbn.huzhu1230.bean.MessageUnReadBean;
 import com.jzbn.huzhu1230.bean.SysMsgBean;
 import com.jzbn.huzhu1230.bean.UserInfoBean;
 
@@ -179,6 +183,28 @@ public interface Api {
     @POST("appAedInfo/searchNearAED")
     Observable<NearAedBean> searchNearAedList(@Query("longitude") String longitude,@Query("latitude") String latitude);
 
+    /**
+     * 发布Aed信息
+     */
+    @POST("appAedInfo/insertSelective")
+    Observable<PublishAedResponseBean> publishAedCall(@Query("uid") String uid, @Query("name") String name, @Query("area") String area, @Query("areaDetail") String areaDetail, @Query("longitude") String longitude, @Query("latitude") String latitude, @Query("phone") String phone);
+    /**
+     * 获取我发布的AED
+     */
+    @POST("appAedInfo/searchForPage")
+    Observable<BaseBean<AedBean>> myAedCall(@Query("page") int page,@Query("uid") String uid);
+
+    /**
+     * 获取证书列表
+     */
+    @POST("appTcmnCard/searchAll")
+    Observable<CertificateBean> certificateBeanCall();
+
+    /**
+     * 获取语言列表
+     */
+    @POST("appTcmnLanguage/searchAll")
+    Observable<LanguageBean> languageBeanCall();
 //    /**
 //     * 修改自定义头像接口
 //     */

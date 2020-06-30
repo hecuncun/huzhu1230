@@ -4,6 +4,7 @@ import android.graphics.BitmapFactory
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.maps.AMap
 import com.amap.api.maps.MapView
@@ -78,8 +79,10 @@ class AedActivity : BaseMapActivity() {
 
                                             override fun getInfoWindow(p0: Marker?): View {
                                                 if (infoWindow==null){
-                                                    infoWindow = LayoutInflater.from(this@AedActivity).inflate(
-                                                        R.layout.custom_info_window, null);
+                                                    infoWindow = LayoutInflater.from(this@AedActivity).inflate(R.layout.custom_info_window, null)
+                                                    val tvInfo =
+                                                        infoWindow!!.findViewById<TextView>(R.id.tv_info)
+                                                    tvInfo.text="AED"
                                                 }
                                                 return infoWindow!!
 
