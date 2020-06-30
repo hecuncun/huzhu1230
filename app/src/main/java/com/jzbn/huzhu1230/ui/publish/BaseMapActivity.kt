@@ -1,17 +1,20 @@
 package com.jzbn.huzhu1230.ui.publish
 
 import BaseActivity
+import android.graphics.BitmapFactory
 import android.location.Location
 import android.os.Bundle
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.MapView
+import com.amap.api.maps.model.BitmapDescriptorFactory
 import com.amap.api.maps.model.CameraPosition
 import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.MyLocationStyle
 import com.amap.api.services.geocoder.GeocodeResult
 import com.amap.api.services.geocoder.GeocodeSearch
 import com.amap.api.services.geocoder.RegeocodeResult
+import com.jzbn.huzhu1230.R
 
 
 abstract class BaseMapActivity : BaseActivity(), AMap.OnMyLocationChangeListener,
@@ -53,11 +56,11 @@ abstract class BaseMapActivity : BaseActivity(), AMap.OnMyLocationChangeListener
         aMap!!.myLocationStyle = myLocationStyle //设置定位蓝点的Style
         //设置地图缩放界别
         //设置我的位置 现实的图标
-        //myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_round)));
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_background)));
         //设置地图缩放界别
         aMap!!.moveCamera(CameraUpdateFactory.zoomTo(14f))
         //设置默认定位按钮是否显示，非必需设置。
-//        aMap!!.uiSettings.isMyLocationButtonEnabled = true
+        aMap!!.uiSettings.isMyLocationButtonEnabled = true
         aMap!!.isMyLocationEnabled = true // 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
         setLocation()
     }
@@ -66,8 +69,7 @@ abstract class BaseMapActivity : BaseActivity(), AMap.OnMyLocationChangeListener
 
     }
 
-    open fun getLocationType() =
-        MyLocationStyle.LOCATION_TYPE_LOCATE
+    open fun getLocationType() = MyLocationStyle.LOCATION_TYPE_LOCATE
 
     override fun onResume() {
         super.onResume()
