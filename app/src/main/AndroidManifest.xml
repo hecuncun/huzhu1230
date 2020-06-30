@@ -96,7 +96,9 @@
 
         </activity>
         <activity android:name=".ui.activity.WebViewActivity" />
-      <!--      高德定位服务  -->
+        <activity android:name=".ui.activity.EditLanguageActivity" />
+        <activity android:name=".ui.activity.EditSexActivity" />
+        <!--      高德定位服务  -->
         <service android:name="com.amap.api.location.APSService"/>
     </application>
 

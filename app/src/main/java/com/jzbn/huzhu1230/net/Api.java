@@ -8,6 +8,7 @@ import com.jzbn.huzhu1230.bean.CollectionResponseBean;
 import com.jzbn.huzhu1230.bean.CommonRescueBean;
 import com.jzbn.huzhu1230.bean.DailyRescueBean;
 import com.jzbn.huzhu1230.bean.HonorInfoBean;
+import com.jzbn.huzhu1230.bean.ImgBean;
 import com.jzbn.huzhu1230.bean.InsertCollectionResponseBean;
 import com.jzbn.huzhu1230.bean.KnowledgeBean;
 import com.jzbn.huzhu1230.bean.LanguageBean;
@@ -25,9 +26,15 @@ import com.jzbn.huzhu1230.bean.SignBean;
 import com.jzbn.huzhu1230.bean.SysMsgBean;
 import com.jzbn.huzhu1230.bean.UserInfoBean;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by hecuncun on 2019/5/13
@@ -36,8 +43,9 @@ public interface Api {
 
     /**
      * 获取手机验证码
+     *
      * @param phone
-     * @param type 1：注册，2：重置密码
+     * @param type  1：注册，2：重置密码
      * @return
      */
 
@@ -57,6 +65,7 @@ public interface Api {
 
     /**
      * 登录
+     *
      * @param phone
      * @param pwd
      * @return
@@ -66,6 +75,7 @@ public interface Api {
 
     /**
      * 重置密码
+     *
      * @param phone
      * @param code
      * @param pwd
@@ -76,11 +86,13 @@ public interface Api {
 
     /**
      * 查询个人信息
+     *
      * @param uid
      * @return
      */
     @POST("appUserBase/selectDetail")
     Observable<BaseBean<PersonalInfoBean>> personalInfoCall(@Query("uid") String uid);
+
     /**
      * 获取荣誉积分
      */
@@ -89,22 +101,25 @@ public interface Api {
 
     /**
      * 用户签到
+     *
      * @param uid
      * @return
      */
     @POST("appUserSignIn/insertSelective")
     Observable<SignBean> signCall(@Query("uid") String uid);
+
     /**
-     *积分记录
+     * 积分记录
      */
     @POST("appUserIntegralDetail/searchForPage")
     Observable<BaseBean<ScoreBean>> scoreListCall(@Query("page") int page, @Query("uid") String uid);
 
     /**
      * 获取救援知识
+     *
      * @param page
      * @param content
-     * @param type  1文章,2视频
+     * @param type    1文章,2视频
      * @return
      */
     @POST("appKnowledge/searchForPage")
@@ -115,6 +130,7 @@ public interface Api {
      */
     @POST("appUserMessage/selectPlatformMessageForPage")
     Observable<BaseBean<MsgBean>> platFormMsgCall(@Query("page") int page);
+
     /**
      * 查询系统消息列表
      */
@@ -123,6 +139,7 @@ public interface Api {
 
     /**
      * 常用救援
+     *
      * @return
      */
     @POST("appRescueItem/searchAll")
@@ -130,15 +147,17 @@ public interface Api {
 
     /**
      * 获取日常救援列表
+     *
      * @param page
      * @param pid
      * @return
      */
     @POST("appRescueItem/searchForPage")
-    Observable<BaseBean<DailyRescueBean>> dailyRescueCall(@Query("page") int page,@Query("pid") String pid);
+    Observable<BaseBean<DailyRescueBean>> dailyRescueCall(@Query("page") int page, @Query("pid") String pid);
 
     /**
      * 获取救援项目详情
+     *
      * @param rid
      * @return
      */
@@ -146,10 +165,10 @@ public interface Api {
     Observable<BaseBean<RescueVideoBean>> rescueVideoCall(@Query("rid") String rid);
 
     /**
-     *新增收藏
+     * 新增收藏
      */
     @POST("appUserCollection/insertSelective")
-     Observable<BaseBean<InsertCollectionResponseBean>> insertCollectCall(@Query("uid") String uid,@Query("objectId") String objectId,@Query("type") int type);
+    Observable<BaseBean<InsertCollectionResponseBean>> insertCollectCall(@Query("uid") String uid, @Query("objectId") String objectId, @Query("type") int type);
 
     /**
      * 查询是否已收藏
@@ -162,37 +181,42 @@ public interface Api {
      */
     @POST("appUserCollection/deleteById")
     Observable<BaseNoDataBean> deleteCollection(@Query("ids") String ids);
+
     /**
      * 获取收藏列表
      */
     @POST("appUserCollection/searchForPage")
-    Observable<BaseBean<CollectionResponseBean>> getCollectionListCall(@Query("page") int page,@Query("uid") String uid);
+    Observable<BaseBean<CollectionResponseBean>> getCollectionListCall(@Query("page") int page, @Query("uid") String uid);
+
     /**
      * 获取用户系统未读消息数量
      */
     @POST("appUserMessage/searchCount")
     Observable<MessageUnReadBean> getSysMsgUnreadNumCall(@Query("uid") String uid);
+
     /**
      * 获取平台消息总数
      */
     @POST("appUserMessage/countPlatformMessageTotal")
     Observable<MessageUnReadBean> getPlatFormMsgUnreadNumCall();
+
     /**
      * 获取附近的AED信息列表
      */
     @POST("appAedInfo/searchNearAED")
-    Observable<NearAedBean> searchNearAedList(@Query("longitude") String longitude,@Query("latitude") String latitude);
+    Observable<NearAedBean> searchNearAedList(@Query("longitude") String longitude, @Query("latitude") String latitude);
 
     /**
      * 发布Aed信息
      */
     @POST("appAedInfo/insertSelective")
     Observable<PublishAedResponseBean> publishAedCall(@Query("uid") String uid, @Query("name") String name, @Query("area") String area, @Query("areaDetail") String areaDetail, @Query("longitude") String longitude, @Query("latitude") String latitude, @Query("phone") String phone);
+
     /**
      * 获取我发布的AED
      */
     @POST("appAedInfo/searchForPage")
-    Observable<BaseBean<AedBean>> myAedCall(@Query("page") int page,@Query("uid") String uid);
+    Observable<BaseBean<AedBean>> myAedCall(@Query("page") int page, @Query("uid") String uid);
 
     /**
      * 获取证书列表
@@ -205,6 +229,18 @@ public interface Api {
      */
     @POST("appTcmnLanguage/searchAll")
     Observable<LanguageBean> languageBeanCall();
+
+    /**
+     * 上传头像接口
+     */
+    @POST("appimg/upload")
+    @Multipart
+    Observable<BaseBean<ImgBean>> uploadCall(@Part MultipartBody.Part file);
+    /**
+     * 修改个人信息
+     */
+    @POST("appUserBase/updateById")
+    Observable<BaseNoDataBean> updateUserInfo(@QueryMap Map<String, String> map,@Query("uid") String uid);
 //    /**
 //     * 修改自定义头像接口
 //     */
@@ -261,18 +297,6 @@ public interface Api {
 //    @POST("appimg/upload")
 //    @Multipart
 //    Observable<BaseBean<ImgBean>> uploadCall(@Part MultipartBody.Part file);
-//
-//    /**
-//     * 修改用户信息
-//     * @param uid
-//     * @param nickName
-//     * @param picture
-//     * @return
-//     */
-//    @POST("appUserBase/updateById")
-//    Observable<BaseNoDataBean> updateInfoCall(@Query("uid") String uid, @Query("nickName") String nickName, @Query("picture") String picture);
-//
-
 
 //    /**
 //     * 新增订单

@@ -7,26 +7,45 @@ import android.content.Intent
 import android.view.View
 import android.widget.Toast
 import com.jzbn.huzhu1230.R
+import com.jzbn.huzhu1230.base.BaseNoDataBean
+import com.jzbn.huzhu1230.bean.ImgBean
 import com.jzbn.huzhu1230.bean.PersonalInfoBean
+import com.jzbn.huzhu1230.constants.Constant
+import com.jzbn.huzhu1230.event.RefreshUserInfoEvent
 import com.jzbn.huzhu1230.ext.showToast
 import com.jzbn.huzhu1230.glide.GlideUtils
+import com.jzbn.huzhu1230.net.CallbackListObserver
 import com.jzbn.huzhu1230.net.CallbackObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_my_info.*
 import kotlinx.android.synthetic.main.toolbar.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import java.io.File
 
 /**
  * Created by hecuncun on 2020-5-24
  */
 class MyInfoActivity : BaseActivity(), View.OnClickListener {
+
+    override fun useEventBus(): Boolean=true
     override fun attachLayoutRes(): Int = R.layout.activity_my_info
 
     override fun initData() {
         //获取个人信息
+        getUserInfo()
+    }
+//获取服务器数据
+    private fun getUserInfo() {
         val personalInfoCall = SLMRetrofit.getInstance().api.personalInfoCall(uid)
         personalInfoCall.compose(ThreadSwitchTransformer())
             .subscribe(object : CallbackObserver<PersonalInfoBean>() {
@@ -38,8 +57,6 @@ class MyInfoActivity : BaseActivity(), View.OnClickListener {
 
                 }
             })
-
-
     }
 
     //初始化 信息
@@ -55,7 +72,7 @@ class MyInfoActivity : BaseActivity(), View.OnClickListener {
         tv_company.text = t.company ?: ""
         tv_rescue_history.text = t.experience ?: ""
         tv_certificate.text = t.zsCardName
-        GlideUtils.showPlaceholder(this, iv_certificate, t.zsCardPhoto, R.mipmap.icon_logo)//还有个证书状态
+        GlideUtils.showPlaceholder(this, iv_certificate, Constant.BASE_URL+t.zsCardPhoto, R.mipmap.icon_logo)//还有个证书状态
     }
 
     override fun initView() {
@@ -69,8 +86,6 @@ class MyInfoActivity : BaseActivity(), View.OnClickListener {
         }
         rl_name.setOnClickListener(this)
         rl_id_card.setOnClickListener(this)
-        rl_sex.setOnClickListener(this)
-        rl_language.setOnClickListener(this)
         rl_medical_history.setOnClickListener(this)
         rl_allergic_drugs.setOnClickListener(this)
         rl_genetic_history.setOnClickListener(this)
@@ -79,6 +94,12 @@ class MyInfoActivity : BaseActivity(), View.OnClickListener {
         rl_rescue_skill.setOnClickListener(this)
         rl_certificate.setOnClickListener {
             startActivity(Intent(this@MyInfoActivity, EditCertificateActivity::class.java))
+        }
+        rl_language.setOnClickListener{
+            startActivity(Intent(this@MyInfoActivity, EditLanguageActivity::class.java))
+        }
+        rl_sex.setOnClickListener{
+            startActivity(Intent(this@MyInfoActivity, EditSexActivity::class.java))
         }
     }
 
@@ -133,7 +154,7 @@ class MyInfoActivity : BaseActivity(), View.OnClickListener {
                     forResult(PictureConfig.CHOOSE_REQUEST)
         }
     }
-
+    private var map = mutableMapOf<String, String>()
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -147,39 +168,41 @@ class MyInfoActivity : BaseActivity(), View.OnClickListener {
                             R.drawable.ic_launcher_background
                         )
                         //上传文件
-//                        val file = File(selectList[0].compressPath)
-//                        Logger.e("图片地址==${selectList[0].compressPath}")
-//                        val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-//                        //retrofit 上传文件api加上 @Multipart注解,然后下面这是个重点 参数1：上传文件的key，参数2：上传的文件名，参数3 请求头
-//                        val body: MultipartBody.Part = MultipartBody.Part.createFormData("upload", file.name, requestFile)
-//                        val uploadCall = SLMRetrofit.getInstance().api.uploadCall(body)
-//                        uploadCall.compose(ThreadSwitchTransformer()).subscribe(object:CallbackObserver<ImgBean>(){
-//                            override fun onSucceed(t: ImgBean?, desc: String?) {
-//                                Logger.e("成功")
-//                                Logger.e("网络图片地址==${t?.fileUrl}")
-//                                photo=t?.fileUrl?:photo
-//                                //调用修改头像接口
-//                                val updateInfoCall = SLMRetrofit.getInstance().api.updateInfoCall(uid, null, photo)
-//                                updateInfoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
-//                                    override fun onSucceed(t: BaseNoDataBean?) {
-//                                        if (t?.code== Constant.SUCCESSED_CODE){
-//                                            showToast("头像修改成功")
-//                                            EventBus.getDefault().post(UpdateInfoEvent())
-//                                        }else{
-//                                            showToast("头像修改失败")
-//                                        }
-//                                    }
-//
-//                                    override fun onFailed() {
-//                                    }
-//                                })
-//
-//                            }
-//
-//                            override fun onFailed() {
-//                                Logger.e("失败")
-//                            }
-//                        } )
+                        val file = File(selectList[0].compressPath)
+                        Logger.e("图片地址==${selectList[0].compressPath}")
+                        val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                        //retrofit 上传文件api加上 @Multipart注解,然后下面这是个重点 参数1：上传文件的key，参数2：上传的文件名，参数3 请求头
+                        val body: MultipartBody.Part = MultipartBody.Part.createFormData("upload", file.name, requestFile)
+                        val uploadCall = SLMRetrofit.getInstance().api.uploadCall(body)
+                        uploadCall.compose(ThreadSwitchTransformer()).subscribe(object:CallbackObserver<ImgBean>(){
+                            override fun onSucceed(t: ImgBean, desc: String?) {
+                                Logger.e("网络图片地址==${t.fileUrl}")
+                                map["picture"]=t.fileUrl
+                                //调用修改头像接口
+                                val updateUserInfo = SLMRetrofit.getInstance().api.updateUserInfo(map, uid)
+                                updateUserInfo.compose(ThreadSwitchTransformer())
+                                    .subscribe(object : CallbackListObserver<BaseNoDataBean>() {
+                                        override fun onSucceed(t: BaseNoDataBean) {
+                                            if (t.code == Constant.SUCCESSED_CODE) {
+                                                showToast("保存成功")
+                                                EventBus.getDefault().post(RefreshUserInfoEvent())
+                                                finish()
+                                            } else {
+                                                showToast(t.message)
+                                            }
+                                        }
+
+                                        override fun onFailed() {
+
+                                        }
+                                    })
+
+                            }
+
+                            override fun onFailed() {
+                                Logger.e("失败")
+                            }
+                        } )
                     } else {
                         showToast("图片出现问题")
                     }
@@ -198,12 +221,6 @@ class MyInfoActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.rl_id_card -> {
                 type = 2
-            }
-            R.id.rl_sex -> {
-                type = 3
-            }
-            R.id.rl_language -> {
-                type = 4
             }
             R.id.rl_medical_history -> {
                 type = 5
@@ -229,5 +246,10 @@ class MyInfoActivity : BaseActivity(), View.OnClickListener {
         }
         intent.putExtra("type", type)
         startActivity(intent)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun refreshUserInfo(event:RefreshUserInfoEvent){
+        getUserInfo()
     }
 }

@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
     <include layout="@layout/toolbar"/>
 <TextView
-    android:id="@+id/tv_certificate"
+    android:id="@+id/tv_sex"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_marginLeft="15dp"
@@ -13,24 +13,7 @@
     android:layout_marginRight="17dp"
     android:textColor="@color/color_gray_999999"
     android:gravity="left|center_vertical"
-    android:text="请选择的证书分类"/>
-    <View style="@style/horizontalGrayLine"/>
-    <TextView
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="18dp"
-        android:layout_marginLeft="14dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="请上传证书照片"
-        android:textColor="@color/color_gray_999999"
-        android:textSize="17sp"/>
-    <ImageView
-        android:id="@+id/iv_pic"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="18dp"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@mipmap/icon_upload"/>
+    android:text="请选择性别"/>
     <TextView
         android:id="@+id/tv_confirm"
         android:layout_marginLeft="17dp"
