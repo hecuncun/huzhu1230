@@ -27,16 +27,25 @@ import com.amap.api.services.geocoder.RegeocodeResult
 import com.blankj.utilcode.util.ToastUtils
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.application.App.Companion.context
+import com.jzbn.huzhu1230.bean.ImgBean
 import com.jzbn.huzhu1230.ext.showToast
 import com.jzbn.huzhu1230.glide.GlideUtils
+import com.jzbn.huzhu1230.net.CallbackObserver
+import com.jzbn.huzhu1230.net.SLMRetrofit
+import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.picker.AddressPickTask
 import com.jzbn.huzhu1230.ui.publishdetail.PublishEmergencyDetailActivity
 import com.jzbn.huzhu1230.utils.MapUtil
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_publish_emergency_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 
 class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
@@ -240,6 +249,7 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
         }
     }
     private var type =-1// 1 ， 2 ，3， 4代表选的图片
+    private var photo=""
     private fun selectImage(type: Int) {
         PictureSelector.create(this)
             .openGallery(PictureMimeType.ofImage()) //全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
@@ -280,39 +290,25 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
                         }
                         GlideUtils.loadRoundImg(pic,selectList[0].compressPath,R.drawable.ic_launcher_background,6)
                         //上传文件
-//                        val file = File(selectList[0].compressPath)
-//                        Logger.e("图片地址==${selectList[0].compressPath}")
-//                        val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-//                        //retrofit 上传文件api加上 @Multipart注解,然后下面这是个重点 参数1：上传文件的key，参数2：上传的文件名，参数3 请求头
-//                        val body: MultipartBody.Part = MultipartBody.Part.createFormData("upload", file.name, requestFile)
-//                        val uploadCall = SLMRetrofit.getInstance().api.uploadCall(body)
-//                        uploadCall.compose(ThreadSwitchTransformer()).subscribe(object:CallbackObserver<ImgBean>(){
-//                            override fun onSucceed(t: ImgBean?, desc: String?) {
-//                                Logger.e("成功")
-//                                Logger.e("网络图片地址==${t?.fileUrl}")
-//                                photo=t?.fileUrl?:photo
-//                                //调用修改头像接口
-//                                val updateInfoCall = SLMRetrofit.getInstance().api.updateInfoCall(uid, null, photo)
-//                                updateInfoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
-//                                    override fun onSucceed(t: BaseNoDataBean?) {
-//                                        if (t?.code== Constant.SUCCESSED_CODE){
-//                                            showToast("头像修改成功")
-//                                            EventBus.getDefault().post(UpdateInfoEvent())
-//                                        }else{
-//                                            showToast("头像修改失败")
-//                                        }
-//                                    }
-//
-//                                    override fun onFailed() {
-//                                    }
-//                                })
-//
-//                            }
-//
-//                            override fun onFailed() {
-//                                Logger.e("失败")
-//                            }
-//                        } )
+                        val file = File(selectList[0].compressPath)
+                        Logger.e("图片地址==${selectList[0].compressPath}")
+                        val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                        //retrofit 上传文件api加上 @Multipart注解,然后下面这是个重点 参数1：上传文件的key，参数2：上传的文件名，参数3 请求头
+                        val body: MultipartBody.Part = MultipartBody.Part.createFormData("upload", file.name, requestFile)
+                        val uploadCall = SLMRetrofit.getInstance().api.uploadCall(body)
+                        uploadCall.compose(ThreadSwitchTransformer()).subscribe(object:
+                            CallbackObserver<ImgBean>(){
+                            override fun onSucceed(t: ImgBean, desc: String?) {
+                                Logger.e("成功")
+                                Logger.e("网络图片地址==${t.fileUrl}")
+                                photo=t.fileUrl
+
+                            }
+
+                            override fun onFailed() {
+                                Logger.e("失败")
+                            }
+                        } )
                     } else {
                         showToast("图片出现问题")
                     }

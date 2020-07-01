@@ -4,8 +4,8 @@ import BaseActivity
 import android.support.v4.app.FragmentTransaction
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.ui.fragment.AedFragment
-import com.jzbn.huzhu1230.ui.fragment.CommonFindFragment
-import com.jzbn.huzhu1230.ui.fragment.EmergencyFindFragment
+import com.jzbn.huzhu1230.ui.fragment.MyCommonFindFragment
+import com.jzbn.huzhu1230.ui.fragment.MyEmergencyFragment
 import kotlinx.android.synthetic.main.activity_my_publish.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -13,8 +13,8 @@ import kotlinx.android.synthetic.main.toolbar.*
  * Created by hecuncun on 2020-5-24
  */
 class MyPublishActivity:BaseActivity() {
-    private var emergencyFindFragment:EmergencyFindFragment?=null
-    private var commonFindFragment:CommonFindFragment?=null
+    private var myEmergencyFragment:MyEmergencyFragment?=null
+    private var myCommonFindFragment:MyCommonFindFragment?=null
     private var aedFragment:AedFragment?=null
     override fun attachLayoutRes(): Int = R.layout.activity_my_publish
 
@@ -32,18 +32,18 @@ class MyPublishActivity:BaseActivity() {
             hideAllFragment(transaction)
             when(checkedId){
                 R.id.rg_emergency->{
-               if (emergencyFindFragment==null){
-                   emergencyFindFragment=EmergencyFindFragment.getInstance()
-                   transaction.add(R.id.fl_content,emergencyFindFragment!!)
+               if (myEmergencyFragment==null){
+                   myEmergencyFragment=MyEmergencyFragment.getInstance()
+                   transaction.add(R.id.fl_content,myEmergencyFragment!!)
                }
-                  transaction.show(emergencyFindFragment!!)
+                  transaction.show(myEmergencyFragment!!)
                 }
                 R.id.rg_common->{
-                    if (commonFindFragment==null){
-                        commonFindFragment=CommonFindFragment.getInstance()
-                        transaction.add(R.id.fl_content,commonFindFragment!!)
+                    if (myCommonFindFragment==null){
+                        myCommonFindFragment=MyCommonFindFragment.getInstance()
+                        transaction.add(R.id.fl_content,myCommonFindFragment!!)
                     }
-                    transaction.show(commonFindFragment!!)
+                    transaction.show(myCommonFindFragment!!)
 
                 }
                 R.id.rg_aed->{
@@ -62,10 +62,10 @@ class MyPublishActivity:BaseActivity() {
     }
 
     private fun hideAllFragment(transaction: FragmentTransaction) {
-        emergencyFindFragment?.let {
+        myEmergencyFragment?.let {
             transaction.hide(it)
         }
-        commonFindFragment?.let {
+        myCommonFindFragment?.let {
             transaction.hide(it)
         }
         aedFragment?.let {

@@ -15,9 +15,10 @@ import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_emergency_find.*
 
 /**
- * 常年寻人列表
+ * 我的发布  常年寻人
  */
-class CommonLookUpFragment : BaseFragment() {
+
+class MyCommonFindFragment : BaseFragment() {
     private var list = mutableListOf<SearchPersonBean.RowsBean>()
     private val emergencyFindAdapter: EmergencyFindAdapter by lazy {
         EmergencyFindAdapter()
@@ -38,8 +39,8 @@ class CommonLookUpFragment : BaseFragment() {
 
     override fun initListener() {
         emergencyFindAdapter.setOnItemClickListener { adapter, view, position ->
-            val intent = Intent(activity, PublishEmergencyDetailActivity::class.java)
-            intent.putExtra("publishType", "common")
+            val intent =Intent(activity,PublishEmergencyDetailActivity::class.java)
+            intent.putExtra("publishType","common")
             startActivity(intent)
         }
 
@@ -54,7 +55,7 @@ class CommonLookUpFragment : BaseFragment() {
                 return@RequestLoadMoreListener
             }
             val commonSearchPersonBeanCall =
-                SLMRetrofit.getInstance().api.getCommonSearchPersonBeanCall(currentPage)
+                SLMRetrofit.getInstance().api.getMyCommonSearchPersonCall(currentPage,uid)
             commonSearchPersonBeanCall.compose(ThreadSwitchTransformer())
                 .subscribe(object : CallbackObserver<SearchPersonBean>() {
                     override fun onSucceed(t: SearchPersonBean, desc: String?) {
@@ -74,16 +75,13 @@ class CommonLookUpFragment : BaseFragment() {
                     }
                 })
         }, recyclerView)
-
-
     }
-
     private var currentPage = 1
     private var total = 0
     override fun lazyLoad() {
         //获取常年寻人信息
         val commonSearchPersonBeanCall =
-            SLMRetrofit.getInstance().api.getCommonSearchPersonBeanCall(currentPage)
+            SLMRetrofit.getInstance().api.getMyCommonSearchPersonCall(currentPage,uid)
         commonSearchPersonBeanCall.compose(ThreadSwitchTransformer())
             .subscribe(object : CallbackObserver<SearchPersonBean>() {
                 override fun onSucceed(t: SearchPersonBean, desc: String?) {
@@ -99,8 +97,8 @@ class CommonLookUpFragment : BaseFragment() {
     }
 
     companion object {
-        fun getInstance(): CommonLookUpFragment {
-            return CommonLookUpFragment()
+        fun getInstance(): MyCommonFindFragment {
+            return MyCommonFindFragment()
         }
     }
 }

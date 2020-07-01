@@ -5,6 +5,7 @@ import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.amap.api.location.AMapLocationClient
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.CommonHelpAdapter
@@ -26,7 +27,6 @@ import com.jzbn.huzhu1230.ui.home.SearchActivity
 import com.jzbn.huzhu1230.ui.home.SignDialog
 import com.lhzw.bluetooth.base.BaseFragment
 import com.orhanobut.logger.Logger
-import kotlinx.android.synthetic.main.activity_message.*
 import kotlinx.android.synthetic.main.activity_message_list.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -45,10 +45,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     override fun attachLayoutRes(): Int = R.layout.fragment_home
 
     override fun initView(view: View) {
+        startLocationAddress()
         initCommonRecyclerView()
         initDailyRecyclerView()
         initViewClick()
-
         getUnReadMsg()
     }
 //可见就刷新下消息
@@ -209,6 +209,27 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         })
 
 
+    }
+
+    private fun startLocationAddress() {
+        //开始定位
+        val mLocationClient = AMapLocationClient(requireActivity())
+        mLocationClient.setLocationListener {
+            if (it != null) {
+                if (it.errorCode == 0) {
+                    mLocationClient.stopLocation()
+                    tvLocation.text=it.poiName
+                    longitude=it.longitude.toString()
+                    latitude=it.latitude.toString()
+                    Logger.e("longitude==${it.longitude},latitude==${it.latitude}")
+                } else {
+                    Logger.e("定位信息:${it.errorCode}，${it.errorInfo}")
+                }
+             }else{
+                Logger.e("定位信息为null")
+            }
+        }
+        mLocationClient.startLocation()
     }
 
     companion object {

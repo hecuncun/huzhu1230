@@ -37,6 +37,9 @@ abstract class BaseFragment :Fragment(){
      * uid
      */
     protected var uid:String by Preference(Constant.UID,"")
+    protected var longitude:String by Preference(Constant.LNT,"")//当前纬度
+    protected var latitude:String by Preference(Constant.LAT,"")//当前经度
+    protected var tempUid="a35907701b464f11b466f0ba4b661802"
 
     /**
      * 已读平台消息数

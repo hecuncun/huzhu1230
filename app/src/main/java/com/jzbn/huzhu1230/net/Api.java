@@ -22,6 +22,7 @@ import com.jzbn.huzhu1230.bean.PublishAedResponseBean;
 import com.jzbn.huzhu1230.bean.RescueVideoBean;
 import com.jzbn.huzhu1230.bean.ScoreBean;
 import com.jzbn.huzhu1230.bean.SearchCollectionInfoResponseBean;
+import com.jzbn.huzhu1230.bean.SearchPersonBean;
 import com.jzbn.huzhu1230.bean.SignBean;
 import com.jzbn.huzhu1230.bean.SysMsgBean;
 import com.jzbn.huzhu1230.bean.UserInfoBean;
@@ -241,6 +242,41 @@ public interface Api {
      */
     @POST("appUserBase/updateById")
     Observable<BaseNoDataBean> updateUserInfo(@QueryMap Map<String, String> map,@Query("uid") String uid);
+
+    /**
+     * 获取常年寻人列表
+     */
+    @POST("appFindInfo/searchPerennialForPage")
+    Observable<BaseBean<SearchPersonBean>> getCommonSearchPersonBeanCall(@Query("page") int page);
+
+    /**
+     * 获取紧急寻人列表
+     */
+    @POST("appFindInfo/searchEmergencyForPage")
+    Observable<BaseBean<SearchPersonBean>> getEmergencySearchPersonBeanCall(@Query("page") int page,@Query("longitude") String longitude,@Query("latitude") String latitude);
+
+    /**
+     * 获取我发的常年寻人
+     */
+    @POST("appFindInfo/searchMyPerennialForPage")
+    Observable<BaseBean<SearchPersonBean>> getMyCommonSearchPersonCall(@Query("page") int page,@Query("uid") String uid);
+
+    /**
+     * 获取我发的紧急寻人
+     */
+    @POST("appFindInfo/searchMyEmergencyForPage")
+    Observable<BaseBean<SearchPersonBean>> getMyEmergencySearchPersonBeanCall(@Query("page") int page,@Query("uid") String uid);
+    /**
+     * 发布寻人信息
+     */
+    @POST("appFindInfo/insertSelective")
+    Observable<BaseNoDataBean> publishSearchCall(@Query("uid") String uid,@Query("name") String name,@Query("card") String card,
+                                                 @Query("photo") String photo,@Query("ddate") String ddate,@Query("area") String area,
+                                                 @Query("areaDetail") String areaDetail, @Query("longitude") String longitude,@Query("latitude") String latitude,
+                                                 @Query("way") String way, @Query("reason") String reason,@Query("features") String features,
+                                                 @Query("region") String region, @Query("contact") String contact,@Query("relation") String relation,
+                                                 @Query("qrcode") String qrcode, @Query("content") String content);
+
 //    /**
 //     * 修改自定义头像接口
 //     */

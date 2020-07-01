@@ -11,5 +11,7 @@ object Constant{
     const val READ_NUM = "read_num"
     const val NICK_NAME = "nick_name"
     const val UID = "uid"
+    const val LAT = "lat"
+    const val LNT = "lnt"
     const val PHOTO_PATH = "photo_path"
 }

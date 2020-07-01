@@ -3,16 +3,22 @@ package com.jzbn.huzhu1230.ui.fragment
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.EmergencyFindAdapter
-import com.jzbn.huzhu1230.bean.EmergencyFindBean
+import com.jzbn.huzhu1230.bean.SearchPersonBean
+import com.jzbn.huzhu1230.net.CallbackObserver
+import com.jzbn.huzhu1230.net.SLMRetrofit
+import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.ui.publishdetail.PublishEmergencyDetailActivity
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_emergency_find.*
-
+/**
+ *  紧急寻人列表
+ */
 
 class EmergencyLookUpFragment : BaseFragment() {
-    private var list= mutableListOf<EmergencyFindBean>()
+    private var list = mutableListOf<SearchPersonBean.RowsBean>()
     private val emergencyFindAdapter:EmergencyFindAdapter by lazy {
         EmergencyFindAdapter()
     }
@@ -35,18 +41,56 @@ class EmergencyLookUpFragment : BaseFragment() {
             intent.putExtra("publishType","emergency")
             startActivity(intent)
         }
-    }
+        emergencyFindAdapter.disableLoadMoreIfNotFullPage(recyclerView)
+        emergencyFindAdapter.setOnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener {
+            if (total < 2) {
+                emergencyFindAdapter.setEnableLoadMore(false)
+            }
+            //查下一页
+            currentPage++
+            if (currentPage > total) {
+                return@RequestLoadMoreListener
+            }
+            val commonSearchPersonBeanCall =
+                SLMRetrofit.getInstance().api.getEmergencySearchPersonBeanCall(currentPage,"","")
+            commonSearchPersonBeanCall.compose(ThreadSwitchTransformer())
+                .subscribe(object : CallbackObserver<SearchPersonBean>() {
+                    override fun onSucceed(t: SearchPersonBean, desc: String?) {
+                        list.addAll(t.rows)
+                        emergencyFindAdapter.setNewData(list)
+                        if (currentPage == total) {
+                            emergencyFindAdapter.loadMoreEnd()
+                            emergencyFindAdapter.setEnableLoadMore(false)
+                        } else {
+                            emergencyFindAdapter.setEnableLoadMore(true)
+                            emergencyFindAdapter.loadMoreComplete()
+                        }
+                    }
 
+                    override fun onFailed() {
+
+                    }
+                })
+        }, recyclerView)
+    }
+    private var currentPage = 1
+    private var total = 0
     override fun lazyLoad() {
+        //获取紧急寻人信息
+        val commonSearchPersonBeanCall =
+            SLMRetrofit.getInstance().api.getEmergencySearchPersonBeanCall(currentPage,longitude,latitude)
+        commonSearchPersonBeanCall.compose(ThreadSwitchTransformer())
+            .subscribe(object : CallbackObserver<SearchPersonBean>() {
+                override fun onSucceed(t: SearchPersonBean, desc: String?) {
+                    total = t.total
+                    list.addAll(t.rows)
+                    emergencyFindAdapter.setNewData(list)
+                }
 
-        initTestData()
-    }
+                override fun onFailed() {
 
-    private fun initTestData() {
-        for (i in 1..20){
-            list.add(EmergencyFindBean())
-            emergencyFindAdapter.setNewData(list)
-        }
+                }
+            })
     }
 
     companion object {

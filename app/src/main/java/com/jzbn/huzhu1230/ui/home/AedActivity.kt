@@ -53,7 +53,7 @@ class AedActivity : BaseMapActivity() {
     var infoWindow: View? = null
     override fun setLocation() {
         //开始定位
-        val mLocationClient = AMapLocationClient(applicationContext)
+        val mLocationClient = AMapLocationClient(this)
         mLocationClient.setLocationListener {
             if (it != null) {
                 if (it.errorCode == 0) {
@@ -106,4 +106,5 @@ class AedActivity : BaseMapActivity() {
 
     override fun initListener() {
     }
+
 }

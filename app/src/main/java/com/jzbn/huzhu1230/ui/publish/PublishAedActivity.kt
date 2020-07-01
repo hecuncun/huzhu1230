@@ -27,6 +27,7 @@ import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.picker.AddressPickTask
 import com.jzbn.huzhu1230.utils.MapUtil
+import com.jzbn.huzhu1230.widget.LoadingView
 import kotlinx.android.synthetic.main.activity_publish_aed_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -37,7 +38,7 @@ class PublishAedActivity :BaseMapActivity() {
 
     override fun initData() {
     }
-
+    private var loadingView:LoadingView?=null
     override fun initView() {
         toolbar_title.text= resources.getString(R.string.publish_aed)
     }
@@ -68,6 +69,8 @@ class PublishAedActivity :BaseMapActivity() {
             val phone= et_phone_number.text.toString().trim()
             if (name.isNotEmpty() && area.isNotEmpty() && areaDetail.isNotEmpty() && longitude.isNotEmpty() && latitude.isNotEmpty() && phone.isNotEmpty()){
                 //发布
+                loadingView= LoadingView(this)
+                loadingView?.setLoadingTitle("发布中...")
                 val publishAedCall = SLMRetrofit.getInstance().api.publishAedCall(
                     uid,
                     name,
@@ -81,14 +84,17 @@ class PublishAedActivity :BaseMapActivity() {
                 publishAedCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<PublishAedResponseBean>(){
                     override fun onSucceed(t: PublishAedResponseBean) {
                         if(t.code==Constant.SUCCESSED_CODE){
+                            loadingView?.dismiss()
                             showToast("发布成功")
                             finish()
                         }else{
+                            loadingView?.dismiss()
                             showToast(t.message)
                         }
                     }
 
                     override fun onFailed() {
+                        loadingView?.dismiss()
                     }
                 })
             }else{

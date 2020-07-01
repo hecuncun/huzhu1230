@@ -15,15 +15,14 @@ import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_emergency_find.*
 
 /**
- * 常年寻人列表
+ * 我的 紧急寻人列表
  */
-class CommonLookUpFragment : BaseFragment() {
+class MyEmergencyFragment : BaseFragment() {
     private var list = mutableListOf<SearchPersonBean.RowsBean>()
-    private val emergencyFindAdapter: EmergencyFindAdapter by lazy {
+    private val emergencyFindAdapter:EmergencyFindAdapter by lazy {
         EmergencyFindAdapter()
     }
-
-    override fun attachLayoutRes(): Int = R.layout.fragment_common_find
+    override fun attachLayoutRes(): Int = R.layout.fragment_emergency_find
 
     override fun initView(view: View) {
         initRecyclerView()
@@ -32,14 +31,14 @@ class CommonLookUpFragment : BaseFragment() {
     private fun initRecyclerView() {
         recyclerView.run {
             layoutManager = LinearLayoutManager(activity)
-            adapter = emergencyFindAdapter
+            adapter =emergencyFindAdapter
         }
     }
 
     override fun initListener() {
         emergencyFindAdapter.setOnItemClickListener { adapter, view, position ->
             val intent = Intent(activity, PublishEmergencyDetailActivity::class.java)
-            intent.putExtra("publishType", "common")
+            intent.putExtra("publishType","emergency")
             startActivity(intent)
         }
 
@@ -54,7 +53,7 @@ class CommonLookUpFragment : BaseFragment() {
                 return@RequestLoadMoreListener
             }
             val commonSearchPersonBeanCall =
-                SLMRetrofit.getInstance().api.getCommonSearchPersonBeanCall(currentPage)
+                SLMRetrofit.getInstance().api.getMyEmergencySearchPersonBeanCall(currentPage,uid)
             commonSearchPersonBeanCall.compose(ThreadSwitchTransformer())
                 .subscribe(object : CallbackObserver<SearchPersonBean>() {
                     override fun onSucceed(t: SearchPersonBean, desc: String?) {
@@ -74,16 +73,14 @@ class CommonLookUpFragment : BaseFragment() {
                     }
                 })
         }, recyclerView)
-
-
     }
 
     private var currentPage = 1
     private var total = 0
     override fun lazyLoad() {
-        //获取常年寻人信息
+        //获取紧急寻人信息
         val commonSearchPersonBeanCall =
-            SLMRetrofit.getInstance().api.getCommonSearchPersonBeanCall(currentPage)
+            SLMRetrofit.getInstance().api.getMyEmergencySearchPersonBeanCall(currentPage,uid)
         commonSearchPersonBeanCall.compose(ThreadSwitchTransformer())
             .subscribe(object : CallbackObserver<SearchPersonBean>() {
                 override fun onSucceed(t: SearchPersonBean, desc: String?) {
@@ -96,11 +93,14 @@ class CommonLookUpFragment : BaseFragment() {
 
                 }
             })
+
     }
 
+
+
     companion object {
-        fun getInstance(): CommonLookUpFragment {
-            return CommonLookUpFragment()
+        fun getInstance(): MyEmergencyFragment {
+            return MyEmergencyFragment()
         }
     }
 }
