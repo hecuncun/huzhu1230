@@ -18,10 +18,11 @@ import com.jzbn.huzhu1230.bean.MsgBean;
 import com.jzbn.huzhu1230.bean.NearAedBean;
 import com.jzbn.huzhu1230.bean.PersonalInfoBean;
 import com.jzbn.huzhu1230.bean.PhoneCodeBean;
-import com.jzbn.huzhu1230.bean.PublishAedResponseBean;
+import com.jzbn.huzhu1230.bean.PublishResponseBean;
 import com.jzbn.huzhu1230.bean.RescueVideoBean;
 import com.jzbn.huzhu1230.bean.ScoreBean;
 import com.jzbn.huzhu1230.bean.SearchCollectionInfoResponseBean;
+import com.jzbn.huzhu1230.bean.SearchDetailBean;
 import com.jzbn.huzhu1230.bean.SearchPersonBean;
 import com.jzbn.huzhu1230.bean.SignBean;
 import com.jzbn.huzhu1230.bean.SysMsgBean;
@@ -211,7 +212,7 @@ public interface Api {
      * 发布Aed信息
      */
     @POST("appAedInfo/insertSelective")
-    Observable<PublishAedResponseBean> publishAedCall(@Query("uid") String uid, @Query("name") String name, @Query("area") String area, @Query("areaDetail") String areaDetail, @Query("longitude") String longitude, @Query("latitude") String latitude, @Query("phone") String phone);
+    Observable<PublishResponseBean> publishAedCall(@Query("uid") String uid, @Query("name") String name, @Query("area") String area, @Query("areaDetail") String areaDetail, @Query("longitude") String longitude, @Query("latitude") String latitude, @Query("phone") String phone);
 
     /**
      * 获取我发布的AED
@@ -270,13 +271,31 @@ public interface Api {
      * 发布寻人信息
      */
     @POST("appFindInfo/insertSelective")
-    Observable<BaseNoDataBean> publishSearchCall(@Query("uid") String uid,@Query("name") String name,@Query("card") String card,
+    Observable<PublishResponseBean> publishSearchCall(@Query("uid") String uid,@Query("name") String name,@Query("card") String card,
                                                  @Query("photo") String photo,@Query("ddate") String ddate,@Query("area") String area,
                                                  @Query("areaDetail") String areaDetail, @Query("longitude") String longitude,@Query("latitude") String latitude,
                                                  @Query("way") String way, @Query("reason") String reason,@Query("features") String features,
                                                  @Query("region") String region, @Query("contact") String contact,@Query("relation") String relation,
                                                  @Query("qrcode") String qrcode, @Query("content") String content);
+    /**
+     * 获取寻人详情
+     */
+    @POST("appFindInfo/selectDetail")
+    Observable<BaseBean<SearchDetailBean>> searchDetailCall(@Query("magorid") String magorid);
 
+    /**
+     * 提供线索
+     */
+    @POST("appFindInfo/insertProvideClues")
+    Observable<BaseNoDataBean> provideClueCall(@Query("uid") String uid,@Query("findId") String findId,@Query("photo") String photo,@Query("ddate") String ddate,
+                                               @Query("area") String area,@Query("areaDetail") String areaDetail,@Query("longitude") String longitude,@Query("latitude") String latitude,
+                                               @Query("content") String content);
+
+    /**
+     * 人已找到
+     */
+    @POST("appFindInfo/updateFindStatus")
+    Observable<BaseNoDataBean> findCall(@Query("uid") String uid,@Query("findId") String findId);
 //    /**
 //     * 修改自定义头像接口
 //     */

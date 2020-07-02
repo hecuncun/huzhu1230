@@ -129,6 +129,17 @@
                 android:textColor="@color/color_gray_333333"
                 android:textColorHint="@color/color_gray_999999"
                 android:textSize="15sp" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_white_card">
+
+                <com.amap.api.maps.MapView
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </FrameLayout>
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"

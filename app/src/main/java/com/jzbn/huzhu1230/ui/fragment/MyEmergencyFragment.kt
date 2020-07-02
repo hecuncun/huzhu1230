@@ -39,6 +39,9 @@ class MyEmergencyFragment : BaseFragment() {
         emergencyFindAdapter.setOnItemClickListener { adapter, view, position ->
             val intent = Intent(activity, PublishEmergencyDetailActivity::class.java)
             intent.putExtra("publishType","emergency")
+            intent.putExtra("magorid",list[position].magorid)
+            intent.putExtra("type","my")
+
             startActivity(intent)
         }
 

@@ -40,6 +40,7 @@ class CommonLookUpFragment : BaseFragment() {
         emergencyFindAdapter.setOnItemClickListener { adapter, view, position ->
             val intent = Intent(activity, PublishEmergencyDetailActivity::class.java)
             intent.putExtra("publishType", "common")
+            intent.putExtra("magorid",list[position].magorid)
             startActivity(intent)
         }
 

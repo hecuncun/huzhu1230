@@ -19,7 +19,7 @@ import com.amap.api.maps.model.Marker
 import com.amap.api.services.geocoder.GeocodeResult
 import com.amap.api.services.geocoder.RegeocodeResult
 import com.jzbn.huzhu1230.R
-import com.jzbn.huzhu1230.bean.PublishAedResponseBean
+import com.jzbn.huzhu1230.bean.PublishResponseBean
 import com.jzbn.huzhu1230.constants.Constant
 import com.jzbn.huzhu1230.ext.showToast
 import com.jzbn.huzhu1230.net.CallbackListObserver
@@ -81,8 +81,8 @@ class PublishAedActivity :BaseMapActivity() {
                     phone
                 )
 
-                publishAedCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<PublishAedResponseBean>(){
-                    override fun onSucceed(t: PublishAedResponseBean) {
+                publishAedCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<PublishResponseBean>(){
+                    override fun onSucceed(t: PublishResponseBean) {
                         if(t.code==Constant.SUCCESSED_CODE){
                             loadingView?.dismiss()
                             showToast("发布成功")

@@ -3,7 +3,7 @@ package com.jzbn.huzhu1230.bean;
 /**
  * Created by heCunCun on 2020/6/30
  */
-public class PublishAedResponseBean {
+public class PublishResponseBean {
 
     /**
      * code : 10001

@@ -31,15 +31,21 @@ import com.amap.api.services.geocoder.RegeocodeResult
 import com.blankj.utilcode.util.ToastUtils
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.application.App.Companion.context
+import com.jzbn.huzhu1230.base.BaseNoDataBean
 import com.jzbn.huzhu1230.bean.ImgBean
+import com.jzbn.huzhu1230.bean.PublishResponseBean
+import com.jzbn.huzhu1230.constants.Constant
 import com.jzbn.huzhu1230.ext.showToast
 import com.jzbn.huzhu1230.glide.GlideUtils
+import com.jzbn.huzhu1230.net.CallbackListObserver
 import com.jzbn.huzhu1230.net.CallbackObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.picker.AddressPickTask
 import com.jzbn.huzhu1230.ui.publishdetail.PublishEmergencyDetailActivity
+import com.jzbn.huzhu1230.utils.CommonUtil
 import com.jzbn.huzhu1230.utils.MapUtil
+import com.jzbn.huzhu1230.widget.LoadingView
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
@@ -53,7 +59,7 @@ import java.io.File
 
 
 class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
-    private var listPhoto= mutableListOf<String>()
+    private var loadingView: LoadingView?=null
     val mLoseModeArray = arrayOf("步行","汽车","火车")
     val mLosReasonArray = arrayOf("精神疾病","离家出走","怀疑拐卖", "意外走失")
     override fun attachLayoutRes(): Int = R.layout.activity_publish_emergency_layout
@@ -125,12 +131,6 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
         ll_select_address.setOnClickListener {
               showCityPickerDialog()
         }
-
-        btn_publish.setOnClickListener {
-            val intent =Intent(this, PublishEmergencyDetailActivity::class.java)
-            intent.putExtra("publishType",publishType)
-            startActivity(intent)
-        }
         //选择图片
         pic_one.setOnClickListener(this)
         pic_two.setOnClickListener(this)
@@ -144,23 +144,57 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
             val card = person_id_number.text.toString().trim()
             val features= et_features.text.toString().trim()
             val region=area
-            //val contact=
+            photo=CommonUtil.getAppendString(picUrl1,picUrl2,picUrl3)
+            val contact1=et_contact_one.text.toString().trim()
+            val contact2=et_contact_two.text.toString().trim()
+            val contact3=et_contact_three.text.toString().trim()
+            val contact=CommonUtil.getAppendString(contact1,contact2,contact3)
+            val relation =et_relationshape.text.toString().trim()
+            val content=et_remark.text.toString().trim()
+            if (name.isNotEmpty() && card.isNotEmpty() && photo.isNotEmpty() && ddate.isNotEmpty() && area.isNotEmpty()
+                && areaDetail.isNotEmpty() && longitude.isNotEmpty() && latitude.isNotEmpty() && way.isNotEmpty()
+                && reason.isNotEmpty() && features.isNotEmpty() && region.isNotEmpty() && contact.isNotEmpty()
+                && relation.isNotEmpty() && qrcode.isNotEmpty()){
+                loadingView= LoadingView(this)
+                loadingView?.setLoadingTitle("发布中...")
+                val publishSearchCall = SLMRetrofit.getInstance().api.publishSearchCall(
+                    uid,
+                    name,
+                    card,
+                    photo,
+                    ddate,
+                    area,
+                    areaDetail,
+                    longitude,
+                    latitude,
+                    way,
+                    reason,
+                    features,
+                    region,
+                    contact,
+                    relation,
+                    qrcode,
+                    content
+                )
+                publishSearchCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<PublishResponseBean>(){
+                    override fun onSucceed(t: PublishResponseBean) {
+                      if (t.code==Constant.SUCCESSED_CODE){
+                          showToast("发布成功")
+                          loadingView?.dismiss()
+                          finish()
+                      }else{
+                          showToast(t.message)
+                          loadingView?.dismiss()
+                      }
+                    }
 
-            if (picUrl1.isNotEmpty()){
-                listPhoto.add(picUrl1)
+                    override fun onFailed() {
+                        loadingView?.dismiss()
+                    }
+                })
             }
-            if (picUrl1.isNotEmpty()){
-                listPhoto.add(picUrl2)
-            }
-            if (picUrl1.isNotEmpty()){
-                listPhoto.add(picUrl3)
-            }
-           for (item in listPhoto){
-               sb.append(item)
-               sb.append(",")
-           }
-            val temp =sb.toString().trim()
-            photo=temp.substring(0,temp.length-1)
+
+
         }
 
     }
@@ -314,7 +348,6 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
         }
     }
     private var type =-1// 1 ， 2 ，3，代表选的人图片 4代表选的二维码图片
-    private var sb =StringBuilder()
     private var photo=""
     private var picUrl1=""
     private var picUrl2=""

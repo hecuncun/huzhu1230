@@ -39,6 +39,7 @@ class EmergencyLookUpFragment : BaseFragment() {
         emergencyFindAdapter.setOnItemClickListener { adapter, view, position ->
             val intent = Intent(activity, PublishEmergencyDetailActivity::class.java)
             intent.putExtra("publishType","emergency")
+            intent.putExtra("magorid",list[position].magorid)
             startActivity(intent)
         }
         emergencyFindAdapter.disableLoadMoreIfNotFullPage(recyclerView)

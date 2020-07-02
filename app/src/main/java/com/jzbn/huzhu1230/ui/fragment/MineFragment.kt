@@ -22,7 +22,7 @@ class MineFragment: BaseFragment() {
 
     override fun initView(view: View) {
         tv_nick_name.text=nickname
-        GlideUtils.showCircleWithBorder(iv_head_pic,photoPath,R.mipmap.icon_head_def,resources.getColor(R.color.white))
+        GlideUtils.showCircleWithBorder(iv_head_pic,Constant.BASE_URL+photoPath,R.mipmap.icon_head_def,resources.getColor(R.color.white))
         getUnReadMsg()
     }
     //可见就刷新下消息

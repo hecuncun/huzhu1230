@@ -4,36 +4,83 @@ import BaseActivity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Point
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
+import android.widget.TextView
 import cn.qqtheme.framework.entity.City
 import cn.qqtheme.framework.entity.County
 import cn.qqtheme.framework.entity.Province
 import cn.qqtheme.framework.picker.DateTimePicker
 import cn.qqtheme.framework.picker.WheelPicker
+import com.amap.api.maps.AMap
+import com.amap.api.maps.CameraUpdateFactory
+import com.amap.api.maps.MapView
+import com.amap.api.maps.model.CameraPosition
+import com.amap.api.maps.model.LatLng
+import com.amap.api.maps.model.Marker
+import com.amap.api.services.geocoder.GeocodeResult
+import com.amap.api.services.geocoder.RegeocodeResult
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.application.App
+import com.jzbn.huzhu1230.base.BaseNoDataBean
 import com.jzbn.huzhu1230.ext.showToast
 import com.jzbn.huzhu1230.glide.GlideUtils
+import com.jzbn.huzhu1230.net.CallbackListObserver
+import com.jzbn.huzhu1230.net.CallbackObserver
+import com.jzbn.huzhu1230.net.SLMRetrofit
+import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.picker.AddressPickTask
+import com.jzbn.huzhu1230.ui.publish.BaseMapActivity
+import com.jzbn.huzhu1230.utils.CommonUtil
+import com.jzbn.huzhu1230.utils.MapUtil
+import com.jzbn.huzhu1230.widget.LoadingView
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import kotlinx.android.synthetic.main.activity_provide_clue_layout.*
+import kotlinx.android.synthetic.main.activity_provide_clue_layout.et_detail_address
+import kotlinx.android.synthetic.main.activity_provide_clue_layout.et_remark
+import kotlinx.android.synthetic.main.activity_provide_clue_layout.ll_select_address
+import kotlinx.android.synthetic.main.activity_provide_clue_layout.ll_select_time
+import kotlinx.android.synthetic.main.activity_provide_clue_layout.map
+import kotlinx.android.synthetic.main.activity_provide_clue_layout.pic_one
+import kotlinx.android.synthetic.main.activity_provide_clue_layout.pic_three
+import kotlinx.android.synthetic.main.activity_provide_clue_layout.pic_two
+import kotlinx.android.synthetic.main.activity_provide_clue_layout.tv_address
+import kotlinx.android.synthetic.main.activity_provide_clue_layout.tv_time
+import kotlinx.android.synthetic.main.activity_publish_emergency_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 //提供线索 页面
-class ProvideClueActivity : BaseActivity(), View.OnClickListener {
+class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
+    private var loadingView: LoadingView?=null
+    override fun getMapView(): MapView =map
+
     override fun attachLayoutRes(): Int = R.layout.activity_provide_clue_layout
 
     override fun initData() {
     }
-
+    private var findId = ""
+    private var area =""
+    private var areaDetail=""
+    private var longitude=""
+    private var latitude=""
+    private var ddate=""
+    private var photo=""
+    private var picUrl1=""
+    private var picUrl2=""
+    private var picUrl3=""
     override fun initView() {
         toolbar_title.text = "提供线索"
+        findId = intent.getStringExtra("magorid")
     }
 
     override fun initListener() {
@@ -47,6 +94,55 @@ class ProvideClueActivity : BaseActivity(), View.OnClickListener {
         pic_one.setOnClickListener(this)
         pic_two.setOnClickListener(this)
         pic_three.setOnClickListener(this)
+
+        et_detail_address.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                areaDetail=s.toString().trim()
+                val address = area+areaDetail
+                MapUtil.getLatLonPointFromAddress(address, geocoderSearch)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
+
+        btn_provide.setOnClickListener {
+            photo= CommonUtil.getAppendString(picUrl1,picUrl2,picUrl3)
+            val content= et_remark.text.toString().trim()
+            if ( photo.isNotEmpty() && ddate.isNotEmpty() && area.isNotEmpty()
+                && areaDetail.isNotEmpty() && longitude.isNotEmpty() && latitude.isNotEmpty()){
+                loadingView= LoadingView(this)
+                loadingView?.setLoadingTitle("提交中...")
+                val provideClueCall = SLMRetrofit.getInstance().api.provideClueCall(
+                    uid,
+                    findId,
+                    photo,
+                    ddate,
+                    area,
+                    areaDetail,
+                    longitude,
+                    latitude,
+                    content
+                )
+                provideClueCall.compose(ThreadSwitchTransformer()).subscribe(object :
+                    CallbackListObserver<BaseNoDataBean>(){
+                    override fun onSucceed(t: BaseNoDataBean?) {
+                       showToast("提供线索成功")
+
+                        finish()
+                    }
+
+                    override fun onFailed() {
+
+                    }
+
+                })
+            }
+        }
     }
     /**
      * 显示城市选择器
@@ -64,9 +160,11 @@ class ProvideClueActivity : BaseActivity(), View.OnClickListener {
                 if (county == null) {
                     showToast(province.areaName + city.areaName)
                     tv_address.text=province.areaName + city.areaName
+                    area=province.areaName + city.areaName
                 } else {
                     showToast(province.areaName + city.areaName + county.areaName)
                     tv_address.text=province.areaName + city.areaName + county.areaName
+                    area=province.areaName + city.areaName+county.areaName
                 }
             }
 
@@ -98,6 +196,7 @@ class ProvideClueActivity : BaseActivity(), View.OnClickListener {
         picker.setOnDateTimePickListener(DateTimePicker.OnYearMonthDayTimePickListener { year, month, day, hour, minute ->
             showToast("$year-$month-$day $hour:$minute")
             tv_time.text = "$year-$month-$day $hour:$minute"
+            ddate="$year-$month-$day $hour:$minute:00"
         })
         fitScreenWidth(picker)
         picker.show()
@@ -110,6 +209,70 @@ class ProvideClueActivity : BaseActivity(), View.OnClickListener {
         val params = picker.window.attributes
         params.width = point.x
     }
+    var infoWindow: View? = null
+    override fun onGeocodeSearched(geocodeResult: GeocodeResult?, p1: Int) {
+        //根据地理位置描述 搜索出来的结果
+        geocodeResult?.apply {
+            if (geocodeAddressList.isNotEmpty()) {
+                val geocodeAddress = geocodeAddressList[0]
+                val latLonPoint = geocodeAddress.latLonPoint
+                //经纬度
+                val latLng = LatLng(latLonPoint.latitude, latLonPoint.longitude)
+                longitude=latLonPoint.longitude.toString()
+                latitude=latLonPoint.latitude.toString()
+                Log.d(
+                    "HAHAHHAHA",
+                    "onRegeocodeSearched: City" + geocodeAddress.city
+                )
+                Log.d(
+                    "HAHAHHAHA",
+                    "onRegeocodeSearched: latitude" + latLonPoint.latitude
+                )
+                Log.d(
+                    "HAHAHHAHA",
+                    "onRegeocodeSearched: longitude" +  latLonPoint.longitude
+                )
+
+                //添加系统默认 marker
+//                MapUtil.addMarkerToMap(
+//                    aMap!!,
+//                    latLng,
+//                    BitmapFactory.decodeResource(resources, R.mipmap.icon_location_yellow)
+//                )
+                MapUtil.addInfoWindowToMap(aMap!!, LatLng( latLonPoint.latitude,latLonPoint.longitude),
+                    BitmapFactory.decodeResource(resources, R.mipmap.icon_location_yellow),object :
+                        AMap.InfoWindowAdapter{
+                        override fun getInfoContents(p0: Marker?): View?{
+                            return null
+                        }
+
+                        override fun getInfoWindow(p0: Marker?): View {
+                            if (infoWindow==null){
+                                infoWindow = LayoutInflater.from(this@ProvideClueActivity).inflate(R.layout.custom_info_window, null)
+                                val tvInfo =
+                                    infoWindow!!.findViewById<TextView>(R.id.tv_info)
+                                tvInfo.text="标记这里"
+                            }
+                            return infoWindow!!
+
+                        }
+                    })
+                //将中心移到自己的位置
+                val mCameraUpdate = CameraUpdateFactory.newCameraPosition(
+                    CameraPosition(latLng, 15f, 0f, 0f)
+                )
+
+                aMap!!.moveCamera(mCameraUpdate)
+            }
+        }
+
+    }
+
+    override fun onRegeocodeSearched(regeocodeResul: RegeocodeResult?, p1: Int) {
+    }
+
+
+
     private var type =-1// 1 ， 2 ，3代表选的图片
     override fun onClick(v: View?) {
         when(v?.id){
