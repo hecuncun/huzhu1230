@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.orhanobut.logger.Logger
 import java.io.BufferedReader
 import java.io.FileReader
 import java.io.IOException
@@ -123,6 +124,20 @@ object CommonUtil {
         }
         return result
 
+    }
+
+    fun getAppendString(vararg s:String):String{
+        val sb =StringBuilder()
+        for(item in s){
+            if (item.isNotEmpty()){
+                sb.append(item)
+                sb.append(",")
+            }
+        }
+        val temp  =sb.toString().trim()
+        val result=temp.substring(0,temp.length-1)
+        Logger.e("result=$result")
+        return result
     }
 
 }

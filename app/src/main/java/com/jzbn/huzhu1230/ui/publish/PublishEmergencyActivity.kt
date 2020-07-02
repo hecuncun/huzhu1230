@@ -9,19 +9,23 @@ import android.graphics.Point
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
+import android.widget.TextView
 import cn.qqtheme.framework.entity.City
 import cn.qqtheme.framework.entity.County
 import cn.qqtheme.framework.entity.Province
 import cn.qqtheme.framework.picker.DateTimePicker
 import cn.qqtheme.framework.picker.DateTimePicker.OnYearMonthDayTimePickListener
 import cn.qqtheme.framework.picker.WheelPicker
+import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.MapView
 import com.amap.api.maps.model.CameraPosition
 import com.amap.api.maps.model.LatLng
+import com.amap.api.maps.model.Marker
 import com.amap.api.services.geocoder.GeocodeResult
 import com.amap.api.services.geocoder.RegeocodeResult
 import com.blankj.utilcode.util.ToastUtils
@@ -49,6 +53,7 @@ import java.io.File
 
 
 class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
+    private var listPhoto= mutableListOf<String>()
     val mLoseModeArray = arrayOf("步行","汽车","火车")
     val mLosReasonArray = arrayOf("精神疾病","离家出走","怀疑拐卖", "意外走失")
     override fun attachLayoutRes(): Int = R.layout.activity_publish_emergency_layout
@@ -57,6 +62,14 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
     override fun initData() {
     }
     private var publishType =""
+
+    private var area =""
+    private var areaDetail=""
+    private var longitude=""
+    private var latitude=""
+    private var ddate=""
+    private var way=""
+    private var reason=""
     override fun initView() {
         publishType = intent.getStringExtra("publishType")
         if (publishType=="common"){
@@ -67,7 +80,8 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
 
         et_detail_address.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
-            val address =  tv_address.text.toString().trim()+s.toString().trim()
+                areaDetail=s.toString().trim()
+                val address = area+areaDetail
                 MapUtil.getLatLonPointFromAddress(address, geocoderSearch)
 
             }
@@ -84,6 +98,7 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
             loseModeDialog.setOnDialogClickListener(object : LoseModeDialog.OnDialogBtnClickListener{
                 override fun onClickReasonPosition(pos: Int) {
                     ToastUtils.showShort(mLoseModeArray[pos])
+                    way=pos.toString()
                     tv_lose_mode.text=mLoseModeArray[pos]
                 }
             })
@@ -94,6 +109,7 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
             loseModeDialog.setOnDialogClickListener(object : LoseReasonDialog.OnDialogBtnClickListener{
                 override fun onClickReasonPosition(pos: Int) {
                     ToastUtils.showShort(mLosReasonArray[pos])
+                    reason=mLosReasonArray[pos]
                     tv_lose_reason.text=mLosReasonArray[pos]
                 }
             })
@@ -121,7 +137,34 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
         pic_three.setOnClickListener(this)
         iv_wechat_code.setOnClickListener(this)
 
+
+        //发布
+        btn_publish.setOnClickListener {
+            val name = person_name.text.toString().trim()
+            val card = person_id_number.text.toString().trim()
+            val features= et_features.text.toString().trim()
+            val region=area
+            //val contact=
+
+            if (picUrl1.isNotEmpty()){
+                listPhoto.add(picUrl1)
+            }
+            if (picUrl1.isNotEmpty()){
+                listPhoto.add(picUrl2)
+            }
+            if (picUrl1.isNotEmpty()){
+                listPhoto.add(picUrl3)
+            }
+           for (item in listPhoto){
+               sb.append(item)
+               sb.append(",")
+           }
+            val temp =sb.toString().trim()
+            photo=temp.substring(0,temp.length-1)
+        }
+
     }
+
     /**
      * 显示城市选择器
      */
@@ -138,9 +181,11 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
                 if (county == null) {
                     showToast(province.areaName + city.areaName)
                     tv_address.text=province.areaName + city.areaName
+                    area=province.areaName + city.areaName
                 } else {
                     showToast(province.areaName + city.areaName + county.areaName)
                     tv_address.text=province.areaName + city.areaName + county.areaName
+                    area=province.areaName + city.areaName+county.areaName
                 }
             }
 
@@ -172,6 +217,7 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
         picker.setOnDateTimePickListener(OnYearMonthDayTimePickListener { year, month, day, hour, minute ->
             showToast("$year-$month-$day $hour:$minute")
             tv_time.text="$year-$month-$day $hour:$minute"
+            ddate="$year-$month-$day $hour:$minute:00"
         })
 
         fitScreenWidth(picker)
@@ -185,7 +231,7 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
         val params = picker.window.attributes
         params.width = point.x
     }
-
+    var infoWindow: View? = null
     override fun onGeocodeSearched(geocodeResult: GeocodeResult?, p1: Int) {
         //根据地理位置描述 搜索出来的结果
         geocodeResult?.apply {
@@ -194,7 +240,8 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
                 val latLonPoint = geocodeAddress.latLonPoint
                 //经纬度
                 val latLng = LatLng(latLonPoint.latitude, latLonPoint.longitude)
-
+                longitude=latLonPoint.longitude.toString()
+                latitude=latLonPoint.latitude.toString()
                 Log.d(
                     "HAHAHHAHA",
                     "onRegeocodeSearched: City" + geocodeAddress.city
@@ -209,11 +256,29 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
                 )
 
                 //添加系统默认 marker
-                MapUtil.addMarkerToMap(
-                    aMap!!,
-                    latLng,
-                    BitmapFactory.decodeResource(resources, R.mipmap.icon_location_yellow)
-                )
+//                MapUtil.addMarkerToMap(
+//                    aMap!!,
+//                    latLng,
+//                    BitmapFactory.decodeResource(resources, R.mipmap.icon_location_yellow)
+//                )
+                MapUtil.addInfoWindowToMap(aMap!!, LatLng( latLonPoint.latitude,latLonPoint.longitude),
+                    BitmapFactory.decodeResource(resources, R.mipmap.icon_location_yellow),object :
+                        AMap.InfoWindowAdapter{
+                        override fun getInfoContents(p0: Marker?): View?{
+                            return null
+                        }
+
+                        override fun getInfoWindow(p0: Marker?): View {
+                            if (infoWindow==null){
+                                infoWindow = LayoutInflater.from(this@PublishEmergencyActivity).inflate(R.layout.custom_info_window, null)
+                                val tvInfo =
+                                    infoWindow!!.findViewById<TextView>(R.id.tv_info)
+                                tvInfo.text="标记这里"
+                            }
+                            return infoWindow!!
+
+                        }
+                    })
                 //将中心移到自己的位置
                 val mCameraUpdate = CameraUpdateFactory.newCameraPosition(
                     CameraPosition(latLng, 15f, 0f, 0f)
@@ -248,8 +313,13 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
             }
         }
     }
-    private var type =-1// 1 ， 2 ，3， 4代表选的图片
+    private var type =-1// 1 ， 2 ，3，代表选的人图片 4代表选的二维码图片
+    private var sb =StringBuilder()
     private var photo=""
+    private var picUrl1=""
+    private var picUrl2=""
+    private var picUrl3=""
+    private var qrcode=""
     private fun selectImage(type: Int) {
         PictureSelector.create(this)
             .openGallery(PictureMimeType.ofImage()) //全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
@@ -301,8 +371,12 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
                             override fun onSucceed(t: ImgBean, desc: String?) {
                                 Logger.e("成功")
                                 Logger.e("网络图片地址==${t.fileUrl}")
-                                photo=t.fileUrl
-
+                                when(type){
+                                    1->{picUrl1=t.fileUrl}
+                                    2->{picUrl2=t.fileUrl}
+                                    3->{picUrl3=t.fileUrl}
+                                    4->{qrcode=t.fileUrl}
+                                }
                             }
 
                             override fun onFailed() {

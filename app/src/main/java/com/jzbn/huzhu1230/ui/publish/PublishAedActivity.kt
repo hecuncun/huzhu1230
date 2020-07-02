@@ -126,7 +126,7 @@ class PublishAedActivity :BaseMapActivity() {
                 } else {
                     showToast(province.areaName + city.areaName + county.areaName)
                     tv_address.text=province.areaName + city.areaName + county.areaName
-                    area=province.areaName + city.areaName
+                    area=province.areaName + city.areaName+county.areaName
                 }
             }
 

@@ -280,6 +280,25 @@
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_publish_arrow_right" />
             </LinearLayout>
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="输入被寻人相貌特征"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_features"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_white_card"
+                android:hint="请输入明显特征，比如结巴"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/color_gray_333333"
+                android:textColorHint="@color/color_gray_999999"
+                android:textSize="15sp" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
