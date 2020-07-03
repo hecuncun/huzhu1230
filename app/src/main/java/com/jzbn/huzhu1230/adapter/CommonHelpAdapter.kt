@@ -4,6 +4,7 @@ import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.jzbn.huzhu1230.R
+import com.jzbn.huzhu1230.application.App.Companion.context
 import com.jzbn.huzhu1230.bean.CommonRescueBean
 import com.jzbn.huzhu1230.constants.Constant
 import com.jzbn.huzhu1230.glide.GlideUtils
@@ -14,7 +15,6 @@ class CommonHelpAdapter: BaseQuickAdapter<CommonRescueBean.DataBean,BaseViewHold
        item?:return
         helper.setText(R.id.tvName,item.title)
         val iv = helper.getView<ImageView>(R.id.ivImg)
-        GlideUtils.showAnimation(iv,Constant.BASE_URL+item.photo,R.mipmap.ic_launcher)
-
+        GlideUtils.showPlaceholder(context,iv,Constant.BASE_URL+item.photo,R.mipmap.ic_launcher)
     }
 }

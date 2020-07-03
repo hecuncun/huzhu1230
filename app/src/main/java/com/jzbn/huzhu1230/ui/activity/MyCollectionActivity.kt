@@ -9,7 +9,6 @@ import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.CollectionAdapter
 import com.jzbn.huzhu1230.base.BaseNoDataBean
 import com.jzbn.huzhu1230.bean.CollectionResponseBean
-import com.jzbn.huzhu1230.bean.DailyRescueBean
 import com.jzbn.huzhu1230.constants.Constant
 import com.jzbn.huzhu1230.ext.showToast
 import com.jzbn.huzhu1230.net.CallbackListObserver
@@ -19,6 +18,8 @@ import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.ui.home.VideoDetailActivity
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_my_collection.*
+import kotlinx.android.synthetic.main.activity_my_collection.llNoData
+import kotlinx.android.synthetic.main.fragment_emergency_find.*
 import kotlinx.android.synthetic.main.fragment_emergency_find.recyclerView
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -51,6 +52,11 @@ class MyCollectionActivity : BaseActivity() {
                 total = t.total
                 list.addAll(t.rows)
                 collectionAdapter.setNewData(list)
+                if (list.isEmpty()){
+                    llNoData.visibility=View.VISIBLE
+                }else{
+                    llNoData.visibility=View.GONE
+                }
             }
 
             override fun onFailed() {

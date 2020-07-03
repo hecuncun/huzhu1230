@@ -37,8 +37,8 @@
             android:background="@drawable/bg_red_point"/>
         <ImageView
             android:id="@+id/iv_head_pic"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="70dp"
             android:src="@mipmap/icon_head_def" />

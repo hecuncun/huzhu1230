@@ -12,7 +12,8 @@ import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.ui.publishdetail.PublishEmergencyDetailActivity
 import com.lhzw.bluetooth.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_emergency_find.*
+import kotlinx.android.synthetic.main.activity_search.*
+import kotlinx.android.synthetic.main.fragment_emergency_find.recyclerView
 
 /**
  * 我的发布  常年寻人
@@ -90,6 +91,11 @@ class MyCommonFindFragment : BaseFragment() {
                     total = t.total
                     list.addAll(t.rows)
                     emergencyFindAdapter.setNewData(list)
+                    if (list.isEmpty()){
+                        llNoData.visibility=View.VISIBLE
+                    }else{
+                        llNoData.visibility=View.GONE
+                    }
                 }
 
                 override fun onFailed() {

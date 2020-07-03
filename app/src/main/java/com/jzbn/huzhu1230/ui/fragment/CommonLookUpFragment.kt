@@ -91,6 +91,11 @@ class CommonLookUpFragment : BaseFragment() {
                     total = t.total
                     list.addAll(t.rows)
                     emergencyFindAdapter.setNewData(list)
+                    if (list.isEmpty()){
+                        llNoData.visibility=View.VISIBLE
+                    }else{
+                        llNoData.visibility=View.GONE
+                    }
                 }
 
                 override fun onFailed() {

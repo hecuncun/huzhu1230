@@ -15,6 +15,7 @@ import com.jzbn.huzhu1230.base.BaseNoDataBean
 import com.jzbn.huzhu1230.bean.AddressBean
 import com.jzbn.huzhu1230.bean.SearchDetailBean
 import com.jzbn.huzhu1230.constants.Constant
+import com.jzbn.huzhu1230.event.RefreshDetailEvent
 import com.jzbn.huzhu1230.ext.showToast
 import com.jzbn.huzhu1230.glide.GlideUtils
 import com.jzbn.huzhu1230.net.CallbackListObserver
@@ -27,6 +28,8 @@ import com.stx.xhb.xbanner.XBanner
 import com.stx.xhb.xbanner.entity.SimpleBannerInfo
 import kotlinx.android.synthetic.main.activity_publish_emergency_detail_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 //长期寻人/紧急寻人详情页
 class PublishEmergencyDetailActivity : BaseMapActivity() {
@@ -45,13 +48,21 @@ class PublishEmergencyDetailActivity : BaseMapActivity() {
     private var magorid = ""
     private var type:String?=""
     private var latLng: LatLng? = null //被寻人丢失经纬度
+
     override fun initData() {
         magorid = intent.getStringExtra("magorid")
+        initDetailData()
+    }
+
+    private fun initDetailData() {
         val searchDetailCall = SLMRetrofit.getInstance().api.searchDetailCall(magorid)
         searchDetailCall.compose(ThreadSwitchTransformer())
             .subscribe(object : CallbackObserver<SearchDetailBean>() {
                 override fun onSucceed(t: SearchDetailBean, desc: String?) {
                     val split = t.photo.split(",")
+                    if (split.isNotEmpty()) {
+                        photoMain = split[0] //主照片
+                    }
                     for (item in split) {
                         bannerBeans.add(MyBannerInfo(item))
                     }
@@ -72,6 +83,9 @@ class PublishEmergencyDetailActivity : BaseMapActivity() {
                         Constant.BASE_URL + t.createUserPhoto,
                         R.mipmap.icon_head_def
                     )
+                    ddate = t.ddate
+                    duration = t.duration
+                    address = t.area + t.areaDetail
                     tv_publish_time.text = "发布于${t.createtime}"
                     tv_publish_name.text = t.createUserName
                     tv_publish_duration.text = "历时${t.duration}"
@@ -111,7 +125,6 @@ class PublishEmergencyDetailActivity : BaseMapActivity() {
 
                 }
             })
-
     }
 
     private var publishType = ""
@@ -157,10 +170,17 @@ class PublishEmergencyDetailActivity : BaseMapActivity() {
 
     }
 
-
+    private var photoMain=""
+    private var ddate=""
+    private var duration=""
+    private var address =""
     override fun initListener() {
         btn_provide_something.setOnClickListener {
             val intent = Intent(this, ProvideClueActivity::class.java)
+            intent.putExtra("photoMain",photoMain)
+            intent.putExtra("ddate",ddate)
+            intent.putExtra("duration",duration)
+            intent.putExtra("address",address)
             intent.putExtra("magorid", magorid)
             startActivity(intent)
         }
@@ -170,6 +190,7 @@ class PublishEmergencyDetailActivity : BaseMapActivity() {
                 override fun onSucceed(t: BaseNoDataBean) {
                     if (t.code==Constant.SUCCESSED_CODE){
                         showToast("成功找到")
+                        finish()
                     }else{
                         showToast(t.message)
                     }
@@ -188,5 +209,10 @@ class PublishEmergencyDetailActivity : BaseMapActivity() {
             return Constant.BASE_URL + picUrl
         }
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun refresh(event:RefreshDetailEvent){
+        initDetailData()
     }
 }

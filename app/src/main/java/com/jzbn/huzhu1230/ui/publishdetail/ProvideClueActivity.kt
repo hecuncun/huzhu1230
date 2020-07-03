@@ -1,6 +1,5 @@
 package com.jzbn.huzhu1230.ui.publishdetail
 
-import BaseActivity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -31,6 +30,9 @@ import com.amap.api.services.geocoder.RegeocodeResult
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.application.App
 import com.jzbn.huzhu1230.base.BaseNoDataBean
+import com.jzbn.huzhu1230.bean.ImgBean
+import com.jzbn.huzhu1230.constants.Constant
+import com.jzbn.huzhu1230.event.RefreshDetailEvent
 import com.jzbn.huzhu1230.ext.showToast
 import com.jzbn.huzhu1230.glide.GlideUtils
 import com.jzbn.huzhu1230.net.CallbackListObserver
@@ -45,42 +47,48 @@ import com.jzbn.huzhu1230.widget.LoadingView
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_provide_clue_layout.*
-import kotlinx.android.synthetic.main.activity_provide_clue_layout.et_detail_address
-import kotlinx.android.synthetic.main.activity_provide_clue_layout.et_remark
-import kotlinx.android.synthetic.main.activity_provide_clue_layout.ll_select_address
-import kotlinx.android.synthetic.main.activity_provide_clue_layout.ll_select_time
-import kotlinx.android.synthetic.main.activity_provide_clue_layout.map
-import kotlinx.android.synthetic.main.activity_provide_clue_layout.pic_one
-import kotlinx.android.synthetic.main.activity_provide_clue_layout.pic_three
-import kotlinx.android.synthetic.main.activity_provide_clue_layout.pic_two
-import kotlinx.android.synthetic.main.activity_provide_clue_layout.tv_address
-import kotlinx.android.synthetic.main.activity_provide_clue_layout.tv_time
-import kotlinx.android.synthetic.main.activity_publish_emergency_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
+import java.io.File
 
 //提供线索 页面
 class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
-    private var loadingView: LoadingView?=null
-    override fun getMapView(): MapView =map
+    private var loadingView: LoadingView? = null
+    override fun getMapView(): MapView = map
 
     override fun attachLayoutRes(): Int = R.layout.activity_provide_clue_layout
 
     override fun initData() {
     }
+
     private var findId = ""
-    private var area =""
-    private var areaDetail=""
-    private var longitude=""
-    private var latitude=""
-    private var ddate=""
-    private var photo=""
-    private var picUrl1=""
-    private var picUrl2=""
-    private var picUrl3=""
+    private var area = ""
+    private var areaDetail = ""
+    private var longitude = ""
+    private var latitude = ""
+    private var ddate = ""
+    private var photo = ""
+    private var picUrl1 = ""
+    private var picUrl2 = ""
+    private var picUrl3 = ""
     override fun initView() {
         toolbar_title.text = "提供线索"
         findId = intent.getStringExtra("magorid")
+        val photoMain = intent.getStringExtra("photoMain")
+        val loseTime = intent.getStringExtra("ddate")
+        val loseDuration = intent.getStringExtra("duration")
+        val loseAddress = intent.getStringExtra("address")
+        GlideUtils.showPlaceholder(this,iv_photo,Constant.BASE_URL+photoMain,R.mipmap.icon_logo)
+        tv_lose_time.text="走失于$loseTime"
+        tv_lose_duration.text="已走失$loseDuration"
+        tv_lose_address.text=loseAddress
+
+
     }
 
     override fun initListener() {
@@ -97,8 +105,8 @@ class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
 
         et_detail_address.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                areaDetail=s.toString().trim()
-                val address = area+areaDetail
+                areaDetail = s.toString().trim()
+                val address = area + areaDetail
                 MapUtil.getLatLonPointFromAddress(address, geocoderSearch)
             }
 
@@ -111,11 +119,12 @@ class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
         })
 
         btn_provide.setOnClickListener {
-            photo= CommonUtil.getAppendString(picUrl1,picUrl2,picUrl3)
-            val content= et_remark.text.toString().trim()
-            if ( photo.isNotEmpty() && ddate.isNotEmpty() && area.isNotEmpty()
-                && areaDetail.isNotEmpty() && longitude.isNotEmpty() && latitude.isNotEmpty()){
-                loadingView= LoadingView(this)
+            photo = CommonUtil.getAppendString(picUrl1, picUrl2, picUrl3)
+            val content = et_remark.text.toString().trim()
+            if (photo.isNotEmpty() && ddate.isNotEmpty() && area.isNotEmpty()
+                && areaDetail.isNotEmpty() && longitude.isNotEmpty() && latitude.isNotEmpty()
+            ) {
+                loadingView = LoadingView(this)
                 loadingView?.setLoadingTitle("提交中...")
                 val provideClueCall = SLMRetrofit.getInstance().api.provideClueCall(
                     uid,
@@ -129,10 +138,10 @@ class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
                     content
                 )
                 provideClueCall.compose(ThreadSwitchTransformer()).subscribe(object :
-                    CallbackListObserver<BaseNoDataBean>(){
+                    CallbackListObserver<BaseNoDataBean>() {
                     override fun onSucceed(t: BaseNoDataBean?) {
-                       showToast("提供线索成功")
-
+                        showToast("提供线索成功")
+                      EventBus.getDefault().post(RefreshDetailEvent())
                         finish()
                     }
 
@@ -144,6 +153,7 @@ class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
             }
         }
     }
+
     /**
      * 显示城市选择器
      */
@@ -159,12 +169,12 @@ class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
             override fun onAddressPicked(province: Province, city: City, county: County?) {
                 if (county == null) {
                     showToast(province.areaName + city.areaName)
-                    tv_address.text=province.areaName + city.areaName
-                    area=province.areaName + city.areaName
+                    tv_address.text = province.areaName + city.areaName
+                    area = province.areaName + city.areaName
                 } else {
                     showToast(province.areaName + city.areaName + county.areaName)
-                    tv_address.text=province.areaName + city.areaName + county.areaName
-                    area=province.areaName + city.areaName+county.areaName
+                    tv_address.text = province.areaName + city.areaName + county.areaName
+                    area = province.areaName + city.areaName + county.areaName
                 }
             }
 
@@ -182,7 +192,7 @@ class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
         picker.setDateRangeEnd(2050, 12, 31)
         picker.setTimeRangeStart(0, 0)
         picker.setTimeRangeEnd(23, 59)
-        picker.setSelectedItem(2020,6,15,12,0)
+        picker.setSelectedItem(2020, 6, 15, 12, 0)
         picker.setTextColor(Color.parseColor("#333333"))
         picker.setTextSize(18)
         picker.setDividerColor(Color.parseColor("#F6B900"))
@@ -196,11 +206,12 @@ class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
         picker.setOnDateTimePickListener(DateTimePicker.OnYearMonthDayTimePickListener { year, month, day, hour, minute ->
             showToast("$year-$month-$day $hour:$minute")
             tv_time.text = "$year-$month-$day $hour:$minute"
-            ddate="$year-$month-$day $hour:$minute:00"
+            ddate = "$year-$month-$day $hour:$minute:00"
         })
         fitScreenWidth(picker)
         picker.show()
     }
+
     //兼容今日头条适配方案
     private fun fitScreenWidth(picker: WheelPicker) {
         val wm = App.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -209,6 +220,7 @@ class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
         val params = picker.window.attributes
         params.width = point.x
     }
+
     var infoWindow: View? = null
     override fun onGeocodeSearched(geocodeResult: GeocodeResult?, p1: Int) {
         //根据地理位置描述 搜索出来的结果
@@ -218,8 +230,8 @@ class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
                 val latLonPoint = geocodeAddress.latLonPoint
                 //经纬度
                 val latLng = LatLng(latLonPoint.latitude, latLonPoint.longitude)
-                longitude=latLonPoint.longitude.toString()
-                latitude=latLonPoint.latitude.toString()
+                longitude = latLonPoint.longitude.toString()
+                latitude = latLonPoint.latitude.toString()
                 Log.d(
                     "HAHAHHAHA",
                     "onRegeocodeSearched: City" + geocodeAddress.city
@@ -230,7 +242,7 @@ class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
                 )
                 Log.d(
                     "HAHAHHAHA",
-                    "onRegeocodeSearched: longitude" +  latLonPoint.longitude
+                    "onRegeocodeSearched: longitude" + latLonPoint.longitude
                 )
 
                 //添加系统默认 marker
@@ -239,19 +251,22 @@ class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
 //                    latLng,
 //                    BitmapFactory.decodeResource(resources, R.mipmap.icon_location_yellow)
 //                )
-                MapUtil.addInfoWindowToMap(aMap!!, LatLng( latLonPoint.latitude,latLonPoint.longitude),
-                    BitmapFactory.decodeResource(resources, R.mipmap.icon_location_yellow),object :
-                        AMap.InfoWindowAdapter{
-                        override fun getInfoContents(p0: Marker?): View?{
+                MapUtil.addInfoWindowToMap(aMap!!,
+                    LatLng(latLonPoint.latitude, latLonPoint.longitude),
+                    BitmapFactory.decodeResource(resources, R.mipmap.icon_location_yellow),
+                    object :
+                        AMap.InfoWindowAdapter {
+                        override fun getInfoContents(p0: Marker?): View? {
                             return null
                         }
 
                         override fun getInfoWindow(p0: Marker?): View {
-                            if (infoWindow==null){
-                                infoWindow = LayoutInflater.from(this@ProvideClueActivity).inflate(R.layout.custom_info_window, null)
+                            if (infoWindow == null) {
+                                infoWindow = LayoutInflater.from(this@ProvideClueActivity)
+                                    .inflate(R.layout.custom_info_window, null)
                                 val tvInfo =
                                     infoWindow!!.findViewById<TextView>(R.id.tv_info)
-                                tvInfo.text="标记这里"
+                                tvInfo.text = "标记这里"
                             }
                             return infoWindow!!
 
@@ -272,24 +287,24 @@ class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
     }
 
 
-
-    private var type =-1// 1 ， 2 ，3代表选的图片
+    private var type = -1// 1 ， 2 ，3代表选的图片
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.pic_one->{
-                type=1
+        when (v?.id) {
+            R.id.pic_one -> {
+                type = 1
                 selectImage(1)
             }
-            R.id.pic_two->{
-                type=2
+            R.id.pic_two -> {
+                type = 2
                 selectImage(2)
             }
-            R.id.pic_three->{
-                type=3
+            R.id.pic_three -> {
+                type = 3
                 selectImage(3)
             }
         }
     }
+
     private fun selectImage(type: Int) {
         PictureSelector.create(this)
             .openGallery(PictureMimeType.ofImage()) //全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
@@ -319,50 +334,50 @@ class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 PictureConfig.CHOOSE_REQUEST -> {
-                    var pic : ImageView?=null
+                    var pic: ImageView? = null
                     val selectList = PictureSelector.obtainMultipleResult(data)
                     if (selectList.size > 0) {
-                        when(type){
-                            1->{pic=pic_one}
-                            2->{pic=pic_two}
-                            3->{pic=pic_three}
+                        when (type) {
+                            1 -> {
+                                pic = pic_one
+                            }
+                            2 -> {
+                                pic = pic_two
+                            }
+                            3 -> {
+                                pic = pic_three
+                            }
 
                         }
-                        GlideUtils.loadRoundImg(pic,selectList[0].compressPath,R.drawable.ic_launcher_background,6)
+                        GlideUtils.loadRoundImg(
+                            pic,
+                            selectList[0].compressPath,
+                            R.drawable.ic_launcher_background,
+                            6
+                        )
                         //上传文件
-//                        val file = File(selectList[0].compressPath)
-//                        Logger.e("图片地址==${selectList[0].compressPath}")
-//                        val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-//                        //retrofit 上传文件api加上 @Multipart注解,然后下面这是个重点 参数1：上传文件的key，参数2：上传的文件名，参数3 请求头
-//                        val body: MultipartBody.Part = MultipartBody.Part.createFormData("upload", file.name, requestFile)
-//                        val uploadCall = SLMRetrofit.getInstance().api.uploadCall(body)
-//                        uploadCall.compose(ThreadSwitchTransformer()).subscribe(object:CallbackObserver<ImgBean>(){
-//                            override fun onSucceed(t: ImgBean?, desc: String?) {
-//                                Logger.e("成功")
-//                                Logger.e("网络图片地址==${t?.fileUrl}")
-//                                photo=t?.fileUrl?:photo
-//                                //调用修改头像接口
-//                                val updateInfoCall = SLMRetrofit.getInstance().api.updateInfoCall(uid, null, photo)
-//                                updateInfoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
-//                                    override fun onSucceed(t: BaseNoDataBean?) {
-//                                        if (t?.code== Constant.SUCCESSED_CODE){
-//                                            showToast("头像修改成功")
-//                                            EventBus.getDefault().post(UpdateInfoEvent())
-//                                        }else{
-//                                            showToast("头像修改失败")
-//                                        }
-//                                    }
-//
-//                                    override fun onFailed() {
-//                                    }
-//                                })
-//
-//                            }
-//
-//                            override fun onFailed() {
-//                                Logger.e("失败")
-//                            }
-//                        } )
+                        val file = File(selectList[0].compressPath)
+                        Logger.e("图片地址==${selectList[0].compressPath}")
+                        val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                        //retrofit 上传文件api加上 @Multipart注解,然后下面这是个重点 参数1：上传文件的key，参数2：上传的文件名，参数3 请求头
+                        val body: MultipartBody.Part = MultipartBody.Part.createFormData("upload", file.name, requestFile)
+                        val uploadCall = SLMRetrofit.getInstance().api.uploadCall(body)
+                        uploadCall.compose(ThreadSwitchTransformer()).subscribe(object:
+                            CallbackObserver<ImgBean>(){
+                            override fun onSucceed(t: ImgBean, desc: String?) {
+                                Logger.e("成功")
+                                Logger.e("网络图片地址==${t.fileUrl}")
+                                when(type){
+                                    1->{picUrl1=t.fileUrl}
+                                    2->{picUrl2=t.fileUrl}
+                                    3->{picUrl3=t.fileUrl}
+                                }
+                            }
+
+                            override fun onFailed() {
+                                Logger.e("失败")
+                            }
+                        } )
                     } else {
                         showToast("图片出现问题")
                     }
