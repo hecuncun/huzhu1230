@@ -27,6 +27,7 @@ class MyHonorActivity:BaseActivity() {
             override fun onSucceed(t: HonorInfoBean) {
                 if (t.code=="10001"){
                     Logger.e(t.data)
+                    tv_name.text=t.data
                 }
 
             }

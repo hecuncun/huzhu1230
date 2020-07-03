@@ -4,11 +4,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/toolbar"/>
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="393dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/icon_honor_bg" />
+        android:background="@mipmap/icon_honor_bg"
+        android:layout_height="393dp">
+        <FrameLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/icon_yellow_bg">
+              <TextView
+                  android:id="@+id/tv_name"
+                 android:layout_gravity="center"
+                  android:layout_width="52dp"
+                  android:layout_height="wrap_content"
+                  android:textStyle="bold"
+                  android:textSize="25sp"
+                  android:textColor="#EC8307"
+                  android:text="救援达人"/>
+        </FrameLayout>
+
+    </RelativeLayout>
+
     <ImageView
         android:layout_width="85dp"
         android:layout_height="85dp"
