@@ -6,6 +6,7 @@ import com.jzbn.huzhu1230.bean.AedBean;
 import com.jzbn.huzhu1230.bean.CertificateBean;
 import com.jzbn.huzhu1230.bean.CollectionResponseBean;
 import com.jzbn.huzhu1230.bean.CommonRescueBean;
+import com.jzbn.huzhu1230.bean.CreditBean;
 import com.jzbn.huzhu1230.bean.DailyRescueBean;
 import com.jzbn.huzhu1230.bean.HonorInfoBean;
 import com.jzbn.huzhu1230.bean.ImgBean;
@@ -296,7 +297,13 @@ public interface Api {
      */
     @POST("appFindInfo/updateFindStatus")
     Observable<BaseNoDataBean> findCall(@Query("uid") String uid,@Query("findId") String findId);
-//    /**
+
+    /**
+     * 信誉分列表
+     */
+    @POST("appUserScoreDetail/searchForPage")
+    Observable<BaseBean<CreditBean>> creditListCall(@Query("page") int page,@Query("uid") String uid);
+ //    /**
 //     * 修改自定义头像接口
 //     */
 //    @POST("vms/appapi/account/editPic")

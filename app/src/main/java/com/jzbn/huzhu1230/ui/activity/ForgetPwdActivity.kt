@@ -23,7 +23,8 @@ class ForgetPwdActivity : BaseActivity() {
     }
 
     override fun initView() {
-        toolbar_title.text = "忘记密码"
+        val type = intent.getStringExtra("type")
+        toolbar_title.text = if (type=="fix") "修改密码" else "忘记密码"
     }
 
     override fun initListener() {
@@ -76,7 +77,7 @@ class ForgetPwdActivity : BaseActivity() {
             )
             resetPwdCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
                 override fun onSucceed(t: BaseNoDataBean?) {
-                    showToast("密码找回成功")
+                    showToast("成功")
                     finish()
                 }
 

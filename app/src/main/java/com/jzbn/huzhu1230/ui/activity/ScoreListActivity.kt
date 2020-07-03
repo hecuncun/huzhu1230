@@ -2,15 +2,16 @@ package com.jzbn.huzhu1230.ui.activity
 
 import BaseActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.ScoreAdapter
+import com.jzbn.huzhu1230.bean.ScoreBean
 import com.jzbn.huzhu1230.net.CallbackObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import kotlinx.android.synthetic.main.fragment_emergency_find.*
 import kotlinx.android.synthetic.main.toolbar.*
-import com.jzbn.huzhu1230.bean.ScoreBean
 
 /**
  * Created by hecuncun on 2020-5-24
@@ -33,6 +34,11 @@ class ScoreListActivity : BaseActivity() {
                     total = t.total
                     list.addAll(t.rows)
                     scoreAdapter.setNewData(list)
+                    if (list.isEmpty()){
+                        llNoData.visibility= View.VISIBLE
+                    }else{
+                        llNoData.visibility= View.GONE
+                    }
                 }
 
                 override fun onFailed() {

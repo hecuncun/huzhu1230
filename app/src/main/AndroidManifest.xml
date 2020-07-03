@@ -98,6 +98,7 @@
         <activity android:name=".ui.activity.WebViewActivity" />
         <activity android:name=".ui.activity.EditLanguageActivity" />
         <activity android:name=".ui.activity.EditSexActivity" />
+        <activity android:name=".ui.activity.CreditListActivity" />
         <!--      高德定位服务  -->
         <service android:name="com.amap.api.location.APSService"/>
     </application>

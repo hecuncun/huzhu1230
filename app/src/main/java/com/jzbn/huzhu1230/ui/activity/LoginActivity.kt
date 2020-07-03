@@ -40,7 +40,9 @@ class LoginActivity:BaseActivity() {
             startActivity(Intent(this,RegisterActivity::class.java))
         }
         tv_forget_pwd.setOnClickListener {
-            startActivity(Intent(this,ForgetPwdActivity::class.java))
+            val intent =Intent(this,ForgetPwdActivity::class.java)
+            intent.putExtra("type","forget")
+            startActivity(intent)
         }
 
         tv_login.setOnClickListener {

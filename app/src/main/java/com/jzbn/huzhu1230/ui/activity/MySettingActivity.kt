@@ -45,5 +45,11 @@ class MySettingActivity : BaseActivity() {
             intent.putExtra("type",0)
             startActivity(intent)
         }
+
+        rl_change_pwd.setOnClickListener {
+            val intent =Intent(this,ForgetPwdActivity::class.java)
+            intent.putExtra("type","fix")
+            startActivity(intent)
+        }
     }
 }

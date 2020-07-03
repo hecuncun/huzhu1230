@@ -5,6 +5,10 @@ import android.content.Intent
 import android.graphics.Paint
 import android.view.View
 import com.jzbn.huzhu1230.R
+import com.jzbn.huzhu1230.bean.PersonalInfoBean
+import com.jzbn.huzhu1230.net.CallbackObserver
+import com.jzbn.huzhu1230.net.SLMRetrofit
+import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import kotlinx.android.synthetic.main.activity_my_score.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -15,9 +19,21 @@ class MyScoreActivity:BaseActivity() {
     override fun attachLayoutRes(): Int = R.layout.activity_my_score
 
     override fun initData() {
-
+        getUserInfo()
     }
+    private fun getUserInfo() {
+        val personalInfoCall = SLMRetrofit.getInstance().api.personalInfoCall(uid)
+        personalInfoCall.compose(ThreadSwitchTransformer())
+            .subscribe(object : CallbackObserver<PersonalInfoBean>() {
+                override fun onSucceed(t: PersonalInfoBean, desc: String?) {
+                    tv_score.text=t.integral.toString()
+                }
 
+                override fun onFailed() {
+
+                }
+            })
+    }
     override fun initView() {
         toolbar_title.text="我的积分"
         toolbar_right_tv.text="明细"
