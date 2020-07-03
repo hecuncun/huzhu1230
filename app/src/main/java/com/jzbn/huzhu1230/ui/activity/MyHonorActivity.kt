@@ -21,6 +21,7 @@ class MyHonorActivity:BaseActivity() {
     override fun attachLayoutRes(): Int = R.layout.activity_my_honor
 
     override fun initData() {
+
         //获取荣誉积分
         val honorInfoCall = SLMRetrofit.getInstance().api.honorInfoCall(uid)
         honorInfoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<HonorInfoBean>(){
