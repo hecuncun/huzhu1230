@@ -150,6 +150,8 @@ class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
                     }
 
                 })
+            }else{
+                showToast("请把信息填写完整")
             }
         }
     }

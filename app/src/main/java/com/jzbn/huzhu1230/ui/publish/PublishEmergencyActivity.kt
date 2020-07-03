@@ -31,7 +31,6 @@ import com.amap.api.services.geocoder.RegeocodeResult
 import com.blankj.utilcode.util.ToastUtils
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.application.App.Companion.context
-import com.jzbn.huzhu1230.base.BaseNoDataBean
 import com.jzbn.huzhu1230.bean.ImgBean
 import com.jzbn.huzhu1230.bean.PublishResponseBean
 import com.jzbn.huzhu1230.constants.Constant
@@ -42,7 +41,6 @@ import com.jzbn.huzhu1230.net.CallbackObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.picker.AddressPickTask
-import com.jzbn.huzhu1230.ui.publishdetail.PublishEmergencyDetailActivity
 import com.jzbn.huzhu1230.utils.CommonUtil
 import com.jzbn.huzhu1230.utils.MapUtil
 import com.jzbn.huzhu1230.widget.LoadingView
@@ -192,6 +190,8 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
                         loadingView?.dismiss()
                     }
                 })
+            }else{
+                showToast("请把信息填写完整")
             }
 
 

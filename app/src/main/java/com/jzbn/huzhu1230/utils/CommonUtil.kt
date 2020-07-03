@@ -135,7 +135,10 @@ object CommonUtil {
             }
         }
         val temp  =sb.toString().trim()
-        val result=temp.substring(0,temp.length-1)
+        var result=""
+        if (temp.isNotEmpty()){
+            result=temp.substring(0,temp.length-1)
+        }
         Logger.e("result=$result")
         return result
     }
