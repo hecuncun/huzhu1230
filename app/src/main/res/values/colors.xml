@@ -14,4 +14,10 @@
     <color name="color_red">#FF0000</color>
     <color name="color_red_FF0060">#FF0060</color>
     <color name="color_black">#000000</color>
+
+    <color name="black_alpha_5">#1a000000</color>
+    <color name="dark_gray">#FF2c2c2c</color>
+    <color name="holo_light_gray">#F8F8FF</color>
+
+    <color name="yellow_alpha_100">#FF9806</color>
 </resources>

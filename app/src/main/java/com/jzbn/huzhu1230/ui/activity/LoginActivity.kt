@@ -63,7 +63,7 @@ class LoginActivity:BaseActivity() {
                     showToast("登录成功")
                     isLogin=true
                     uid=t.uid
-                    nickname=t.nickname
+                    nickname=t.nickname?:""
                     photoPath=t.path?:""
                     startActivity(Intent(this@LoginActivity,MainActivity::class.java))
                     finish()

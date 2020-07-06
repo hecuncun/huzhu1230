@@ -3,6 +3,7 @@ package com.jzbn.huzhu1230.net;
 import com.jzbn.huzhu1230.base.BaseBean;
 import com.jzbn.huzhu1230.base.BaseNoDataBean;
 import com.jzbn.huzhu1230.bean.AedBean;
+import com.jzbn.huzhu1230.bean.AliVideoBean;
 import com.jzbn.huzhu1230.bean.CertificateBean;
 import com.jzbn.huzhu1230.bean.CollectionResponseBean;
 import com.jzbn.huzhu1230.bean.CommonRescueBean;
@@ -303,7 +304,14 @@ public interface Api {
      */
     @POST("appUserScoreDetail/searchForPage")
     Observable<BaseBean<CreditBean>> creditListCall(@Query("page") int page,@Query("uid") String uid);
- //    /**
+
+    /**
+     * 阿里云视频
+     */
+    @POST("appRTC/selectDetail")
+    Observable<BaseBean<AliVideoBean>> aliVideoCall(@Query("uid") String uid);
+
+    //    /**
 //     * 修改自定义头像接口
 //     */
 //    @POST("vms/appapi/account/editPic")

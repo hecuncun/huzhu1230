@@ -1,13 +1,11 @@
 package com.jzbn.huzhu1230.ui.home
 
 import BaseActivity
+import android.content.Intent
 import cn.jzvd.JzvdStd
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.base.BaseNoDataBean
-import com.jzbn.huzhu1230.bean.InsertCollectionResponseBean
-import com.jzbn.huzhu1230.bean.KnowledgeBean
-import com.jzbn.huzhu1230.bean.RescueVideoBean
-import com.jzbn.huzhu1230.bean.SearchCollectionInfoResponseBean
+import com.jzbn.huzhu1230.bean.*
 import com.jzbn.huzhu1230.constants.Constant
 import com.jzbn.huzhu1230.ext.showToast
 import com.jzbn.huzhu1230.glide.GlideUtils
@@ -15,6 +13,7 @@ import com.jzbn.huzhu1230.net.CallbackListObserver
 import com.jzbn.huzhu1230.net.CallbackObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
+import com.jzbn.huzhu1230.ui.call.AliRtcChatActivity
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_video_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -162,6 +161,22 @@ class VideoDetailActivity : BaseActivity() {
 
             }
 
+        }
+
+        tv_call.setOnClickListener {
+            //视频呼叫
+            val aliVideoCall = SLMRetrofit.getInstance().api.aliVideoCall(uid)
+            aliVideoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<AliVideoBean>(){
+                override fun onSucceed(t: AliVideoBean, desc: String?) {
+                     val intent =Intent(this@VideoDetailActivity,AliRtcChatActivity::class.java)
+                    intent.putExtra("bean",t)
+                    startActivity(intent)
+                }
+
+                override fun onFailed() {
+
+                }
+            })
         }
     }
 
