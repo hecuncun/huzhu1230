@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'com.aliyun.ams.emas-services'
 android {
     compileSdkVersion 28
     buildToolsVersion "29.0.3"
@@ -16,7 +16,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
-            abiFilters "armeabi-v7a"
+            abiFilters "armeabi-v7a",'armeabi', 'x86'
         }
     }
 
@@ -38,7 +38,6 @@ android {
             signingConfig signingConfigs.key
         }
     }
-
     compileOptions{
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -123,4 +122,7 @@ dependencies {
         exclude group: 'com.android.support'
     }
     implementation 'com.alibaba:fastjson:1.1.55.android'
+
+//阿里推送
+    implementation 'com.aliyun.ams:alicloud-android-push:3.1.9.1'
 }

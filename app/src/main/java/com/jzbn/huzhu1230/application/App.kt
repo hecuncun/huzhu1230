@@ -6,6 +6,8 @@ import android.content.Context
 import android.os.Bundle
 import android.support.multidex.MultiDexApplication
 import android.util.Log
+import com.alibaba.sdk.android.push.CommonCallback
+import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
 import com.jzbn.huzhu1230.BuildConfig
 import com.jzbn.huzhu1230.utils.LogCatStrategy
 import com.orhanobut.logger.AndroidLogAdapter
@@ -53,9 +55,24 @@ class App : MultiDexApplication() {
         initLoggerConfig()
         //初始化数据库
         LitePal.initialize(this)
-
+        //阿里推送初始化
+        initCloudChannel(this)
         //BUGly初始化
       //  CrashReport.initCrashReport(applicationContext, "6ed7ce60df", false)
+    }
+
+    private fun initCloudChannel(app: Context) {
+        PushServiceFactory.init(app)
+        val pushService=PushServiceFactory.getCloudPushService()
+        pushService.register(app,object :CommonCallback{
+            override fun onSuccess(response: String?) {
+                Log.d(TAG, "init cloudchannel success");
+            }
+
+            override fun onFailed(errorCode: String?, errorMessage: String?) {
+                Log.d(TAG, "init cloudchannel failed -- errorcode:" + errorCode + " -- errorMessage:" + errorMessage);
+            }
+        })
     }
 
     private fun setupLeakCanary(): RefWatcher? {

@@ -10,6 +10,7 @@ import com.jzbn.huzhu1230.ext.showToast
 import com.jzbn.huzhu1230.net.CallbackObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
+import com.jzbn.huzhu1230.receiver.AliPushTools
 import kotlinx.android.synthetic.main.activity_login.*
 
 
@@ -63,6 +64,7 @@ class LoginActivity:BaseActivity() {
                     showToast("登录成功")
                     isLogin=true
                     uid=t.uid
+                    AliPushTools.getInstance().bindAlias(uid)
                     nickname=t.nickname?:""
                     photoPath=t.path?:""
                     startActivity(Intent(this@LoginActivity,MainActivity::class.java))

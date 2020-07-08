@@ -50,6 +50,9 @@
         tools:replace="android:appComponentFactory"
         android:appComponentFactory="@string/app_name"
         android:fullBackupContent="false">
+<!--        阿里推送-->
+        <meta-data android:name="com.alibaba.app.appkey" android:value="30469999"/> <!-- 请填写你自己的- appKey -->
+        <meta-data android:name="com.alibaba.app.appsecret" android:value="38278a7feb5f268e18690716ed7883f0"/> <!-- 请填写你自己的appSecret -->
         <!--设计图大小-->
         <meta-data
             android:name="design_width_in_dp"
@@ -111,6 +114,21 @@
         <activity android:name=".ui.call.AliRtcChatActivity" />
         <!--      高德定位服务  -->
         <service android:name="com.amap.api.location.APSService"/>
+
+        <!-- 消息接收监听器 （用户可自主扩展） -->
+        <receiver
+            android:name=".receiver.MyMessageReceiver"
+            android:exported="false"> <!-- 为保证receiver安全，建议设置不可导出，如需对其他应用开放可通过android：permission进行限制 -->
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
