@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
@@ -11,6 +12,8 @@ import android.util.Log;
 import com.alibaba.sdk.android.push.MessageReceiver;
 import com.alibaba.sdk.android.push.notification.CPushMessage;
 import com.jzbn.huzhu1230.R;
+import com.jzbn.huzhu1230.bean.AliVideoBean;
+import com.jzbn.huzhu1230.ui.call.AliRtcChatActivity;
 
 import java.util.Map;
 
@@ -63,6 +66,11 @@ public class MyMessageReceiver extends MessageReceiver {
     @Override
     public void onNotificationOpened(Context context, String title, String summary, String extraMap) {
         Log.e("MyMessageReceiver", "onNotificationOpened, title: " + title + ", summary: " + summary + ", extraMap:" + extraMap);
+        //跳转视频页
+        Intent intent =new Intent(context,AliRtcChatActivity.class);
+        AliVideoBean bean = new  AliVideoBean();
+        intent.putExtra("bean",bean);
+        context.startActivity(intent);
     }
     @Override
     protected void onNotificationClickedWithNoAction(Context context, String title, String summary, String extraMap) {

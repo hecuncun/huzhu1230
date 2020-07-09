@@ -309,7 +309,7 @@ public interface Api {
      * 阿里云视频
      */
     @POST("appRTC/selectDetail")
-    Observable<BaseBean<AliVideoBean>> aliVideoCall(@Query("uid") String uid);
+    Observable<BaseBean<AliVideoBean>> aliVideoCall(@Query("uid") String uid ,@Query("rid") String rid);
 
     //    /**
 //     * 修改自定义头像接口

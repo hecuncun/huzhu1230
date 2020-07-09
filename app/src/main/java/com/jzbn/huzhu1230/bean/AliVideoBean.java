@@ -11,6 +11,16 @@ import java.util.List;
 
 public class AliVideoBean implements Parcelable {
 
+    public AliVideoBean(String appId, String appKey, String userId, String nonce, String channelId, int timestamp, String token, List<String> GSLB) {
+        this.appId = appId;
+        this.appKey = appKey;
+        this.userId = userId;
+        this.nonce = nonce;
+        this.channelId = channelId;
+        this.timestamp = timestamp;
+        this.token = token;
+        this.GSLB = GSLB;
+    }
 
     /**
      * GSLB : ["https://rgslb.rtc.aliyuncs.com"]

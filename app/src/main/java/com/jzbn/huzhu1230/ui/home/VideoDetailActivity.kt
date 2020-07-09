@@ -165,7 +165,7 @@ class VideoDetailActivity : BaseActivity() {
 
         tv_call.setOnClickListener {
             //视频呼叫
-            val aliVideoCall = SLMRetrofit.getInstance().api.aliVideoCall(uid)
+            val aliVideoCall = SLMRetrofit.getInstance().api.aliVideoCall(uid,objectId)
             aliVideoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<AliVideoBean>(){
                 override fun onSucceed(t: AliVideoBean, desc: String?) {
                      val intent =Intent(this@VideoDetailActivity,AliRtcChatActivity::class.java)
