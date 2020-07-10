@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -14,6 +17,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alivc.rtc.AliRtcAuthInfo;
@@ -23,11 +29,14 @@ import com.alivc.rtc.AliRtcEngineNotify;
 import com.alivc.rtc.AliRtcRemoteUserInfo;
 import com.jzbn.huzhu1230.R;
 import com.jzbn.huzhu1230.bean.AliVideoBean;
+import com.orhanobut.logger.Logger;
 
 import org.webrtc.sdk.SophonSurfaceView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
+import static com.alivc.rtc.AliRtcEngine.AliRTCCameraType.AliRTCCameraFront;
 import static com.alivc.rtc.AliRtcEngine.AliRtcAudioTrack.AliRtcAudioTrackNo;
 import static com.alivc.rtc.AliRtcEngine.AliRtcRenderMode.AliRtcRenderModeAuto;
 import static com.alivc.rtc.AliRtcEngine.AliRtcVideoTrack.AliRtcVideoTrackBoth;
@@ -77,11 +86,15 @@ public class AliRtcChatActivity extends AppCompatActivity {
     private ChartUserAdapter mUserListAdapter;
 
     private AliVideoBean bean;
+    private TextView tvTip;
+    private TextView tvDuration;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alirtc_activity_chat);
-        bean = (AliVideoBean)getIntent().getParcelableExtra("bean");
+        bean = (AliVideoBean) getIntent().getParcelableExtra("bean");
         // 初始化界面上的view
         initView();
         if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
@@ -141,7 +154,58 @@ public class AliRtcChatActivity extends AppCompatActivity {
         chartUserListView.setItemAnimator(anim);
         chartUserListView.setAdapter(mUserListAdapter);
         mUserListAdapter.setOnSubConfigChangeListener(mOnSubConfigChangeListener);
+        TextView tvChangeCamera = findViewById(R.id.tv_change_camera);
+        tvTip = findViewById(R.id.tv_tip);
+        tvDuration = findViewById(R.id.tv_duration);
+        ImageView ivFinish = findViewById(R.id.iv_finish);
+
+        tvChangeCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AliRtcEngine.AliRTCCameraType currentCameraType = mAliRtcEngine.getCurrentCameraType();
+                if (currentCameraType == AliRTCCameraFront) {
+
+                    mAliRtcEngine.setPreCameraType(0);//0表示后置，1表示前置
+                    mAliRtcEngine.switchCamera();
+                } else {
+
+                    mAliRtcEngine.setPreCameraType(1);//0表示后置，1表示前置
+                    mAliRtcEngine.switchCamera();
+                }
+            }
+        });
+
+        ivFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+
+
     }
+
+
+
+    private final long[] baseTimer = {SystemClock.elapsedRealtime()};
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            if (0 == baseTimer[0]) {
+                baseTimer[0] = SystemClock.elapsedRealtime();
+            }
+
+            int time = (int) ((SystemClock.elapsedRealtime() - baseTimer[0]) / 1000);
+            String hh = new DecimalFormat("00").format(time / 3600);
+            String mm = new DecimalFormat("00").format(time % 3600 / 60);
+            String ss = new DecimalFormat("00").format(time % 60);
+            if (null != baseTimer) {
+                tvDuration.setText(hh + ":" + mm + ":" + ss);
+            }
+            sendMessageDelayed(Message.obtain(this, 0x0), 1000);
+        }
+    };
 
     private void initRTCEngineAndStartPreview() {
 
@@ -189,6 +253,7 @@ public class AliRtcChatActivity extends AppCompatActivity {
             mAliRtcEngine.setLocalViewConfig(aliVideoCanvas, AliRtcVideoTrackCamera);
         }
     }
+
     // 阿里音视频通话
 //appkey   0d79eb619746d6f8625143cdf58b124f  应用id :  50ucoiom
     private void joinChannel() {
@@ -196,7 +261,7 @@ public class AliRtcChatActivity extends AppCompatActivity {
         if (mAliRtcEngine == null) {
             return;
         }
-            AliRtcAuthInfo userInfo = new AliRtcAuthInfo() ;
+        AliRtcAuthInfo userInfo = new AliRtcAuthInfo();
         userInfo.setAppid(bean.getAppId());
         userInfo.setNonce(bean.getNonce());
         List<String> gslb = bean.getGSLB();
@@ -212,8 +277,16 @@ public class AliRtcChatActivity extends AppCompatActivity {
          *autoSub：是否自动订阅，取值true|false。
          */
         mAliRtcEngine.setAutoPublishSubscribe(true, true);
-        // 加入频道，需要填写鉴权信息和用户名。
-        mAliRtcEngine.joinChannel(userInfo,"用户名");
+
+        String[] onlineRemoteUsers = mAliRtcEngine.getOnlineRemoteUsers();
+        Logger.e("房间远程人数=="+onlineRemoteUsers.length);
+        if (onlineRemoteUsers.length>1){
+             showToast("已有人在提供帮助");
+        }else {
+            // 加入频道，需要填写鉴权信息和用户名。
+            mAliRtcEngine.joinChannel(userInfo, "用户名");
+        }
+
 
     }
 
@@ -221,6 +294,7 @@ public class AliRtcChatActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                Logger.e("远端用户id=="+uid);
                 //判断用户是否在线
                 if (null == mAliRtcEngine) {
                     return;
@@ -228,6 +302,8 @@ public class AliRtcChatActivity extends AppCompatActivity {
                 AliRtcRemoteUserInfo remoteUserInfo = mAliRtcEngine.getUserInfo(uid);
                 if (remoteUserInfo != null) {
                     mUserListAdapter.updateData(convertRemoteUserToUserData(remoteUserInfo), true);
+                    tvTip.setVisibility(View.GONE);
+                    handler.sendMessageDelayed(Message.obtain(handler, 0x0), 1000);
                 }
             }
         });
@@ -372,6 +448,7 @@ public class AliRtcChatActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        handler.removeMessages(0);
         if (mAliRtcEngine != null) {
             mAliRtcEngine.destroy();
         }

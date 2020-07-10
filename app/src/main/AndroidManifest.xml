@@ -111,7 +111,7 @@
         <activity android:name=".ui.activity.EditLanguageActivity" />
         <activity android:name=".ui.activity.EditSexActivity" />
         <activity android:name=".ui.activity.CreditListActivity" />
-        <activity android:name=".ui.call.AliRtcChatActivity" />
+        <activity android:name=".ui.call.AliRtcChatActivity"  android:theme="@style/AppTheme.FullScreen"/>
         <!--      高德定位服务  -->
         <service android:name="com.amap.api.location.APSService"/>
 

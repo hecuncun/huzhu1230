@@ -14,6 +14,7 @@ import com.jzbn.huzhu1230.net.CallbackObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.ui.call.AliRtcChatActivity
+import com.jzbn.huzhu1230.widget.LoadingView
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_video_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -165,16 +166,19 @@ class VideoDetailActivity : BaseActivity() {
 
         tv_call.setOnClickListener {
             //视频呼叫
+            val loadingView  =   LoadingView(this)
+            loadingView.show()
             val aliVideoCall = SLMRetrofit.getInstance().api.aliVideoCall(uid,objectId)
             aliVideoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<AliVideoBean>(){
                 override fun onSucceed(t: AliVideoBean, desc: String?) {
+                    loadingView.dismiss()
                      val intent =Intent(this@VideoDetailActivity,AliRtcChatActivity::class.java)
                     intent.putExtra("bean",t)
                     startActivity(intent)
                 }
 
                 override fun onFailed() {
-
+                    loadingView.dismiss()
                 }
             })
         }
