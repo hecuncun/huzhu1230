@@ -311,6 +311,12 @@ public interface Api {
     @POST("appRTC/selectDetail")
     Observable<BaseBean<AliVideoBean>> aliVideoCall(@Query("uid") String uid ,@Query("rid") String rid);
 
+    /**
+     * 加入房间
+     */
+    @POST("appRTC/selectToken")
+    Observable<BaseBean<AliVideoBean>> notifyVideoCall(@Query("uid") String uid,@Query("channelId") String channelId);
+
     //    /**
 //     * 修改自定义头像接口
 //     */
