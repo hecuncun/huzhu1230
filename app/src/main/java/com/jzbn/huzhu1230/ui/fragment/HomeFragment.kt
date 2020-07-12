@@ -21,10 +21,7 @@ import com.jzbn.huzhu1230.net.CallbackObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.ui.activity.SecondHelpActivity
-import com.jzbn.huzhu1230.ui.home.AedActivity
-import com.jzbn.huzhu1230.ui.home.MessageActivity
-import com.jzbn.huzhu1230.ui.home.SearchActivity
-import com.jzbn.huzhu1230.ui.home.SignDialog
+import com.jzbn.huzhu1230.ui.home.*
 import com.lhzw.bluetooth.base.BaseFragment
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_message_list.*
@@ -127,18 +124,35 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
     override fun initListener() {
         commonHelpAdapter.setOnItemClickListener { adapter, view, position ->
-            val intent = (Intent(activity, SecondHelpActivity::class.java))
+
             val bean = adapter.data[position] as CommonRescueBean.DataBean
-            intent.putExtra("title",bean.title)
-            intent.putExtra("pid",bean.magorid)
-            startActivity(intent)
+            if (bean.remark1=="1"){//如果值为1直接跳转到播放视频详情页面，否则继续跳转救援项目列表
+                val intent = Intent(activity, VideoDetailActivity::class.java)
+                val bean2 = adapter.data[position] as DailyRescueBean.RowsBean
+                intent.putExtra("pid",bean2.magorid)
+                startActivity(intent)
+            }else{
+                val intent = (Intent(activity, SecondHelpActivity::class.java))
+                intent.putExtra("title",bean.title)
+                intent.putExtra("pid",bean.magorid)
+                startActivity(intent)
+            }
+
         }
         dailyHelpAdapter.setOnItemClickListener { adapter, view, position ->
-            val intent = Intent(activity, SecondHelpActivity::class.java)
             val bean = adapter.data[position] as DailyRescueBean.RowsBean
-            intent.putExtra("title",bean.title)
-            intent.putExtra("pid",bean.magorid)
-            startActivity(intent)
+            if (bean.remark1=="1"){//如果值为1直接跳转到播放视频详情页面，否则继续跳转救援项目列表
+                val intent = Intent(activity, VideoDetailActivity::class.java)
+                val bean2 = adapter.data[position] as DailyRescueBean.RowsBean
+                intent.putExtra("pid",bean2.magorid)
+                startActivity(intent)
+            }else{
+                val intent = Intent(activity, SecondHelpActivity::class.java)
+                intent.putExtra("title",bean.title)
+                intent.putExtra("pid",bean.magorid)
+                startActivity(intent)
+            }
+
         }
 
         dailyHelpAdapter.disableLoadMoreIfNotFullPage(recyclerView)

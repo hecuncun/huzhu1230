@@ -11,6 +11,8 @@ import com.jzbn.huzhu1230.bean.DailyRescueBean
 import com.jzbn.huzhu1230.net.CallbackObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
+import com.jzbn.huzhu1230.ui.home.VideoDetailActivity
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_message_list.*
 import kotlinx.android.synthetic.main.activity_second_help.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -64,11 +66,20 @@ class SecondHelpActivity:BaseActivity() {
 
     override fun initListener() {
         mAdapter.setOnItemClickListener { adapter, view, position ->
-            val intent = Intent(this,ThirdHelpActivity::class.java)
             val bean = adapter.data[position] as DailyRescueBean.RowsBean
-            intent.putExtra("title","$title · ${bean.title}")
-            intent.putExtra("pid",bean.magorid)
-            startActivity(intent)
+            if (bean.remark1=="1"){//如果值为1直接跳转到播放视频详情页面，否则继续跳转救援项目列表
+                val intent = Intent(this, VideoDetailActivity::class.java)
+                val bean2 = adapter.data[position] as DailyRescueBean.RowsBean
+                intent.putExtra("pid",bean2.magorid)
+                //Logger.e("1j id =${bean2.magorid}")
+                startActivity(intent)
+            }else{
+                val intent = Intent(this,ThirdHelpActivity::class.java)
+                intent.putExtra("title","$title · ${bean.title}")
+                intent.putExtra("pid",bean.magorid)
+                startActivity(intent)
+            }
+
         }
 
         mAdapter.disableLoadMoreIfNotFullPage(recyclerView)
