@@ -218,9 +218,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             if (it != null) {
                 if (it.errorCode == 0) {
                     mLocationClient.stopLocation()
-                    tvLocation.text=it.poiName
+                    tvLocation.text=it.address
                     longitude=it.longitude.toString()
                     latitude=it.latitude.toString()
+                    Logger.e(it.toStr())
                     Logger.e("longitude==${it.longitude},latitude==${it.latitude}")
                 } else {
                     Logger.e("定位信息:${it.errorCode}，${it.errorInfo}")

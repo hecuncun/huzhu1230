@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_gray_F7F2F2"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="14dp">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="AED持有者名称"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="17sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:gravity="center|left"
+                android:background="@drawable/bg_white_card"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/color_gray_333333"
+                android:textSize="15sp" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:text="AED地点"
+                    android:textColor="@color/color_gray_333333"
+                    android:textSize="17sp" />
+
+                <LinearLayout
+                    android:id="@+id/ll_select_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_white_card"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="12dp">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textSize="15sp"
+                        android:textColor="@color/color_gray_999999" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_publish_arrow_right" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_white_card"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="12dp"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/et_detail_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:gravity="center|left"
+                        android:background="@null"
+                        android:textColor="@color/color_gray_333333"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.8dp"
+                        android:background="#DCDCDC" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_map_round_rect">
+                        <com.amap.api.maps.MapView
+                            android:id="@+id/map"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </FrameLayout>
+                </LinearLayout>
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:text="联系方式"
+                    android:textColor="@color/color_gray_333333"
+                    android:textSize="17sp" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:gravity="center|left"
+                    android:id="@+id/et_phone_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:background="@drawable/bg_white_card"
+                    android:paddingHorizontal="12dp"
+                    android:textColor="@color/color_gray_333333"
+                    android:textSize="15sp" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

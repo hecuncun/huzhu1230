@@ -1,5 +1,6 @@
 package com.jzbn.huzhu1230.ui.home
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.amap.api.maps.model.Marker
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.bean.NearAedBean
 import com.jzbn.huzhu1230.constants.Constant
+import com.jzbn.huzhu1230.ext.showToast
 import com.jzbn.huzhu1230.net.CallbackListObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
@@ -98,6 +100,9 @@ class AedActivity : BaseMapActivity() {
                         })
                 } else {
                     Logger.e("${it.errorCode}，${it.errorInfo}")
+                    if (it.errorCode==12){
+                        showToast("请打开定位服务开关后重试")
+                    }
                 }
             }
         }
@@ -105,6 +110,12 @@ class AedActivity : BaseMapActivity() {
     }
 
     override fun initListener() {
+        //跳Aed详情
+        aedAdapter.setOnItemClickListener { adapter, view, position ->
+            val intent =Intent(this@AedActivity,AedDetailActivity::class.java)
+            intent.putExtra("bean",aedList[position])
+            startActivity(intent)
+        }
     }
 
 }

@@ -1,12 +1,15 @@
 package com.jzbn.huzhu1230.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by hecuncun on 2020/6/29
  */
 
-public class NearAedBean {
+public class NearAedBean implements Parcelable {
 
     /**
      * code : 10001
@@ -42,7 +45,7 @@ public class NearAedBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Parcelable {
         /**
          * magorid : 051f2cc2e8a84c35823bfd9c88b36af5
          * name : å¨ä¹èªå·±å¨ä¹ä»ä¹ææ
@@ -296,5 +299,115 @@ public class NearAedBean {
         public void setMyId(String myId) {
             this.myId = myId;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.magorid);
+            dest.writeString(this.name);
+            dest.writeString(this.area);
+            dest.writeString(this.areaDetail);
+            dest.writeString(this.longitude);
+            dest.writeString(this.latitude);
+            dest.writeString(this.phone);
+            dest.writeInt(this.reliability);
+            dest.writeInt(this.isdelete);
+            dest.writeString(this.remark1);
+            dest.writeString(this.remark2);
+            dest.writeString(this.remark3);
+            dest.writeString(this.remark4);
+            dest.writeString(this.createid);
+            dest.writeString(this.createtime);
+            dest.writeString(this.updateid);
+            dest.writeString(this.updatetime);
+            dest.writeInt(this.startIndex);
+            dest.writeInt(this.pageSize);
+            dest.writeString(this.orderBy);
+            dest.writeString(this.fieldName);
+            dest.writeString(this.startDate);
+            dest.writeString(this.endDate);
+            dest.writeString(this.distance);
+            dest.writeString(this.myId);
+        }
+
+        public DataBean() {
+        }
+
+        protected DataBean(Parcel in) {
+            this.magorid = in.readString();
+            this.name = in.readString();
+            this.area = in.readString();
+            this.areaDetail = in.readString();
+            this.longitude = in.readString();
+            this.latitude = in.readString();
+            this.phone = in.readString();
+            this.reliability = in.readInt();
+            this.isdelete = in.readInt();
+            this.remark1 = in.readString();
+            this.remark2 = in.readString();
+            this.remark3 = in.readString();
+            this.remark4 = in.readString();
+            this.createid = in.readString();
+            this.createtime = in.readString();
+            this.updateid = in.readString();
+            this.updatetime = in.readString();
+            this.startIndex = in.readInt();
+            this.pageSize = in.readInt();
+            this.orderBy = in.readString();
+            this.fieldName = in.readString();
+            this.startDate = in.readString();
+            this.endDate = in.readString();
+            this.distance = in.readString();
+            this.myId = in.readString();
+        }
+
+        public static final Parcelable.Creator<DataBean> CREATOR = new Parcelable.Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel source) {
+                return new DataBean(source);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.code);
+        dest.writeString(this.message);
+        dest.writeTypedList(this.data);
+    }
+
+    public NearAedBean() {
+    }
+
+    protected NearAedBean(Parcel in) {
+        this.code = in.readString();
+        this.message = in.readString();
+        this.data = in.createTypedArrayList(DataBean.CREATOR);
+    }
+
+    public static final Parcelable.Creator<NearAedBean> CREATOR = new Parcelable.Creator<NearAedBean>() {
+        @Override
+        public NearAedBean createFromParcel(Parcel source) {
+            return new NearAedBean(source);
+        }
+
+        @Override
+        public NearAedBean[] newArray(int size) {
+            return new NearAedBean[size];
+        }
+    };
 }

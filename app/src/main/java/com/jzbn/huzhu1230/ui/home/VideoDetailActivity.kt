@@ -2,6 +2,7 @@ package com.jzbn.huzhu1230.ui.home
 
 import BaseActivity
 import android.content.Intent
+import android.view.View
 import cn.jzvd.JzvdStd
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.base.BaseNoDataBean
@@ -37,6 +38,7 @@ class VideoDetailActivity : BaseActivity() {
         val bean = intent.getParcelableExtra<KnowledgeBean.RowsBean>("bean")
         if (bean != null) {
             //从救援知识页跳过来的详情
+            tv_call.visibility= View.GONE
             objectId = bean.magorid
             type = 2
             tvVideoTitle.text = bean.title
@@ -52,6 +54,7 @@ class VideoDetailActivity : BaseActivity() {
         }
         val pid = intent.getStringExtra("pid")
         if (pid != null && pid.isNotEmpty()) {
+            tv_call.visibility= View.VISIBLE
             objectId = pid
             type = 3
             //从三级分类传过来的
