@@ -67,6 +67,10 @@ class MoreKnowledgeActivity:BaseActivity() {
           }else{
               val intent = Intent(this, WebViewActivity::class.java)
               intent.putExtra("type",1)
+              intent.putExtra("title",list[position].title)
+              intent.putExtra("picUrl",list[position].photo)
+              intent.putExtra("time",list[position].createtime)
+              intent.putExtra("numViews",list[position].numViews)
               intent.putExtra("url",list[position].content)
               intent.putExtra("objectId",list[position].magorid)
               startActivity(intent)

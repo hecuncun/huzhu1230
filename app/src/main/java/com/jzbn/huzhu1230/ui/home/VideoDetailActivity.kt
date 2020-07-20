@@ -15,6 +15,7 @@ import com.jzbn.huzhu1230.net.CallbackObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
 import com.jzbn.huzhu1230.ui.call.AliRtcChatActivity
+import com.jzbn.huzhu1230.utils.CallPhoneUtil
 import com.jzbn.huzhu1230.widget.LoadingView
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_video_detail.*
@@ -118,7 +119,7 @@ class VideoDetailActivity : BaseActivity() {
     }
 
     override fun initListener() {
-        flBottomButton.setOnClickListener {
+        fl_collect.setOnClickListener {
             //收藏视频
             if (isCollected) {
                 //取消收藏
@@ -184,6 +185,11 @@ class VideoDetailActivity : BaseActivity() {
                     loadingView.dismiss()
                 }
             })
+        }
+
+
+        fl_help.setOnClickListener {
+            CallPhoneUtil.callPhone(this,"120")
         }
     }
 

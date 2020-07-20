@@ -6,16 +6,17 @@
     android:orientation="vertical">
 
     <include layout="@layout/toolbar" />
+
     <TextView
         android:id="@+id/tv_tip"
-        android:gravity="center"
-        android:paddingVertical="3dp"
-        app:layout_constraintTop_toBottomOf="@id/llToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingVertical="3dp"
         android:text="重要提醒：注意周边安全，做好自我防护措施"
+        android:textColor="#FF0000"
         android:textSize="9sp"
-        android:textColor="#FF0000"/>
+        app:layout_constraintTop_toBottomOf="@id/llToolbar" />
 
 
     <LinearLayout
@@ -65,14 +66,15 @@
         app:layout_constraintBottom_toBottomOf="@id/tvPublishTime"
         app:layout_constraintRight_toRightOf="@id/tvVideoTitle"
         app:layout_constraintTop_toTopOf="@id/tvPublishTime" />
+
     <FrameLayout
         android:id="@+id/tv_call"
-        android:visibility="gone"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvPlayTimes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@mipmap/btn_yellow_bg">
+        android:layout_marginTop="24dp"
+        android:background="@mipmap/btn_yellow_bg"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlayTimes">
 
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -97,13 +99,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:padding="8dp"
+        android:paddingVertical="8dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/btn_yellow_bg">
+            android:id="@+id/fl_collect"
+            android:layout_width="165dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="left|center_vertical"
+            android:background="@drawable/bg_yellow_f5b900_25r">
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_collect"
@@ -115,6 +120,28 @@
                 android:drawablePadding="4dp"
                 android:gravity="center_vertical"
                 android:text="@string/collect"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_help"
+            android:layout_width="165dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/bg_red_21515_25r">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableStart="@mipmap/icon_tel"
+                android:drawableLeft="@mipmap/icon_tel"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                android:text="120"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
         </FrameLayout>

@@ -65,6 +65,10 @@ class SearchActivity : BaseActivity() {
                     intent.putExtra("type",1)
                     intent.putExtra("url",articleList[position].content)
                     intent.putExtra("objectId",articleList[position].magorid)
+                    intent.putExtra("title",articleList[position].title)
+                    intent.putExtra("picUrl",articleList[position].photo)
+                    intent.putExtra("time",articleList[position].createtime)
+                    intent.putExtra("numViews",articleList[position].numViews)
                     startActivity(intent)
                 }
             }
