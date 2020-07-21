@@ -55,6 +55,7 @@
                 android:layout_height="75dp"
                 android:src="@mipmap/ic_launcher"
                 android:layout_marginTop="@dimen/dp_10"/>
+
             <ImageView
                 android:id="@+id/iv_img2"
                 android:layout_width="75dp"
