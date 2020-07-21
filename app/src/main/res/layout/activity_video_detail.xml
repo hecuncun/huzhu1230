@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar" />
@@ -39,7 +40,7 @@
         android:layout_marginLeft="14dp"
         android:layout_marginTop="18dp"
         android:layout_marginRight="14dp"
-        android:text="开放性伤口止血包扎与四肢骨折现场急救外固定技术"
+        tools:text="开放性伤口止血包扎与四肢骨折现场急救外固定技术"
         android:textColor="@color/color_gray_333333"
         android:textSize="17sp"
         android:textStyle="bold"
@@ -50,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
-        android:text="发布于2020-10-10"
+        tools:text="发布于2020-10-10"
         android:textColor="#656565"
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="@id/tvVideoTitle"
@@ -60,7 +61,7 @@
         android:id="@+id/tvPlayTimes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1000次播放"
+        tools:text="1000次播放"
         android:textColor="#656565"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/tvPublishTime"

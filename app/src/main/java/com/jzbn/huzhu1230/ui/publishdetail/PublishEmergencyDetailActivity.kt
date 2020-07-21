@@ -22,6 +22,7 @@ import com.jzbn.huzhu1230.net.CallbackListObserver
 import com.jzbn.huzhu1230.net.CallbackObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
+import com.jzbn.huzhu1230.ui.activity.BigImageActivity
 import com.jzbn.huzhu1230.ui.publish.BaseMapActivity
 import com.jzbn.huzhu1230.utils.MapUtil
 import com.stx.xhb.xbanner.XBanner
@@ -94,6 +95,7 @@ class PublishEmergencyDetailActivity : BaseMapActivity() {
                     mAddressAdapter.setNewData(t.findClueList)
                     tv_lose_name.text = t.name
                     tv_lose_look.text = t.features
+                    tv_lose_address.text=t.area
                     val contacts = t.contact.split(",")
                     if (contacts.size == 1) {
                         contact_one.text = contacts[0]
@@ -112,6 +114,7 @@ class PublishEmergencyDetailActivity : BaseMapActivity() {
                     tv_lose_relationship.text = t.relation
                     tv_lose_mode.text = mLoseModeArray[t.way.toInt()]
                     tv_lose_reason.text = t.reason
+                    qrCodeUrl=t.qrcode
                     GlideUtils.showAnimation(
                         iv_wechat_code,
                         Constant.BASE_URL + t.qrcode,
@@ -126,6 +129,7 @@ class PublishEmergencyDetailActivity : BaseMapActivity() {
                 }
             })
     }
+    private var qrCodeUrl=""
 
     private var publishType = ""
     override fun initView() {
@@ -175,6 +179,12 @@ class PublishEmergencyDetailActivity : BaseMapActivity() {
     private var duration=""
     private var address =""
     override fun initListener() {
+        iv_wechat_code.setOnClickListener {
+            val intent =Intent(this,BigImageActivity::class.java)
+            intent.putExtra("path",qrCodeUrl)
+            startActivity(intent)
+        }
+
         btn_provide_something.setOnClickListener {
             val intent = Intent(this, ProvideClueActivity::class.java)
             intent.putExtra("photoMain",photoMain)
@@ -201,6 +211,17 @@ class PublishEmergencyDetailActivity : BaseMapActivity() {
 
                 }
             })
+        }
+
+        mAddressAdapter.setOnItemChildClickListener { adapter, view, position ->
+            when(view.id){
+                    R.id.iv_img->{
+                        val findClueListBean = adapter.data[position] as SearchDetailBean.FindClueListBean
+                        val intent =Intent(this,BigImageActivity::class.java)
+                        intent.putExtra("path",findClueListBean.photo)
+                        startActivity(intent)
+                    }
+            }
         }
     }
 

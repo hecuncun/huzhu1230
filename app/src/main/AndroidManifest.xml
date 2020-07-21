@@ -113,6 +113,7 @@
         <activity android:name=".ui.activity.CreditListActivity" />
         <activity android:name=".ui.call.AliRtcChatActivity"  android:theme="@style/AppTheme.FullScreen"/>
         <activity android:name=".ui.home.AedDetailActivity" />
+        <activity android:name=".ui.activity.BigImageActivity" android:theme="@style/AppTheme.FullScreen"/>
         <!--      高德定位服务  -->
         <service android:name="com.amap.api.location.APSService"/>
 <!--        通知栏点击-->
