@@ -45,13 +45,31 @@
             android:textColor="#F5B900"
             android:textSize="14sp"
             android:text="北京市昌平区京藏高速回龙观西入口500处北京市昌平区京藏高速回龙观西入口500处"/>
-        
-        <ImageView
-            android:id="@+id/iv_img"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_marginTop="@dimen/dp_10"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_img1"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginTop="@dimen/dp_10"/>
+            <ImageView
+                android:id="@+id/iv_img2"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginHorizontal="5dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginTop="@dimen/dp_10"/>
+            <ImageView
+                android:id="@+id/iv_img3"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginTop="@dimen/dp_10"/>
+        </LinearLayout>
+
         
     </LinearLayout>
 

@@ -215,12 +215,24 @@ class PublishEmergencyDetailActivity : BaseMapActivity() {
 
         mAddressAdapter.setOnItemChildClickListener { adapter, view, position ->
             when(view.id){
-                    R.id.iv_img->{
+                    R.id.iv_img1->{
                         val findClueListBean = adapter.data[position] as SearchDetailBean.FindClueListBean
                         val intent =Intent(this,BigImageActivity::class.java)
-                        intent.putExtra("path",findClueListBean.photo)
+                        intent.putExtra("path",findClueListBean.photo.split(",")[0])
                         startActivity(intent)
                     }
+                R.id.iv_img2->{
+                    val findClueListBean = adapter.data[position] as SearchDetailBean.FindClueListBean
+                    val intent =Intent(this,BigImageActivity::class.java)
+                    intent.putExtra("path",findClueListBean.photo.split(",")[1])
+                    startActivity(intent)
+                }
+                R.id.iv_img3->{
+                    val findClueListBean = adapter.data[position] as SearchDetailBean.FindClueListBean
+                    val intent =Intent(this,BigImageActivity::class.java)
+                    intent.putExtra("path",findClueListBean.photo.split(",")[2])
+                    startActivity(intent)
+                }
             }
         }
     }

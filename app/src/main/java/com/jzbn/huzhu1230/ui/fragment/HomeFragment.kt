@@ -128,7 +128,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             val bean = adapter.data[position] as CommonRescueBean.DataBean
             if (bean.remark1=="1"){//如果值为1直接跳转到播放视频详情页面，否则继续跳转救援项目列表
                 val intent = Intent(activity, VideoDetailActivity::class.java)
-                val bean2 = adapter.data[position] as DailyRescueBean.RowsBean
+                val bean2 = adapter.data[position] as CommonRescueBean.DataBean
                 intent.putExtra("pid",bean2.magorid)
                 startActivity(intent)
             }else{
