@@ -55,6 +55,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
 import java.io.File
+import java.util.*
 
 //提供线索 页面
 class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
@@ -189,12 +190,19 @@ class ProvideClueActivity : BaseMapActivity(), View.OnClickListener {
      * 显示时间选择器
      */
     private fun showTimePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val year = calendar[Calendar.YEAR]
+        val month = calendar[Calendar.MONTH] + 1
+        val day = calendar[Calendar.DAY_OF_MONTH]
+        val hour = calendar[Calendar.HOUR_OF_DAY]
+        val minute = calendar[Calendar.MINUTE]
+
         val picker = DateTimePicker(this, DateTimePicker.HOUR_24)
         picker.setDateRangeStart(2000, 1, 1)
-        picker.setDateRangeEnd(2050, 12, 31)
+        picker.setDateRangeEnd(year, month, day)
         picker.setTimeRangeStart(0, 0)
-        picker.setTimeRangeEnd(23, 59)
-        picker.setSelectedItem(2020, 6, 15, 12, 0)
+        picker.setTimeRangeEnd(hour, minute)
+        picker.setSelectedItem(year,month,day,hour,minute)
         picker.setTextColor(Color.parseColor("#333333"))
         picker.setTextSize(18)
         picker.setDividerColor(Color.parseColor("#F6B900"))
