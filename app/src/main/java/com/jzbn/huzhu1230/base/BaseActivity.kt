@@ -54,6 +54,10 @@ abstract class BaseActivity :AppCompatActivity(){
      */
     protected var uid:String by Preference(Constant.UID,"")
     protected var tempUid="a35907701b464f11b466f0ba4b661802"
+
+    protected var longitudeMy:String by Preference(Constant.LNT,"")//当前纬度
+    protected var latitudeMy:String by Preference(Constant.LAT,"")//当前经度
+    protected var gpsAddressMy:String by Preference(Constant.ADDRESS,"")//当前位置
     /**
      * 头像地址
      */

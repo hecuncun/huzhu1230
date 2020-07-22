@@ -13,6 +13,9 @@ import android.util.Log;
 import com.alibaba.sdk.android.push.MessageReceiver;
 import com.alibaba.sdk.android.push.notification.CPushMessage;
 import com.jzbn.huzhu1230.R;
+import com.jzbn.huzhu1230.event.MsgNoticeEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
@@ -57,11 +60,22 @@ public class MyMessageReceiver extends MessageReceiver {
             builder.setAutoCancel(true);//打开程序后图标消失
             Intent intent =new Intent (context,NotificationClickReceiver.class);
             String type = extraMap.get("type");
-            String channelId = extraMap.get("channelId");
-            intent.putExtra("type",type);
-            intent.putExtra("channelId",channelId);
-            PendingIntent pendingIntent =PendingIntent.getBroadcast(context, 0, intent, 0);
-            builder.setContentIntent(pendingIntent);
+            if ("1".equals(type)){
+                String channelId = extraMap.get("channelId");
+                intent.putExtra("type",type);
+                intent.putExtra("channelId",channelId);
+                PendingIntent pendingIntent =PendingIntent.getBroadcast(context, 0, intent, 0);
+                builder.setContentIntent(pendingIntent);
+                //播放音乐
+                SoundPoolManager.getInstance(context).play(1);
+            }else if ("2".equals(type)){
+                //消息通知
+                String phone =  extraMap.get("phone");
+                String gpsArea =  extraMap.get("gpsArea");
+                String content  =  extraMap.get("content");
+                EventBus.getDefault().post(new MsgNoticeEvent(phone,gpsArea,content));
+
+            }
             Notification notification = builder.build();
             mNotificationManager.notify(0,notification);
 

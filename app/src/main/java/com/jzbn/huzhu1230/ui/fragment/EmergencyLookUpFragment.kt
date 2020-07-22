@@ -80,7 +80,7 @@ class EmergencyLookUpFragment : BaseFragment() {
     override fun lazyLoad() {
         //获取紧急寻人信息
         val commonSearchPersonBeanCall =
-            SLMRetrofit.getInstance().api.getEmergencySearchPersonBeanCall(currentPage,longitude,latitude)
+            SLMRetrofit.getInstance().api.getEmergencySearchPersonBeanCall(currentPage,longitudeMy,latitudeMy)
         commonSearchPersonBeanCall.compose(ThreadSwitchTransformer())
             .subscribe(object : CallbackObserver<SearchPersonBean>() {
                 override fun onSucceed(t: SearchPersonBean, desc: String?) {

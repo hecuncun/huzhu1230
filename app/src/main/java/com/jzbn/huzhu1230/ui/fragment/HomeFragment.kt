@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.CommonHelpAdapter
 import com.jzbn.huzhu1230.adapter.DailyHelpAdapter
+import com.jzbn.huzhu1230.base.BaseNoDataBean
 import com.jzbn.huzhu1230.bean.CommonRescueBean
 import com.jzbn.huzhu1230.bean.DailyRescueBean
 import com.jzbn.huzhu1230.bean.MessageUnReadBean
@@ -233,10 +234,22 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                 if (it.errorCode == 0) {
                     mLocationClient.stopLocation()
                     tvLocation.text=it.address
-                    longitude=it.longitude.toString()
-                    latitude=it.latitude.toString()
+                    longitudeMy=it.longitude.toString()
+                    latitudeMy=it.latitude.toString()
                     Logger.e(it.toStr())
                     Logger.e("longitude==${it.longitude},latitude==${it.latitude}")
+                    gpsAddressMy=it.address
+                    val updateUserLocation =
+                        SLMRetrofit.getInstance().api.updateUserLocation(uid, longitudeMy, latitudeMy)
+                    updateUserLocation.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
+                        override fun onSucceed(t: BaseNoDataBean?) {
+
+                        }
+
+                        override fun onFailed() {
+
+                        }
+                    })
                 } else {
                     Logger.e("定位信息:${it.errorCode}，${it.errorInfo}")
                 }

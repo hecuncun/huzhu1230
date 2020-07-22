@@ -10,6 +10,7 @@ import com.flyco.animation.BounceEnter.BounceTopEnter
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.bean.TopMsgBean
 import com.jzbn.huzhu1230.event.LogoutEvent
+import com.jzbn.huzhu1230.event.MsgNoticeEvent
 import com.jzbn.huzhu1230.ui.fragment.*
 import com.jzbn.huzhu1230.ui.publish.PublishAedActivity
 import com.jzbn.huzhu1230.ui.publish.PublishDialog
@@ -47,10 +48,7 @@ class MainActivity : BaseActivity() {
             requestPermission(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_PHONE_STATE), PERMISS_REQUEST_CODE)
         }
 
-        val bean =TopMsgBean()
-        val dialog = TopMsgDialog(this@MainActivity,bean)
-        dialog.showAnim(BounceTopEnter())
-//        dialog.show()
+
     }
 
     /**
@@ -212,5 +210,11 @@ class MainActivity : BaseActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun logout(event:LogoutEvent){
         finish()
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun notifyMsg(event: MsgNoticeEvent){
+        val dialog = TopMsgDialog(this@MainActivity,event)
+        dialog.showAnim(BounceTopEnter())
+        dialog.show()
     }
 }

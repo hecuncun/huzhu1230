@@ -13,5 +13,6 @@ object Constant{
     const val UID = "uid"
     const val LAT = "lat"
     const val LNT = "lnt"
+    const val ADDRESS = "address"
     const val PHOTO_PATH = "photo_path"
 }

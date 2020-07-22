@@ -166,7 +166,7 @@ public interface Api {
      * @return
      */
     @POST("appRescueItem/selectDetail")
-    Observable<BaseBean<RescueVideoBean>> rescueVideoCall(@Query("rid") String rid);
+    Observable<BaseBean<RescueVideoBean>> rescueVideoCall(@Query("rid") String rid,@Query("uid") String uid,@Query("longitude") String longitude,@Query("latitude") String latitude,@Query("gpsArea") String gpsArea);
 
     /**
      * 新增收藏
@@ -316,6 +316,12 @@ public interface Api {
      */
     @POST("appRTC/selectToken")
     Observable<BaseBean<AliVideoBean>> notifyVideoCall(@Query("uid") String uid,@Query("channelId") String channelId);
+
+    /**
+     * 更新用户位置信息
+     */
+    @POST("appUserArea/updateById")
+    Observable<BaseNoDataBean> updateUserLocation(@Query("uid") String uid,@Query("longitude") String longitude,@Query("latitude") String latitude);
 
     //    /**
 //     * 修改自定义头像接口

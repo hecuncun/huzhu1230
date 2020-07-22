@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/bg_white_7r"
     android:orientation="vertical"
     android:padding="15dp">
@@ -38,23 +39,26 @@
         android:padding="15dp">
 
         <TextView
+            android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="电话号码：13647899999"
+            tools:text="电话号码：13647899999"
             android:textColor="@color/color_gray_333333"
             android:textSize="14sp" />
         <TextView
+            android:id="@+id/tv_gps_address"
             android:layout_marginTop="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GPS地址：北京市朝阳区望京SOHO西门 "
+            tools:text="GPS地址：北京市朝阳区望京SOHO西门 "
             android:textColor="@color/color_gray_333333"
             android:textSize="14sp" />
         <TextView
+            android:id="@+id/tv_content"
             android:layout_marginTop="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="事项内容：腿部受伤需要包扎支援"
+            tools:text="事项内容：腿部受伤需要包扎支援"
             android:textColor="@color/color_gray_333333"
             android:textSize="14sp" />
     </LinearLayout>

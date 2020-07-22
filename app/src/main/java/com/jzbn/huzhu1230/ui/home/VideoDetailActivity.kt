@@ -60,7 +60,7 @@ class VideoDetailActivity : BaseActivity() {
             type = 3
             //从三级分类传过来的
             //获取救援详情
-            val rescueVideoCall = SLMRetrofit.getInstance().api.rescueVideoCall(pid)
+            val rescueVideoCall = SLMRetrofit.getInstance().api.rescueVideoCall(pid,uid,longitudeMy,latitudeMy,gpsAddressMy)
             rescueVideoCall.compose(ThreadSwitchTransformer())
                 .subscribe(object : CallbackObserver<RescueVideoBean>() {
                     override fun onSucceed(t: RescueVideoBean, desc: String?) {

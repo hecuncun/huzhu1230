@@ -282,6 +282,8 @@ public class AliRtcChatActivity extends AppCompatActivity {
         Logger.e("房间远程人数=="+onlineRemoteUsers.length);
         if (onlineRemoteUsers.length>1){
              showToast("已有人在提供帮助");
+        }else if(onlineRemoteUsers.length == 0){
+            showToast("对方已取消通话");
         }else {
             // 加入频道，需要填写鉴权信息和用户名。
             mAliRtcEngine.joinChannel(userInfo, "用户名");
