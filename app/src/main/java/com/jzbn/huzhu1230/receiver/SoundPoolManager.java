@@ -47,7 +47,7 @@ public class SoundPoolManager {
 //        monitorSoundId = soundPool.load(context, R.raw.monitor, 1);
 //        maintainSoundId = soundPool.load(context, R.raw.maintain, 1);
 
-        repaireSoundId = soundPool.load(context, R.raw.checkcar, 1);
+        repaireSoundId = soundPool.load(context, R.raw.alarm, 1);
     }
 
     public static SoundPoolManager getInstance(Context context) {

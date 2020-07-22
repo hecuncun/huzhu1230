@@ -21,6 +21,7 @@ class NotificationClickReceiver : BroadcastReceiver() {
 //        AliVideoBean bean = new  AliVideoBean();
 //        intent.putExtra("bean",bean);
         //       context.startActivity(intent);
+        SoundPoolManager.getInstance(context).release()
         val type = intent.getStringExtra("type")
         val channelId = intent.getStringExtra("channelId")
         if (type == "1") {
