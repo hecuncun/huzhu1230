@@ -29,6 +29,7 @@ import com.alivc.rtc.AliRtcEngineNotify;
 import com.alivc.rtc.AliRtcRemoteUserInfo;
 import com.jzbn.huzhu1230.R;
 import com.jzbn.huzhu1230.bean.AliVideoBean;
+import com.jzbn.huzhu1230.receiver.SoundPoolManager;
 import com.orhanobut.logger.Logger;
 
 import org.webrtc.sdk.SophonSurfaceView;
@@ -103,6 +104,8 @@ public class AliRtcChatActivity extends AppCompatActivity {
             // 初始化引擎以及打开预览界面
             initRTCEngineAndStartPreview();
         }
+        SoundPoolManager.getInstance(this).play(1);
+
     }
 
     private boolean checkSelfPermission(String permission, int requestCode) {
@@ -454,6 +457,7 @@ public class AliRtcChatActivity extends AppCompatActivity {
         if (mAliRtcEngine != null) {
             mAliRtcEngine.destroy();
         }
+        SoundPoolManager.getInstance(AliRtcChatActivity.this).release();
     }
 
     /**
@@ -533,6 +537,12 @@ public class AliRtcChatActivity extends AppCompatActivity {
         @Override
         public void onRemoteUserOnLineNotify(String s) {
             addRemoteUser(s);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    SoundPoolManager.getInstance(AliRtcChatActivity.this).release();
+                }
+            });
         }
 
         /**
@@ -601,4 +611,6 @@ public class AliRtcChatActivity extends AppCompatActivity {
             }
         }
     };
+
+
 }
