@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.View
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.event.LogoutEvent
+import com.jzbn.huzhu1230.utils.PackageUtils
 import com.jzbn.huzhu1230.widget.LogoutDialog
 import kotlinx.android.synthetic.main.activity_my_setting.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -15,10 +16,11 @@ import org.greenrobot.eventbus.EventBus
  */
 class MySettingActivity : BaseActivity() {
     private  var dialog:LogoutDialog?=null
+    private var openCache=true
     override fun attachLayoutRes(): Int = R.layout.activity_my_setting
 
     override fun initData() {
-
+        tv_app_version.text = "当前APP版本为v ${PackageUtils.getVersionName(this)}"
     }
 
     override fun initView() {
@@ -50,6 +52,18 @@ class MySettingActivity : BaseActivity() {
             val intent =Intent(this,ForgetPwdActivity::class.java)
             intent.putExtra("type","fix")
             startActivity(intent)
+        }
+
+        iv_switch.setOnClickListener {
+            openCache =!openCache
+            if (openCache){
+                iv_switch.setImageResource(R.mipmap.icon_off)
+            }else{
+                iv_switch.setImageResource(R.mipmap.icon_on)
+            }
+        }
+        rl_clear_cache.setOnClickListener {
+            tv_cache.text = "0M"
         }
     }
 }

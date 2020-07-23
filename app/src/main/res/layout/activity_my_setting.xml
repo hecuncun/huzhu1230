@@ -50,6 +50,7 @@
             android:textSize="17sp" />
 
         <ImageView
+            android:id="@+id/iv_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
