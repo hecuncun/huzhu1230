@@ -89,7 +89,7 @@ public class AliRtcChatActivity extends AppCompatActivity {
     private AliVideoBean bean;
     private TextView tvTip;
     private TextView tvDuration;
-
+   private String type="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +97,10 @@ public class AliRtcChatActivity extends AppCompatActivity {
         setContentView(R.layout.alirtc_activity_chat);
         bean = (AliVideoBean) getIntent().getParcelableExtra("bean");
         // 初始化界面上的view
+        type = getIntent().getStringExtra("type");
+        if("call".equals(type)){
+            SoundPoolManager.getInstance(this);
+        }
         initView();
         if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
                 checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID) &&
@@ -104,7 +108,8 @@ public class AliRtcChatActivity extends AppCompatActivity {
             // 初始化引擎以及打开预览界面
             initRTCEngineAndStartPreview();
         }
-        SoundPoolManager.getInstance(this).play(1);
+
+
 
     }
 
@@ -283,14 +288,21 @@ public class AliRtcChatActivity extends AppCompatActivity {
 
         String[] onlineRemoteUsers = mAliRtcEngine.getOnlineRemoteUsers();
         Logger.e("房间远程人数=="+onlineRemoteUsers.length);
-        if (onlineRemoteUsers.length>1){
-             showToast("已有人在提供帮助");
-        }else if(onlineRemoteUsers.length == 0){
-            showToast("对方已取消通话");
-        }else {
+        if (type.equals("call")){
             // 加入频道，需要填写鉴权信息和用户名。
-            mAliRtcEngine.joinChannel(userInfo, "用户名");
+                mAliRtcEngine.joinChannel(userInfo, "用户名");
+
+        }else {
+            if (onlineRemoteUsers.length>1){
+                showToast("已有人在提供帮助");
+            }else if(onlineRemoteUsers.length == 0){
+                showToast("对方已取消通话");
+            }else {
+                // 加入频道，需要填写鉴权信息和用户名。
+                mAliRtcEngine.joinChannel(userInfo, "用户名");
+            }
         }
+
 
 
     }

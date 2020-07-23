@@ -178,6 +178,7 @@ class VideoDetailActivity : BaseActivity() {
                     loadingView.dismiss()
                      val intent =Intent(this@VideoDetailActivity,AliRtcChatActivity::class.java)
                     intent.putExtra("bean",t)
+                    intent.putExtra("type","call")
                     startActivity(intent)
                 }
 

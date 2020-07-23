@@ -67,7 +67,7 @@ public class MyMessageReceiver extends MessageReceiver {
                 PendingIntent pendingIntent =PendingIntent.getBroadcast(context, 0, intent, 0);
                 builder.setContentIntent(pendingIntent);
                 //播放音乐
-                SoundPoolManager.getInstance(context).play(1);
+                SoundPoolManager.getInstance(context);
             }else if ("2".equals(type)){
                 //消息通知
                 String phone =  extraMap.get("phone");

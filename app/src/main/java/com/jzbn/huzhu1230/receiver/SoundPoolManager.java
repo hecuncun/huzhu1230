@@ -5,6 +5,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 
 import com.jzbn.huzhu1230.R;
+import com.orhanobut.logger.Logger;
 
 
 /**
@@ -27,6 +28,8 @@ public class SoundPoolManager {
     int count = 0;//加载成功数
 
     private SoundPoolManager(Context context) {
+
+
         int maxStreams = 1;
         soundPool = new SoundPool(maxStreams, AudioManager.STREAM_MUSIC, 0);
         soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
@@ -34,20 +37,22 @@ public class SoundPoolManager {
             public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
                 count++;
                 if (count == 1) {//总共有几个音乐文件
+                    Logger.e("音频文件加载完成了==" + sampleId);
                     loaded = true;
+                    play(1);
                 }
-              //  LogUtil.showLog("sound", "音频文件加载完成了==" + sampleId);
             }
 
         });
         //加载资源ID
+        repaireSoundId = soundPool.load(context, R.raw.alarm, 1);
 //        repaireSoundId = soundPool.load(context, R.raw.repaire, 1);
 //        rescueSoundId = soundPool.load(context, R.raw.rescue, 1);
 //        checkCarSoundId = soundPool.load(context, R.raw.checkcar, 1);
 //        monitorSoundId = soundPool.load(context, R.raw.monitor, 1);
 //        maintainSoundId = soundPool.load(context, R.raw.maintain, 1);
 
-        repaireSoundId = soundPool.load(context, R.raw.alarm, 1);
+
     }
 
     public static SoundPoolManager getInstance(Context context) {
@@ -98,9 +103,9 @@ public class SoundPoolManager {
      * @param rate 播放速率 1.0 正常速率（0.5-2.0）
      * @return 成功返回id，否则为0
      */
-       // LogUtil.showLog("sound", "走播放方法之前loaded" + loaded);
+        Logger.e( "走播放方法之前loaded==" + loaded);
         if (loaded && !playing) {
-           // LogUtil.showLog("sound", "走播放方法");
+            Logger.e("走播放方法");
             soundPool.play(resId, 1, 1, 0, -1, 1f);
         }
     }

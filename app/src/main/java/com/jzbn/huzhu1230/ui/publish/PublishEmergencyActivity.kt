@@ -103,7 +103,7 @@ class PublishEmergencyActivity : BaseMapActivity(), View.OnClickListener {
             loseModeDialog.setOnDialogClickListener(object : LoseModeDialog.OnDialogBtnClickListener{
                 override fun onClickReasonPosition(pos: Int) {
                     ToastUtils.showShort(mLoseModeArray[pos])
-                    way=pos.toString()
+                    way=(pos+1).toString()
                     tv_lose_mode.text=mLoseModeArray[pos]
                 }
             })

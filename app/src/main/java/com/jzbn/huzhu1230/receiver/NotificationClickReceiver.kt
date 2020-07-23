@@ -30,6 +30,7 @@ class NotificationClickReceiver : BroadcastReceiver() {
                 override fun onSucceed(t: AliVideoBean, desc: String?) {
                     val intent2 = Intent(context, AliRtcChatActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     intent2.putExtra("bean",t)
+                    intent2.putExtra("type","join")
                     context.startActivity(intent2)
                 }
 
