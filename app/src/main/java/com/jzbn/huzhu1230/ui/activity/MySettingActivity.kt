@@ -10,6 +10,7 @@ import com.jzbn.huzhu1230.widget.LogoutDialog
 import kotlinx.android.synthetic.main.activity_my_setting.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
+import update.UpdateAppUtils
 
 /**
  * Created by hecuncun on 2020-5-25
@@ -64,6 +65,15 @@ class MySettingActivity : BaseActivity() {
         }
         rl_clear_cache.setOnClickListener {
             tv_cache.text = "0M"
+        }
+
+        tv_app_version.setOnClickListener {
+            //开始更新
+//            UpdateAppUtils
+//                .getInstance()
+//                .apkUrl("http://118.24.148.250:8080/yk/update_signed.apk")
+//                .updateContent("测试新版本")
+//                .update()
         }
     }
 }

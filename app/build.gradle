@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.jzbn.huzhu1230"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -125,4 +125,6 @@ dependencies {
 
 //阿里推送
     implementation 'com.aliyun.ams:alicloud-android-push:3.1.9.1'
+
+    implementation 'com.teprinciple:updateapputils:2.3.0'
 }
