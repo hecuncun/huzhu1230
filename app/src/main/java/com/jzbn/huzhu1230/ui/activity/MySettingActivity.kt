@@ -7,8 +7,11 @@ import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.event.LogoutEvent
 import com.jzbn.huzhu1230.utils.PackageUtils
 import com.jzbn.huzhu1230.widget.LogoutDialog
+import constant.UiType
 import kotlinx.android.synthetic.main.activity_my_setting.*
 import kotlinx.android.synthetic.main.toolbar.*
+import model.UiConfig
+import model.UpdateConfig
 import org.greenrobot.eventbus.EventBus
 import update.UpdateAppUtils
 
@@ -68,11 +71,20 @@ class MySettingActivity : BaseActivity() {
         }
 
         tv_app_version.setOnClickListener {
-            //开始更新
+
+            // ui配置
+//            val uiConfig = UiConfig().apply {
+//                uiType = UiType.PLENTIFUL
+//                cancelBtnText = "下次再说"
+//                updateLogoImgRes = R.mipmap.hz_logo
+//                titleTextSize = 18f
+//            }
+//            //开始更新
 //            UpdateAppUtils
 //                .getInstance()
 //                .apkUrl("http://118.24.148.250:8080/yk/update_signed.apk")
 //                .updateContent("测试新版本")
+//                .uiConfig(uiConfig)
 //                .update()
         }
     }
