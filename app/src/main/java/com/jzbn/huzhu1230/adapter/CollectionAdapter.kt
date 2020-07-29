@@ -29,7 +29,7 @@ class CollectionAdapter :
         helper.setText(R.id.tv_title,item.remark2)
         helper.setText(R.id.tv_time,item.createtime.split(" ")[0])
         val ivPic = helper.getView<ImageView>(R.id.iv_pic)
-        GlideUtils.showAnimation(ivPic, Constant.BASE_URL+item.picture,R.mipmap.ic_launcher)
+        GlideUtils.showAnimation(ivPic, Constant.BASE_URL+item.picture,R.mipmap.icon_logo)
     }
 
     fun setShowCheckIcon(showCheckIcon: Boolean) {

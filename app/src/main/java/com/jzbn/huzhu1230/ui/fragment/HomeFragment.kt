@@ -225,14 +225,14 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
 
     }
-
+ private var mLocationClient:AMapLocationClient?=null
     private fun startLocationAddress() {
         //开始定位
-        val mLocationClient = AMapLocationClient(requireActivity())
-        mLocationClient.setLocationListener {
+        mLocationClient = AMapLocationClient(requireActivity())
+        mLocationClient?.setLocationListener {
             if (it != null) {
                 if (it.errorCode == 0) {
-                    mLocationClient.stopLocation()
+                    mLocationClient?.stopLocation()
                     tvLocation.text=it.address
                     longitudeMy=it.longitude.toString()
                     latitudeMy=it.latitude.toString()
@@ -257,7 +257,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                 Logger.e("定位信息为null")
             }
         }
-        mLocationClient.startLocation()
+        mLocationClient?.startLocation()
     }
 
     companion object {
@@ -301,5 +301,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                 startActivity(Intent(context,SearchActivity::class.java))
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mLocationClient=null
     }
 }

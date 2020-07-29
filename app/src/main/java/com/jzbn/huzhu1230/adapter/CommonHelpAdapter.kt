@@ -15,6 +15,6 @@ class CommonHelpAdapter: BaseQuickAdapter<CommonRescueBean.DataBean,BaseViewHold
        item?:return
         helper.setText(R.id.tvName,item.title)
         val iv = helper.getView<ImageView>(R.id.ivImg)
-        GlideUtils.showPlaceholder(context,iv,Constant.BASE_URL+item.photo,R.mipmap.ic_launcher)
+        GlideUtils.showPlaceholder(context,iv,Constant.BASE_URL+item.photo,R.mipmap.icon_logo)
     }
 }

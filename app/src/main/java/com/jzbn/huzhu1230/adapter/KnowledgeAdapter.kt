@@ -19,7 +19,7 @@ class KnowledgeAdapter :BaseQuickAdapter<KnowledgeBean.RowsBean,BaseViewHolder>(
         helper.setText(R.id.tv_title,item.title)
         helper.setText(R.id.tv_time,item.createtime.split(" ")[0])
         val ivPic = helper.getView<ImageView>(R.id.iv_pic)
-        GlideUtils.showAnimation(ivPic,Constant.BASE_URL+item.photo,R.mipmap.ic_launcher)
+        GlideUtils.showAnimation(ivPic,Constant.BASE_URL+item.photo,R.mipmap.icon_logo)
         val ivPlay = helper.getView<ImageView>(R.id.iv_play)
         ivPlay.visibility=if (item.path.isNullOrEmpty()) View.GONE else View.VISIBLE
     }
