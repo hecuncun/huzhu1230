@@ -28,7 +28,6 @@ import com.alivc.rtc.AliRtcEngine;
 import com.alivc.rtc.AliRtcEngineEventListener;
 import com.alivc.rtc.AliRtcEngineNotify;
 import com.alivc.rtc.AliRtcRemoteUserInfo;
-import com.blankj.utilcode.util.ToastUtils;
 import com.jzbn.huzhu1230.R;
 import com.jzbn.huzhu1230.bean.AliVideoBean;
 import com.jzbn.huzhu1230.receiver.SoundPoolManager;
@@ -104,7 +103,6 @@ public class AliRtcChatActivity extends AppCompatActivity {
         if("call".equals(type)){
             SoundPoolManager.getInstance(this);
             Log.e("TAG","发起的房间Id=="+bean.getChannelId());
-            ToastUtils.showLong("发起的房间Id=="+bean.getChannelId());
         }else {
             Log.e("TAG","收到通知的房间Id=="+bean.getChannelId());
         }
@@ -491,7 +489,7 @@ public class AliRtcChatActivity extends AppCompatActivity {
         public void onJoinChannelResult(int result) {
             runOnUiThread(() -> {
                 if (result == 0) {
-                    showToast("加入频道成功"+bean.getChannelId());
+                    showToast("加入频道成功");
                     Logger.e("加入频道成功"+bean.getChannelId());
                 } else {
                     showToast("加入频道失败 错误码: " + result);
