@@ -18,6 +18,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import com.alivc.rtc.AliRtcEngine;
 import com.alivc.rtc.AliRtcEngineEventListener;
 import com.alivc.rtc.AliRtcEngineNotify;
 import com.alivc.rtc.AliRtcRemoteUserInfo;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jzbn.huzhu1230.R;
 import com.jzbn.huzhu1230.bean.AliVideoBean;
 import com.jzbn.huzhu1230.receiver.SoundPoolManager;
@@ -95,11 +97,16 @@ public class AliRtcChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alirtc_activity_chat);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         bean = (AliVideoBean) getIntent().getParcelableExtra("bean");
         // 初始化界面上的view
         type = getIntent().getStringExtra("type");
         if("call".equals(type)){
             SoundPoolManager.getInstance(this);
+            Log.e("TAG","发起的房间Id=="+bean.getChannelId());
+            ToastUtils.showLong("发起的房间Id=="+bean.getChannelId());
+        }else {
+            Log.e("TAG","收到通知的房间Id=="+bean.getChannelId());
         }
         initView();
         if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
@@ -290,13 +297,12 @@ public class AliRtcChatActivity extends AppCompatActivity {
         Logger.e("房间远程人数=="+onlineRemoteUsers.length);
         if (type.equals("call")){
             // 加入频道，需要填写鉴权信息和用户名。
-                mAliRtcEngine.joinChannel(userInfo, "用户名");
+                mAliRtcEngine.joinChannel(userInfo, "caller");
 
         }else {
+          // mAliRtcEngine.joinChannel(userInfo, "helper");
             if (onlineRemoteUsers.length>1){
                 showToast("已有人在提供帮助");
-            }else if(onlineRemoteUsers.length == 0){
-                showToast("对方已取消通话");
             }else {
                 // 加入频道，需要填写鉴权信息和用户名。
                 mAliRtcEngine.joinChannel(userInfo, "用户名");
@@ -485,7 +491,8 @@ public class AliRtcChatActivity extends AppCompatActivity {
         public void onJoinChannelResult(int result) {
             runOnUiThread(() -> {
                 if (result == 0) {
-                    showToast("加入频道成功");
+                    showToast("加入频道成功"+bean.getChannelId());
+                    Logger.e("加入频道成功"+bean.getChannelId());
                 } else {
                     showToast("加入频道失败 错误码: " + result);
                 }

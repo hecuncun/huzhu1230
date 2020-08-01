@@ -18,6 +18,7 @@ import com.jzbn.huzhu1230.event.MsgNoticeEvent;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by hecuncun on 2020/7/8
@@ -64,7 +65,9 @@ public class MyMessageReceiver extends MessageReceiver {
                 String channelId = extraMap.get("channelId");
                 intent.putExtra("type",type);
                 intent.putExtra("channelId",channelId);
-                PendingIntent pendingIntent =PendingIntent.getBroadcast(context, 0, intent, 0);
+                Log.e("TAG","通知的房间Id=="+channelId);
+                //Android开发陷阱：利用PendingIntent传递唯一的Intent大坑  context, UUID.randomUUID().hashCode()
+                PendingIntent pendingIntent =PendingIntent.getBroadcast(context, UUID.randomUUID().hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 builder.setContentIntent(pendingIntent);
                 //播放音乐
                 SoundPoolManager.getInstance(context);

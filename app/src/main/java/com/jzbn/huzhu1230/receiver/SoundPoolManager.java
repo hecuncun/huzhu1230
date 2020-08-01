@@ -106,7 +106,10 @@ public class SoundPoolManager {
         Logger.e( "走播放方法之前loaded==" + loaded);
         if (loaded && !playing) {
             Logger.e("走播放方法");
-            soundPool.play(resId, 1, 1, 0, -1, 1f);
+            if (soundPool!=null){
+                soundPool.play(resId, 1, 1, 0, -1, 1f);
+            }
+
         }
     }
 
