@@ -45,11 +45,11 @@ class PublishAedActivity :BaseMapActivity() {
 
     }
     private var loadingView:LoadingView?=null
-    private var from=""//从那个页面
+    private var from:String=""//从那个页面
     private var magorid=""
     override fun initView() {
         loadingView= LoadingView(this)
-        from = intent.getStringExtra("from")
+        from = intent.getStringExtra("from")?:""
         if (from=="my"){
             toolbar_title.text="修改Aed信息"
             btn_publish.text="修改信息"
