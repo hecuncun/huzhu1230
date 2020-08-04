@@ -51,8 +51,8 @@ class PublishAedActivity :BaseMapActivity() {
         loadingView= LoadingView(this)
         from = intent.getStringExtra("from")
         if (from=="my"){
-            toolbar_title.text="编辑Aed"
-            btn_publish.text="编辑信息"
+            toolbar_title.text="修改Aed信息"
+            btn_publish.text="修改信息"
             magorid = intent.getStringExtra("magorid")
             val myAedDetailCall = SLMRetrofit.getInstance().api.myAedDetailCall(magorid)
             loadingView?.show()
