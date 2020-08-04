@@ -66,6 +66,10 @@ class EditInfoActivity : BaseActivity() {
             if (value.isNotEmpty()){
                 //修改
                 map[key]=value
+                if (key=="card" && value.length != 18){
+                    showToast("请检查身份证号是否正确")
+                    return@setOnClickListener
+                }
                 val updateUserInfo = SLMRetrofit.getInstance().api.updateUserInfo(map, uid)
                 updateUserInfo.compose(ThreadSwitchTransformer())
                     .subscribe(object : CallbackListObserver<BaseNoDataBean>() {

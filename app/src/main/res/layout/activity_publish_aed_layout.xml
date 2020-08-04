@@ -124,6 +124,7 @@
                     android:layout_height="44dp"
                     android:background="@drawable/bg_white_card"
                     android:paddingHorizontal="12dp"
+                    android:inputType="phone"
                     android:hint="请输入电话或手机号码"
                     android:textColor="@color/color_gray_333333"
                     android:textColorHint="@color/color_gray_999999"

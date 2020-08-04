@@ -48,6 +48,7 @@
         android:layout_height="44dp">
 
         <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="22dp"
@@ -57,6 +58,8 @@
             android:textSize="15sp" />
 
         <TextView
+            android:gravity="right|center_vertical"
+            android:layout_toRightOf="@id/name"
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -65,7 +68,6 @@
             android:layout_marginRight="22dp"
             android:drawableRight="@mipmap/icon_arrow_right"
             android:drawablePadding="11dp"
-            android:gravity="center"
             android:text="赵子龙"
             android:textColor="@color/color_gray_999999"
             android:textSize="15sp" />
@@ -80,6 +82,7 @@
         android:layout_height="44dp">
 
         <TextView
+            android:id="@+id/card"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="22dp"
@@ -89,6 +92,8 @@
             android:textSize="15sp" />
 
         <TextView
+            android:gravity="right|center_vertical"
+            android:layout_toRightOf="@id/card"
             android:id="@+id/tv_id_card"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -97,7 +102,6 @@
             android:layout_marginRight="22dp"
             android:drawableRight="@mipmap/icon_arrow_right"
             android:drawablePadding="11dp"
-            android:gravity="center"
             android:text="232126********0987"
             android:textColor="@color/color_gray_999999"
             android:textSize="15sp" />
@@ -142,6 +146,7 @@
         android:layout_height="44dp">
 
         <TextView
+            android:id="@+id/language"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="22dp"
@@ -151,6 +156,8 @@
             android:textSize="15sp" />
 
         <TextView
+            android:gravity="right|center_vertical"
+            android:layout_toRightOf="@id/language"
             android:id="@+id/tv_language"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -159,7 +166,6 @@
             android:layout_marginRight="22dp"
             android:drawableRight="@mipmap/icon_arrow_right"
             android:drawablePadding="11dp"
-            android:gravity="center"
             android:text="普通话、蒙古语"
             android:textColor="@color/color_gray_999999"
             android:textSize="15sp" />
@@ -173,6 +179,7 @@
         android:layout_height="44dp">
 
         <TextView
+            android:id="@+id/medical_history"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="22dp"
@@ -182,6 +189,8 @@
             android:textSize="15sp" />
 
         <TextView
+            android:gravity="right|center_vertical"
+            android:layout_toRightOf="@id/medical_history"
             android:id="@+id/tv_medical_history"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -190,7 +199,6 @@
             android:layout_marginRight="22dp"
             android:drawableRight="@mipmap/icon_arrow_right"
             android:drawablePadding="11dp"
-            android:gravity="center"
             android:text="早期头部受过伤"
             android:textColor="@color/color_gray_999999"
             android:textSize="15sp" />
@@ -204,6 +212,7 @@
         android:layout_height="44dp">
 
         <TextView
+            android:id="@+id/allergic_drugs"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="22dp"
@@ -213,6 +222,8 @@
             android:textSize="15sp" />
 
         <TextView
+            android:gravity="right|center_vertical"
+            android:layout_toRightOf="@id/allergic_drugs"
             android:id="@+id/tv_allergic_drugs"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -221,7 +232,6 @@
             android:layout_marginRight="22dp"
             android:drawableRight="@mipmap/icon_arrow_right"
             android:drawablePadding="11dp"
-            android:gravity="center"
             android:text="青霉素过敏"
             android:textColor="@color/color_gray_999999"
             android:textSize="15sp" />
@@ -297,6 +307,7 @@
         android:layout_height="44dp">
 
         <TextView
+            android:id="@+id/rescue_history"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="22dp"
@@ -306,6 +317,7 @@
             android:textSize="15sp" />
 
         <TextView
+            android:layout_toRightOf="@id/rescue_history"
             android:id="@+id/tv_rescue_history"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -314,7 +326,7 @@
             android:layout_marginRight="22dp"
             android:drawableRight="@mipmap/icon_arrow_right"
             android:drawablePadding="11dp"
-            android:gravity="center"
+            android:gravity="right|center_vertical"
             android:text="曾救过突发昏迷老人"
             android:textColor="@color/color_gray_999999"
             android:textSize="15sp" />

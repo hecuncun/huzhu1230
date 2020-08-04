@@ -17,6 +17,7 @@ import com.jzbn.huzhu1230.bean.LanguageBean;
 import com.jzbn.huzhu1230.bean.LoginBean;
 import com.jzbn.huzhu1230.bean.MessageUnReadBean;
 import com.jzbn.huzhu1230.bean.MsgBean;
+import com.jzbn.huzhu1230.bean.MyAedDetailBean;
 import com.jzbn.huzhu1230.bean.NearAedBean;
 import com.jzbn.huzhu1230.bean.PersonalInfoBean;
 import com.jzbn.huzhu1230.bean.PhoneCodeBean;
@@ -322,6 +323,20 @@ public interface Api {
      */
     @POST("appUserArea/updateById")
     Observable<BaseNoDataBean> updateUserLocation(@Query("uid") String uid,@Query("longitude") String longitude,@Query("latitude") String latitude);
+
+    /**
+     * 获取Aed详情
+     */
+    @POST("appAedInfo/selectDetail")
+    Observable<BaseBean<MyAedDetailBean>> myAedDetailCall(@Query("magorid") String magorid);
+
+    /**
+     * 更新AED
+     */
+    @POST("appAedInfo/updateById")
+    Observable<BaseNoDataBean> updateMyAedCall(@Query("uid") String uid ,@Query("magorid") String magorid,@Query("name") String name,
+                                               @Query("area") String area,@Query("areaDetail") String areaDetail,@Query("longitude") String longitude,
+                                               @Query("latitude") String latitude,@Query("phone") String phone);
 
     //    /**
 //     * 修改自定义头像接口

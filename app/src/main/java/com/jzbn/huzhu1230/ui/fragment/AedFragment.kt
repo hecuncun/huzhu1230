@@ -1,22 +1,28 @@
 package com.jzbn.huzhu1230.ui.fragment
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jzbn.huzhu1230.R
 import com.jzbn.huzhu1230.adapter.AedAdapter
 import com.jzbn.huzhu1230.bean.AedBean
+import com.jzbn.huzhu1230.event.RefreshAedEvent
 import com.jzbn.huzhu1230.net.CallbackObserver
 import com.jzbn.huzhu1230.net.SLMRetrofit
 import com.jzbn.huzhu1230.net.ThreadSwitchTransformer
+import com.jzbn.huzhu1230.ui.publish.PublishAedActivity
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_aed.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 class AedFragment : BaseFragment() {
     private var currentPage = 1
     private var total = 0
     private var list = mutableListOf<AedBean.RowsBean>()
+    override fun useEventBus(): Boolean=true
     private val aedAdapter: AedAdapter by lazy {
         AedAdapter()
     }
@@ -65,6 +71,13 @@ class AedFragment : BaseFragment() {
                     }
                 })
         }, recyclerView)
+
+        aedAdapter.setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(requireContext(),PublishAedActivity::class.java)
+            intent.putExtra("magorid",list[position].magorid)
+            intent.putExtra("from","my")
+            startActivity(intent)
+        }
     }
 
     override fun lazyLoad() {
@@ -90,9 +103,18 @@ class AedFragment : BaseFragment() {
 
     }
 
+
     companion object {
         fun getInstance(): AedFragment {
             return AedFragment()
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun refresh(event:RefreshAedEvent){
+        list.clear()
+        currentPage=1
+        total=0
+        lazyLoad()
     }
 }

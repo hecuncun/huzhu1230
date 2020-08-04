@@ -9,6 +9,7 @@ import com.flyco.animation.FlipEnter.FlipVerticalSwingEnter;
 import com.flyco.dialog.widget.base.TopBaseDialog;
 import com.jzbn.huzhu1230.R;
 import com.jzbn.huzhu1230.event.MsgNoticeEvent;
+import com.jzbn.huzhu1230.utils.CallPhoneUtil;
 
 
 /**
@@ -34,9 +35,16 @@ public class TopMsgDialog extends TopBaseDialog<TopMsgDialog> {
         TextView tvPhone = inflate.findViewById(R.id.tv_phone);
         TextView tvGpsAddress = inflate.findViewById(R.id.tv_gps_address);
         TextView tvContent = inflate.findViewById(R.id.tv_content);
-        tvPhone.setText(mBean.getPhone());
-        tvGpsAddress.setText(mBean.getGpsArea());
-        tvContent.setText(mBean.getContent());
+        tvPhone.setText("电话号码："+mBean.getPhone());
+        tvGpsAddress.setText("GPS地址："+mBean.getGpsArea());
+        tvContent.setText("事项内容："+mBean.getContent());
+
+        tvPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CallPhoneUtil.callPhone(mContext,mBean.getPhone());
+            }
+        });
         return inflate;
     }
 
