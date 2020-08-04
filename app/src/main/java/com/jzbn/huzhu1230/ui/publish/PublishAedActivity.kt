@@ -45,7 +45,7 @@ class PublishAedActivity :BaseMapActivity() {
 
     }
     private var loadingView:LoadingView?=null
-    private var from=""//从那个页面来
+    private var from=""//从那个页面
     private var magorid=""
     override fun initView() {
         loadingView= LoadingView(this)
